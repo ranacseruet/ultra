@@ -1,15 +1,13 @@
 
 var respokeChatObj;
-var translationObj;
-var speaker; 
+//var translationObj;
+//var speaker;
 var listener;
 var identity;
 //speaker = new RobotSpeaker();
 $(document).ready(function () {
-	(function() {
-		
-		
-		translationObj     = new Translation();
+
+		/*translationObj     = new Translation();
 		respokeChatObj     = new RespokeChat();
 		
 		// all user interface state functions moved to another file/class
@@ -55,14 +53,12 @@ $(document).ready(function () {
 			   $(this).text("Audio Start");
 			}
 		});
-		translationObj.LanguageList(loadLangList);
-		
-	}());	
+		translationObj.LanguageList(loadLangList);*/
 }); 
 
 function loadLangList(languageList){
 	$("#language").html(languageList);
-};
+}
 
 function loadMsgList(fromUser,messageText,group){
 	var divName;
@@ -131,39 +127,38 @@ var handleJoin = function(evt) {
 };
 	
 var handleLeave = function(evt) {
-				// remove from the drop-down list
-				console.log("-- ON-LEAVE --");
-		
-				var ep = evt.connection.getEndpoint();
-				
-				var selectedEndpontId = $("#endpoints").val();
-				
-				// if the endpoint leaving is the currently selected endpoint, switch to group
-				if (selectedEndpontId && (ep.id == selectedEndpontId)) {
-					$("#endpoints").val("group-message");
-					selectEndpoint();
-				}
-				
-				// remove the endpoint from the list
-				console.log(selectedEndpontId+identity);
-				
-				$("#endpoints option[value='" + ep.id + "']").remove();
-				
-				
-		};
+	// remove from the drop-down list
+	console.log("-- ON-LEAVE --");
+
+	var ep = evt.connection.getEndpoint();
+
+	var selectedEndpontId = $("#endpoints").val();
+
+	// if the endpoint leaving is the currently selected endpoint, switch to group
+	if (selectedEndpontId && (ep.id == selectedEndpontId)) {
+		$("#endpoints").val("group-message");
+		selectEndpoint();
+	}
+
+	// remove the endpoint from the list
+	console.log(selectedEndpontId+identity);
+
+	$("#endpoints option[value='" + ep.id + "']").remove();
+};
 		
 var selectEndpoint = function () {
 	// get the ID value from the text box
 	var remoteId = $("#endpoints").val();
 	respokeChatObj.changeContactUser(remoteId);
-						
 };
 
 
 listener = new AudioListener(getAudioToText);
+
 function listen(){
 	listener.listen();
 }
+
 function getAudioToText(text) {
 	$("#textToSend").val(text);
 	sendMessage();
