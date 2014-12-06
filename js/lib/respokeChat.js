@@ -38,7 +38,6 @@ function RespokeChat(apiKey) {
 					});
 					//showMsgArea();
 					me.group = grp;
-
 					callback(true);
 				}
 			});
@@ -70,14 +69,14 @@ function RespokeChat(apiKey) {
 		//console.log(this.group);
 
 		this.group.sendMessage({
-			"message": messageObj,
+			"message": JSON.stringify(messageObj),
 			"onSuccess": function(evt){
 				console.log("group message sent successfully: "+evt);
-				//callback(evt);
+				callback("Me", messageObj);
 			},
 			"onError": function(err){
 				console.error("error occured while sending group message: "+JSON.stringify(err));
-				//callback(evt);
+				//callback(e);
 			}
 		});
 		
@@ -99,12 +98,15 @@ function RespokeChat(apiKey) {
 		}*/
 	};
 
-	// listen for incoming messages
-	this.client.listen('message', function (evt) {
-		console.log("recieved a message: "+evt);
-		//TODO get out of this scope
-		/*translationObj.translate(evt.message.message.message, evt.message.message.lang,$("#language").val(),function(convertedMessage){
-			loadMsgList(evt.message.endpointId,convertedMessage,evt.group);
-		});*/
-	});
+	this.onMessage = function (callback){
+		// listen for incoming messages
+		this.client.listen('message', function (evt) {
+			console.log("recieved a message: "+evt.message.message);
+			//TODO get out of this scope
+			/*translationObj.translate(evt.message.message.message, evt.message.message.lang,$("#language").val(),function(convertedMessage){
+			 loadMsgList(evt.message.endpointId,convertedMessage,evt.group);
+			 });*/
+			callback(evt.message.endpointId, JSON.parse(evt.message.message));
+		});
+	}
 }

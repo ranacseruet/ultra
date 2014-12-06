@@ -99,7 +99,6 @@ function sendMessage(){
 	messageObj["type"] = 'text';
 	//console.log(messageObj);
 	respokeChatObj.sendMessage(messageObj,loadMsgList);
-
 }
 
 // join handler - invoked when client joins a group
