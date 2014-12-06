@@ -30,46 +30,110 @@
 		<?php include 'header.php';?>
         <div class="container">
 
-        <hr class="featurette-divider">
+        <!-- home -->
+        <div id="home">
+			<div class="row">
+			<div class="col-md-8">
+				<h1>Real Time Communication & Translation</h1>
+				<p>
+					Communication Access Real-Time Translation (CART), also called open captioning or real-time stenography, or simply real-time captioning, is the general name of the system that court reporters, closed captioners and voice writers, and others use to convert speech to text. A trained operator uses keyboard or stenography methods to transcribe spoken speech into written text. Speech to text software is used when voice writers provide CART.
 
-        <!-- First Featurette -->
-        <div class="featurette" id="about">
-            <img class="featurette-image img-circle img-responsive pull-right" src="img/communication.png">
-            <h2 class="featurette-heading">This First Heading
-                <span class="text-muted">Will Catch Your Eye</span>
-            </h2>
-            <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+					While real time speech to text serves many with hearing loss and deafness.
+					</p>
+				<p>It is also useful for people whose first language is different from the language being used, to understand speakers with different voices and accents in many group situations (at work, in education, community events), to have a "transcript', and for learning languages. CART professionals have qualifications for added expertise (speed and accuracy) as compared to court reporters and other stenographers.
+
+					Another emerging method is voicewriting. 
+				The voicewriter uses speech recognition software that instantly translates the spoken text into written text.
+
+					Remote CART is done with the trained operator at a remote location.
+				</p>
+			</div>
+			<div class="col-md-4">
+				<img class="img-circle img-responsive pull-right" src="img/communication.png">
+            
+			</div>
+			</div>
+         </div>
+
+       
+
+        <!-- about -->
+        <div id="about" class="margin-top">
+			 <hr>
+			<div class="row">
+				<div class="col-md-12">
+					<h1>
+						We are a small team based in Montreal, Canada. Our aim is to establish a  successful startup after verifying from some potential ideas that we have. 
+						We believe , this hackathon will help a lot in our way to success.
+					</h1>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-8">
+					<div class="name">Md. Ali Ahsan Rana:</div>
+					<div class="description">
+						I am a professional and experienced software engineer with passion in programming and solve challenging problems. I currently working with latest open source web technologies like nodjs, couchdb, redis, gearman for developing distributed scalable RESTful API based web application. I also have experience in wide range or skills area(please check my likes list of technologies)
+
+						I respect and believe in agile, scrum, refactoring, unit testing, have good eye on software architecture, code quality, maintenance effort etc.
+
+						Problem solving is one of major key strength. Also, I believe in 'impossible is nothing'. So, I usually don't give up on a given problem and always find solution and iteratively improving it. I am open to any new technology that is more suitable for a domain of problem.
+
+						I am also owner of a moderately popular programming blog site where I write articles about programming, software developments, server management/deployment etc related tutorials regularly in my free time to share my knowledge with the developers community around the world. [My Programming Blog](http://codesamplez.com)
+
+					</div>
+				</div>
+				<div class="col-md-4">
+					<img class=" img-responsive pull-right" src="https://avatars0.githubusercontent.com/u/368209?v=3&s=200">
+				</div>
+			</div>
+			
+			<div class="row top10">
+				<div class="col-md-8">
+					<div class="name">Mahfuja Nilufar:</div>
+					<div class="description">
+						I am web developer and currently working as Front End Developer at Vister Technology Inc. in Montreal, Canada. Programming is my passion and I love to work with web programming. When a new technology comes, I always try to learn it. I love to learn in every single corner on a technology. It feels amazing to me whenever I succeed solving/implementing a web development problem. We are a small team now, but I learn a lot of thing from my coworkers. 
+
+					</div>
+				</div>
+				<div class="col-md-4">
+					<img class=" img-responsive pull-right" src="https://avatars2.githubusercontent.com/u/1213589?v=3&s=200">
+				</div>
+			</div>
+         </div>
+
+       
+
+        <!-- Contact -->
+        <div  id="contact">
+			<hr>
+			<div class="row">
+				<div class="col-md-12 text-center">
+					<h1>Contact Us</h1>
+					<p>Feel free to email us to give us suggestions  or to just say hello!</p>
+					<p><a href="mailto:ranacseruet@gmail.com">ranacseruet@gmail.com</a>
+					</p>
+					<ul class="list-inline banner-social-buttons">
+						<li>
+							<a href="https://twitter.com/SBootstrap" class="btn btn-default btn-lg"><i class="fa fa-twitter fa-fw"></i> <span class="network-name">Twitter</span></a>
+						</li>
+						<li>
+							<a href="https://github.com/IronSummitMedia/startbootstrap" class="btn btn-default btn-lg"><i class="fa fa-github fa-fw"></i> <span class="network-name">Github</span></a>
+						</li>
+						<li>
+							<a href="https://plus.google.com/+Startbootstrap/posts" class="btn btn-default btn-lg"><i class="fa fa-google-plus fa-fw"></i> <span class="network-name">Google+</span></a>
+						</li>
+					</ul>
+				</div>
+			</div>
         </div>
 
-        <hr class="featurette-divider">
-
-        <!-- Second Featurette -->
-        <div class="featurette" id="services">
-            <img class="featurette-image img-circle img-responsive pull-left" src="http://placehold.it/500x500">
-            <h2 class="featurette-heading">The Second Heading
-                <span class="text-muted">Is Pretty Cool Too.</span>
-            </h2>
-            <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
-        </div>
-
-        <hr class="featurette-divider">
-
-        <!-- Third Featurette -->
-        <div class="featurette" id="contact">
-            <img class="featurette-image img-circle img-responsive pull-right" src="http://placehold.it/500x500">
-            <h2 class="featurette-heading">The Third Heading
-                <span class="text-muted">Will Seal the Deal.</span>
-            </h2>
-            <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
-        </div>
-
-        <hr class="featurette-divider">
+        <hr>
 
         <!-- Footer -->
         <footer>
             <div class="row">
-                <div class="col-lg-12">
-                    <p>Copyright &copy; Your Website 2014</p>
+                <div class="col-md-12 text-center">
+                    <p>Copyright &copy; UpStageCoder 2014</p>
                 </div>
             </div>
         </footer>
