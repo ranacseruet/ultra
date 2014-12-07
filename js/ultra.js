@@ -4,6 +4,7 @@
 
 var rChat;
 var translator;
+var robotSpeaker;
 
 $(document).ready(function(){
     translator     = new YTranslator("trnsl.1.1.20141130T053443Z.abe0172019286ab4.38cf8c2055843d9fa61079da020e63286c7c5dcf");
@@ -11,6 +12,7 @@ $(document).ready(function(){
 
     $('.intro-modal').modal({ backdrop: 'static', keyboard: false });
     $("#joinBtn").click(tryLogin);
+    robotSpeaker = new RobotSpeaker();
 });
 
 function tryLogin()
@@ -25,7 +27,7 @@ function tryLogin()
         else {
             console.log("Connection successfull!");
             initializeGroupChat();
-            rChat.onMessage(loadGroupMessageHistory);
+            rChat.onMessage(loadGroupMessageHistory, loadPrivateMessageHistory);
             loadAvailableLanguages();
             $(".intro-modal").modal('hide');
         }
@@ -94,8 +96,9 @@ function sendGroupMessage() {
     if (messageText.trim().length === 0) return;
 
     messageObj["message"] = messageText;
-    messageObj["lang"] = language;
-    messageObj["type"] = 'text';
+    messageObj["lang"]    = language;
+    messageObj["type"]    = 'text';
+    messageObj["genre"]   = 'group';
     //console.log(messageObj);
     rChat.sendGroupMessage(messageObj, loadGroupMessageHistory);
 
@@ -104,7 +107,7 @@ function sendGroupMessage() {
 }
 
 function loadGroupMessageHistory(sender, messageObj) {
-    
+    //console.log(messageObj.message);
     var msgRows = $('.groupMsg');
     var newRow = msgRows.last().clone();
     newRow.find(".sender").text(sender);
@@ -128,10 +131,20 @@ function enterPrivateChat(userId) {
     /*rChat.joinPrivateChat(userId, function(){
         console.log("Entered in a private chat successfully");
         //TODO remove dummy code
+        rChat.sendPrivateMessage({message:"Test private Message", lang:$("#language").val(), "type":"voice", "genre":"private"}, userId, loadPrivateMessageHistory);
+    });
+    //TODO show private chat box if not available
         rChat.sendPrivateMessage({message:"Test private Message", lang:$("#language").val(), "type":"text"}, userId, loadGroupMessageHistory);
     });*/
 }
 
+function loadPrivateMessageHistory(sender, messageObj) {
+    console.log("private message: "+sender+" says "+messageObj.message);
+    if(messageObj.type == "voice" && sender != "Me") {
+        robotSpeaker.speak(messageObj.lang, messageObj.message);
+    }
+    //TODO show message in private message box
+}
 function createPrivateChateBox(userId){
 	var privateChatBox = $('.privateChatBox');
     var newBox = privateChatBox.first().clone();
@@ -142,14 +155,9 @@ function createPrivateChateBox(userId){
 /*$(".onlineUser").click(function(){
 	var privateChatBoxContent = $("#privateChatBoxContent").html();
 
-	var selIdentity = $(this).find(".identityName").html();
-	privateChatBoxContent = privateChatBoxContent.replace(/{identity}/g, selIdentity);
-	$('#private-section .privateChatBox').last().after(privateChatBoxContent);
+function leftPrivateChat(userId) {
+    console.log("Leaving private chat with: "+userId);
+    //TODO hide private chat box
+}
 
-});
-
-$("#private-section").on("click",".closeBox",function(){
-	var chatBox = ($(this).parent().parent().parent().attr('id'));
-	$("#"+chatBox).remove();
-});*/
 //************** End private chat functions ***************
