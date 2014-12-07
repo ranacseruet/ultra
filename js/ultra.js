@@ -42,7 +42,8 @@ function loadAvailableLanguages() {
 
         var language = $("#language");
 
-        language.html(languageOption);
+        language.append(languageOption);
+        language.val("en");
         language.change(function(){
             console.log("Changed language to"+language.val());
             rChat.setLanguage(language.val());
