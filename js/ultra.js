@@ -9,12 +9,13 @@ $(document).ready(function(){
     translator     = new YTranslator("trnsl.1.1.20141130T053443Z.abe0172019286ab4.38cf8c2055843d9fa61079da020e63286c7c5dcf");
     rChat     = new ULTraChat(translator);
 
-    $("#doLogin").click(tryLogin);
+    $('.intro-modal').modal({ backdrop: 'static', keyboard: false });
+    $("#joinBtn").click(tryLogin);
 });
 
 function tryLogin()
 {
-    var identity = $("#endpoint").val();
+    var identity = $("#identity").val();
     if ((!identity) || (identity.length < 3)) return alert("username must be at least 3 letter");
     rChat.connect(identity, function(status) {
         if (!status) {
@@ -24,11 +25,12 @@ function tryLogin()
         else {
             console.log("Connection successfull!");
             initializeGroupChat();
+            rChat.onMessage(loadGroupMessageHistory);
+            loadAvailableLanguages();
+            $(".intro-modal").modal('hide');
         }
     });
-    rChat.onMessage(loadGroupMessageHistory);
-
-    loadAvailableLanguages();
+    return false;
 }
 
 function loadAvailableLanguages() {
@@ -38,10 +40,12 @@ function loadAvailableLanguages() {
             languageOption += '<option value="' + key + '">' + value + '</option>';
         });
 
-        $("#language").html(languageOption);
-        $("#language").change(function(){
-            console.log("Changed language to"+$("#language").val());
-            rChat.setLanguage($("#language").val());
+        var language = $("#language");
+
+        language.html(languageOption);
+        language.change(function(){
+            console.log("Changed language to"+language.val());
+            rChat.setLanguage(language.val());
         });
     });
 }
@@ -59,26 +63,29 @@ function initializeGroupChat() {
     });
 }
 
+function showGrpMsgArea() {
+    //var element = $(".onlineUserList").find(".row .identityName");
+    //console.log("Current name: "+element.html()+" will be changed to: "+rChat.userId);
+    //element.html(rChat.userId);
+}
+
 function loadGroupMembers(members) {
-    var usersList = "";
+    var usersList = $(".onlineUserList");
     $.each(members, function(index){
         var endPoint = members[index].getEndpoint();
+
+        var userElement = usersList.find(".row").clone();
+        console.log("adding user: "+userElement.html());
         if(endPoint.id != rChat.userId) {
-            usersList += '<option value="' + endPoint.id + '">' + endPoint.id + '</option>';
+            userElement.find(".identityName").html(endPoint.id);
+            usersList.append(userElement);
         }
     });
-    $("#users").append(usersList);
 }
 
 function groupMemberLeaved(member) {
     var ep = member.getEndpoint();
     $("#users option[value='" + ep.id + "']").remove();
-}
-
-function showGrpMsgArea() {
-    $('#other-part').show();
-    $( ".audio" ).prop( "disabled", true );
-    $("#endpoints").append("<option value='group-message'>Everyone</option>");
 }
 
 function sendGroupMessage() {
@@ -108,6 +115,10 @@ function loadGroupMessageHistory(sender, messageObj) {
 
 //************* End Group Chat Functions ***************
 
+
+
+//************** private chat functions ***************
+
 function enterPrivateChat(userId) {
     console.log("trying private chat");
     rChat.joinPrivateChat(userId, function(){
@@ -116,3 +127,7 @@ function enterPrivateChat(userId) {
         rChat.sendPrivateMessage({message:"Test private Message", lang:$("#language").val(), "type":"text"}, userId, loadGroupMessageHistory);
     });
 }
+
+
+
+//************** End private chat functions ***************

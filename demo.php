@@ -132,12 +132,14 @@
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
         <script src="js/plugins.js"></script>
         <script src="js/vendor/bootstrap.min.js"></script>
+		<script src="js/vendor/respoke.min.js"></script>
+		<script src="js/lib/speech.js"></script>
+		<script src="js/lib/ULTraChat.js"></script>
+		<script src="js/lib/ytranslator.js"></script>
+		<script src="js/ultra.js"></script>
 		<script>
 			$(document).ready(function () {
-				//$('.intro-modal').modal({ backdrop: 'static', keyboard: false });
 				$(".msgInfo").tooltip({container: 'body'});
-				
-				
 			})
 		</script>
     </body>
