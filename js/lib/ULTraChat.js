@@ -102,7 +102,7 @@ function ULTraChat(translator) {
 				//TODO need to enhance for return both version
 				msgObj.message = tranlatedMessage;
 				if(msgObj.genre == "private") {
-					prvtMsgCallback(evt.message.endpointId, msgObj);
+					prvtMsgCallback(evt.message.endpointId, "Me", msgObj);
 				}
 				else {
 					grpMsgCallback(evt.message.endpointId, msgObj);
@@ -120,7 +120,6 @@ function ULTraChat(translator) {
 	};
 
 	this.leavePrivateChat = function(userId, callback){
-		//this.client.rem
 		delete this.privateChats[userId];
 		callback(userId);
 	};
@@ -131,7 +130,7 @@ function ULTraChat(translator) {
 		endPoint.sendMessage({
 			"message": JSON.stringify(messageObj),
 			"onSuccess": function(evt){
-				callback("Me",messageObj);
+				callback("Me", userId, messageObj);
 			}
 		});
 	}
