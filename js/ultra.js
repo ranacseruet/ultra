@@ -139,6 +139,7 @@ function loadPrivateMessageHistory(sender, messageObj) {
         robotSpeaker.speak(messageObj.lang, messageObj.message);
     }
     //TODO show message in private message box
+    //create chat box if not available
     //.show()
 }
 function createPrivateChateBox(userId){
