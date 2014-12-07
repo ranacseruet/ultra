@@ -52,6 +52,8 @@ hr{
 	background-color: gray;
 	height: 30px;
 	color: white;
+	border: 1px solid #000;
+	border-bottom: 0px;
 }
 .startAudio:hover,.closeBox:hover{
 	cursor: pointer;
@@ -64,4 +66,11 @@ hr{
 }
 .audio{
 	margin-right: 10px;
+}
+
+.privateMsgList{
+	border: 1px solid #000;
+	height: 300px;
+	max-height: 300px !important;
+	overflow:auto;
 }
