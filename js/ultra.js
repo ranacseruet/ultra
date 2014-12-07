@@ -124,18 +124,13 @@ function loadGroupMessageHistory(sender, messageObj) {
 //************** private chat functions ***************
 
 function enterPrivateChat(userId) {
-	var privateChatBox = $('.privateChatBox');
-    if(!privateChatBox.hasClass("private-chat-"+userId)){
-		createPrivateChateBox(userId);
-	}
-    /*rChat.joinPrivateChat(userId, function(){
+    rChat.joinPrivateChat(userId, function(){
         console.log("Entered in a private chat successfully");
-        //TODO remove dummy code
-        rChat.sendPrivateMessage({message:"Test private Message", lang:$("#language").val(), "type":"voice", "genre":"private"}, userId, loadPrivateMessageHistory);
+        var privateChatBox = $('.privateChatBox');
+        if(!privateChatBox.hasClass("private-chat-"+userId)){
+            createPrivateChateBox(userId);
+        }
     });
-    //TODO show private chat box if not available
-        rChat.sendPrivateMessage({message:"Test private Message", lang:$("#language").val(), "type":"text"}, userId, loadGroupMessageHistory);
-    });*/
 }
 
 function loadPrivateMessageHistory(sender, messageObj) {
@@ -150,10 +145,11 @@ function createPrivateChateBox(userId){
     var newBox = privateChatBox.first().clone();
 	newBox.addClass("private-chat-"+userId).show();
     privateChatBox.last().after(newBox);
-	
+    newBox.find(".privateSendBtn").click(function(){
+        rChat.sendPrivateMessage({message:"Test private Message", lang:$("#language").val(),
+                                  "type":"voice", "genre":"private"}, userId, loadPrivateMessageHistory);
+    });
 }
-/*$(".onlineUser").click(function(){
-	var privateChatBoxContent = $("#privateChatBoxContent").html();
 
 function leftPrivateChat(userId) {
     console.log("Leaving private chat with: "+userId);
