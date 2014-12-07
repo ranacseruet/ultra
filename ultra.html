@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>ULTra(Universal Language Translator)</title>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+    <style rel="stylesheet">
+        .msgList,.privateMsgList{
+
+            height: 300px;
+            border: 1px solid #999;
+        }
+        .col-md-4,#login .col-md-10,.nopadding{
+            padding-left: 0px;
+            padding-right: 0px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Dummy html elements -->
+
+<div class="container">
+    <div class="row">
+        <div id="login" class="col-md-4">
+            <div class="col-md-10">
+                <input id="endpoint" class="disconnected form-control" type="text" placeholder="IDENTITY" />
+            </div>
+            <button id="doLogin" class="btn btn-default disconnected clickable col-md-2">Join Chat</button>
+        </div>
+    </div>
+    <div id="other-part" style="display: none">
+        <div class="row">
+            <div class="col-md-4" >
+                <select class="form-control" id="language">
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-1 nopadding">Online Contact</div>
+            <div class="col-md-3 nopadding">
+                <select class="form-control" id='users' ></select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="groupContainer col-md-4">
+                <h1>Group Message</h1>
+                <div class="msgList " >
+
+                    <div class="message row">
+                        <div class="col-md-3 sender"></div>
+                        <div class="col-md-9 content"></div>
+                    </div>
+
+                </div>
+            </div>
+            <div style="" class="privatecontainer col-md-4">
+                <h1>Private Message</h1>
+                <div  class="privateMsgList " >
+
+                    <div class="private-message row">
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class=" col-md-4" >
+                <form name="formText">
+                    <textarea name="textToSend" id="textToSend" class="col-md-10"></textarea>
+                    <button type="button" class="btn btn-default col-md-2 submitBtn">Send</button>
+
+                </form>
+            </div>
+            <button disabled class="audio btn  btn-primary start col-md-offset-1" onclick="listen()">Audio Start</button>
+            <button onclick="enterPrivateChat('test2')">test private message</button>
+        </div>
+
+    </div>
+</div>
+
+<!-- Dummy html elements end -->
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
+<script src="js/vendor/jquery-1.10.2.min.js"></script>
+<script src="js/vendor/respoke.min.js"></script>
+<script src="js/lib/speech.js"></script>
+<script src="js/lib/ULTraChat.js"></script>
+<script src="js/lib/ytranslator.js"></script>
+<script src="js/ultra.js"></script>
+
+<!--tests start -->
+<!--<script src="js/tests/translatorTest.js"></script>
+<script src="js/tests/speechTest.js"></script>
+<script src="js/tests/chatTest.js"></script>-->
+<!--tests end -->
+
+</body>
+</html>
