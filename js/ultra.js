@@ -131,6 +131,7 @@ function enterPrivateChat(userId) {
         if(!privateChatBox.hasClass("private-chat-"+userId)){
             createPrivateChateBox(userId);
         }
+        initAudioListener(userId);
     });
 }
 
@@ -200,3 +201,33 @@ function sendPrivateMessage(userId) {
 }
 
 //************** End private chat functions ***************
+
+
+//*************** Audio Chat *********************
+var inAudioChat = false;
+function initAudioListener(userId) {
+    var btn = $(".private-chat-"+userId+" .startAudio");
+    console.log("private audio call btn: "+btn.html());
+    btn.unbind('click');
+    btn.click(function startListen() {
+        console.log("starting to listen audio input");
+        if(inAudioChat){
+            alert("You are in a audio chat already. stop that first");
+            return;
+        }
+        var listener = new AudioListener($("#language").val(), function(text){
+            console.log("audio: "+text);
+            rChat.sendPrivateMessage({message:text, lang:$("#language").val(),
+                "type":"voice", "genre":"private"}, userId, loadPrivateMessageHistory);
+        });
+        listener.listen();
+        btn.unbind('click');
+        inAudioChat = true;
+        btn.click(function stoptListen() {
+            listener.stop();
+            inAudioChat = false;
+            btn.click(startListen);
+        });
+    });
+}
+//*************** End Audio Chat *****************

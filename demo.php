@@ -143,28 +143,5 @@
 		<script src="js/lib/ULTraChat.js"></script>
 		<script src="js/lib/ytranslator.js"></script>
 		<script src="js/ultra.js"></script>
-		<script>
-			$(document).ready(function () {
-				initAudioListener();
-			});
-
-			function initAudioListener() {
-				var btn = $(".startAudio");
-				btn.unbind('click');
-				btn.click(function startListen() {
-					var listener = new AudioListener($("#language").val(), getAudioToText);
-					listener.listen();
-					btn.unbind('click');
-					btn.click(function stoptListen() {
-						listener.stop();
-						initAudioListener();
-					});
-				});
-			}
-
-			function getAudioToText(text) {
-				console.log("Recognized audio: "+text);
-			}
-		</script>
     </body>
 </html>
