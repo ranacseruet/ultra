@@ -20,13 +20,22 @@ function AudioListener(lang, callback)
 {
     this.listener = new webkitSpeechRecognition();
     this.listener.continuous = true;
+    this.listener.interimResults = true;
     this.listener.lang = lang;
+
+    this.timestamp = null;
+
     this.listener.onresult = function(event) {
         if (event.results.length > 0) {
             var result = event.results[event.results.length-1];
-            console.log(result);
+            console.log(result+" time taken: "+(Date.now()-this.timestamp));
             callback(result[0].transcript);
         }
+    };
+    this.listener.onsoundstart = function(event) {
+        console.log("sound started");
+        this.timestamp = Date.now();
+        console.log(event);
     };
     this.listen = function() {
         this.listener.start();
