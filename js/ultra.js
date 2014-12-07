@@ -69,9 +69,6 @@ function loadGroupMembers(members) {
         var endPoint = members[index].getEndpoint();
 
         var userElement = usersList.find(".row:first").clone();
-		
-        //console.log("adding user: "+userElement.html());
-		console.log(usersList.hasClass("user-"+endPoint.id));
         if(endPoint.id != rChat.userId && !usersList.hasClass("user-"+endPoint.id)) {
 			console.log("herre");
 			userElement.addClass("user-"+endPoint.id);
@@ -107,7 +104,7 @@ function sendGroupMessage() {
 }
 
 function loadGroupMessageHistory(sender, messageObj) {
-    console.log(messageObj);
+    
     var msgRows = $('.groupMsg');
     var newRow = msgRows.last().clone();
     newRow.find(".sender").text(sender);
@@ -124,16 +121,25 @@ function loadGroupMessageHistory(sender, messageObj) {
 //************** private chat functions ***************
 
 function enterPrivateChat(userId) {
-    console.log("trying private chat");
-    rChat.joinPrivateChat(userId, function(){
+	var privateChatBox = $('.privateChatBox');
+    if(!privateChatBox.hasClass("private-chat-"+userId)){
+		createPrivateChateBox(userId);
+	}
+    /*rChat.joinPrivateChat(userId, function(){
         console.log("Entered in a private chat successfully");
         //TODO remove dummy code
         rChat.sendPrivateMessage({message:"Test private Message", lang:$("#language").val(), "type":"text"}, userId, loadGroupMessageHistory);
-    });
+    });*/
 }
 
-
-$(".onlineUser").click(function(){
+function createPrivateChateBox(userId){
+	var privateChatBox = $('.privateChatBox');
+    var newBox = privateChatBox.first().clone();
+	newBox.addClass("private-chat-"+userId).show();
+    privateChatBox.last().after(newBox);
+	
+}
+/*$(".onlineUser").click(function(){
 	var privateChatBoxContent = $("#privateChatBoxContent").html();
 
 	var selIdentity = $(this).find(".identityName").html();
@@ -145,5 +151,5 @@ $(".onlineUser").click(function(){
 $("#private-section").on("click",".closeBox",function(){
 	var chatBox = ($(this).parent().parent().parent().attr('id'));
 	$("#"+chatBox).remove();
-});
+});*/
 //************** End private chat functions ***************
