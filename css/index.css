@@ -63,7 +63,7 @@ hr{
 .privateChatBox{
 	margin-right: 5px;
 }
-.onlineUser:first-child, .groupMsg:first-child,.privateChatBox:first-child{
+.onlineUser:first-child, .groupMsg:first-child,.privateChatBox:first-child,.privateMsg{
   display: none;
 }
 
