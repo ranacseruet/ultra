@@ -44,12 +44,8 @@ hr{
 	margin-bottom: 5px;
 }
 
-.groupSendBtn{
+.groupSendBtn,.privateSendBtn{
 	padding: 12px;
-}
-
-.privateChatBox .col-md-2{
-	padding-left: 0px;
 }
 
 .topArea{

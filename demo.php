@@ -114,7 +114,7 @@
 						</div>
 					</div>
 					<div class="row">
-						<textarea id="textToSend" class="col-md-8"></textarea>
+						<textarea class="privateTextToSend" class="col-md-8"></textarea>
 						<button type="button" class="btn btn-default btn-primary col-md-4 privateSendBtn">Send</button>	
 					</div>
 				</div>
