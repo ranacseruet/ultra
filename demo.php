@@ -92,7 +92,7 @@
 			
 			<div id="private-section" class="row top10">
 				<div class="privateChatBox"></div>
-				<div class="col-md-2  privateChatBox" id="{identity}">
+				<div class="col-md-2  privateChatBoxs">
 					<div class="row border">
 						<div class="row-fluid topArea text-right">
 							<span class="startAudio glyphicon glyphicon-earphone"></span>
@@ -140,7 +140,26 @@
 		<script>
 			$(document).ready(function () {
 				$(".msgInfo").tooltip({container: 'body'});
+				initAudioListener();
 			})
+
+			function initAudioListener() {
+				var btn = $(".startAudio");
+				btn.unbind('click');
+				btn.click(function startListen() {
+					var listener = new AudioListener($("#language").val(), getAudioToText);
+					listener.listen();
+					btn.unbind('click');
+					btn.click(function stoptListen() {
+						listener.stop();
+						initAudioListener();
+					});
+				});
+			}
+
+			function getAudioToText(text) {
+				console.log("Recognized audio: "+text);
+			}
 		</script>
     </body>
 </html>

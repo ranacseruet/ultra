@@ -60,3 +60,6 @@ hr{
 .startAudio:hover,.closeBox:hover{
 	cursor: pointer;
 }
+.privateChatBox{
+	margin-right: 5px;
+}
