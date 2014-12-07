@@ -4,7 +4,7 @@ function ULTraChat(translator) {
 	this.privateChats   = {};
 	this.developmentMode = true;
 	this.translator = translator;
-	this.myLang		= "fr";
+	this.myLang		= "en";
 	this.userId		= null;
 
 	var me = this;

@@ -43,18 +43,17 @@ function loadAvailableLanguages() {
         var language = $("#language");
 
         language.append(languageOption);
-        language.val("en");
         language.change(function(){
             console.log("Changed language to"+language.val());
             rChat.setLanguage(language.val());
         });
+        language.val("en").trigger('change');
     });
 }
 
 //********Group Chat Functions*************
 
 function initializeGroupChat() {
-    showGrpMsgArea();
     $(".container").on('click','.groupSendBtn',function(){
         sendGroupMessage();
         return false;
@@ -62,12 +61,6 @@ function initializeGroupChat() {
     rChat.joinGroup("UpStageCoder",loadGroupMembers, groupMemberLeaved, function(status){
         rChat.getGroupMembers(loadGroupMembers);
     });
-}
-
-function showGrpMsgArea() {
-    //var element = $(".onlineUserList").find(".row .identityName");
-    //console.log("Current name: "+element.html()+" will be changed to: "+rChat.userId);
-    //element.html(rChat.userId);
 }
 
 function loadGroupMembers(members) {

@@ -140,7 +140,7 @@
 			$(document).ready(function () {
 				$(".msgInfo").tooltip({container: 'body'});
 				initAudioListener();
-			})
+			});
 
 			function initAudioListener() {
 				var btn = $(".startAudio");

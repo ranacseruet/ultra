@@ -37,6 +37,14 @@ function AudioListener(lang, callback)
         this.timestamp = Date.now();
         console.log(event);
     };
+    this.listener.onspeechstart = function(event) {
+        console.log("speech started");
+        console.log(event);
+    };
+    this.listener.onsoundend = function(event) {
+        console.log("sound stopped");
+        console.log(event);
+    };
     this.listen = function() {
         this.listener.start();
     };
