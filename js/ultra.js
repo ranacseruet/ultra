@@ -87,6 +87,7 @@ function groupMemberLeaved(member) {
     var ep		= member.getEndpoint();
 	var user	= $(".user-"+ ep.id);
     user.remove();
+	leftPrivateChat(ep.id);
 }
 
 function sendGroupMessage() {
@@ -151,7 +152,8 @@ function loadPrivateMessageHistory(sender, receiver, messageObj) {
     newRow.find(".sender").text(sender);
     newRow.find(".content").text(messageObj.message);
 	newRow.find(".msgInfo").attr("title","Original Language: "+messageObj.lang);
-    msgRows.last().after(newRow).show();
+	newRow.show();
+    msgRows.last().after(newRow);
 	$(".msgInfo").tooltip({container: 'body'});
     //TODO show message in private message box
     //create chat box if not available
@@ -162,6 +164,7 @@ function createPrivateChateBox(userId){
 	var privateChatBox = $('.privateChatBox');
     var newBox = privateChatBox.first().clone();
 	newBox.addClass("private-chat-"+userId);
+	newBox.find(".chatWith").text(userId);
     privateChatBox.last().after(newBox);
 	
     newBox.find(".privateSendBtn").click(function(){
@@ -169,13 +172,12 @@ function createPrivateChateBox(userId){
     });
 	
 	newBox.find(".closeBox").click(function(){
-		leftPrivateChat(userId);
+		rChat.leavePrivateChat(userId, leftPrivateChat);
     });
 
 }
 
 function leftPrivateChat(userId){
-	rChat.leavePrivateChat(userId, leftPrivateChat);
 	$(".private-chat-"+userId).remove();
 }
 

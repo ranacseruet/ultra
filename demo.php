@@ -92,10 +92,12 @@
 			<div id="private-section privateBox" class="row top10">
 				<div class="col-md-3  privateChatBox">
 					<div class="row border">
-						<div class="col-md-12 topArea text-right">
+						<div class="col-md-12 topArea ">
 							<div class="row">
-								<span class="startAudio glyphicon glyphicon-earphone"></span>
-								<span class="closeBox glyphicon glyphicon-remove"></span>
+								<span class="chatWith pull-left"></span>
+								<span class="closeBox glyphicon glyphicon-remove pull-right"></span>
+								<span class="audio startAudio glyphicon glyphicon-earphone pull-right"></span>
+								
 							</div>
 						</div>
 						<div class="privateMsg col-md-12 ">
@@ -114,7 +116,7 @@
 						</div>
 					</div>
 					<div class="row">
-						<textarea class="privateTextToSend" class="col-md-8"></textarea>
+						<textarea class="privateTextToSend col-md-8"></textarea>
 						<button type="button" class="btn btn-default btn-primary col-md-4 privateSendBtn">Send</button>	
 					</div>
 				</div>
