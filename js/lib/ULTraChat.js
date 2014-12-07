@@ -93,22 +93,29 @@ function ULTraChat(translator) {
 	};
 
 	this.onMessage = function (grpMsgCallback, prvtMsgCallback){
+		var msgObj, sender;
 		// listen for incoming messages
 		this.client.listen('message', function (evt) {
-			//TODO check group/private message
 			console.log("received a message: "+evt.message.message);
-			var msgObj = JSON.parse(evt.message.message);
-			me.translator.translate(msgObj.message, msgObj.lang, me.myLang, function(tranlatedMessage){
-				//TODO need to enhance for return both version
-				msgObj.message = tranlatedMessage;
-				if(msgObj.genre == "private") {
-					prvtMsgCallback(evt.message.endpointId, "Me", msgObj);
-				}
-				else {
-					grpMsgCallback(evt.message.endpointId, msgObj);
-				}
-			});
+			msgObj = JSON.parse(evt.message.message);
+			sender = evt.message.endpointId;
+			if(msgObj.lang == me.myLang){
+				return deliverProcessedMessage(msgObj.message);
+			}
+			me.translator.translate(msgObj.message, msgObj.lang, me.myLang, deliverProcessedMessage);
 		});
+
+		function deliverProcessedMessage(tranlatedMessage){
+			//TODO need to enhance for return both version
+			msgObj.message = tranlatedMessage;
+			if(msgObj.genre == "private") {
+				prvtMsgCallback(sender, "Me", msgObj);
+			}
+			else {
+				grpMsgCallback(sender, msgObj);
+			}
+		}
+
 	};
 
 	this.joinPrivateChat = function(userId, callbak){
