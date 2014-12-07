@@ -6,7 +6,7 @@ hr{
 	margin:  50px 0px;
 }
 
-#home{
+#home,#group-section{
 	margin-top: 80px;
 }
 .name{
@@ -15,4 +15,48 @@ hr{
 
 .top10{
 	margin-top: 10px;
+}
+
+.border{
+	border: 1px solid #000;
+	height: 300px;
+	max-height: 300px !important;
+	overflow:auto;
+}
+
+.onlineUserList .row{
+	border-bottom: 1px solid gray;
+	padding: 5px 0px;
+}
+
+.onlineUser:hover{
+	cursor: pointer;
+	background-color: #269abc;
+}
+.avatar-pic{
+	margin-left: 8px;
+}
+
+.name{
+	font-weight: bold;
+}
+.msg{
+	margin-bottom: 5px;
+}
+
+.groupSendBtn{
+	padding: 12px;
+}
+
+.privateChatBox .col-md-2{
+	padding-left: 0px;
+}
+
+.topArea{
+	background-color: gray;
+	height: 30px;
+	color: white;
+}
+.startAudio:hover,.closeBox:hover{
+	cursor: pointer;
 }
