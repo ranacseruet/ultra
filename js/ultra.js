@@ -54,6 +54,25 @@ function initializeGroupChat() {
         sendGroupMessage();
         return false;
     });
+    rChat.joinGroup("UpStageCoder",loadGroupMembers, groupMemberLeaved, function(status){
+        rChat.getGroupMembers(loadGroupMembers);
+    });
+}
+
+function loadGroupMembers(members) {
+    var usersList = "";
+    $.each(members, function(index){
+        var endPoint = members[index].getEndpoint();
+        if(endPoint.id != rChat.userId) {
+            usersList += '<option value="' + endPoint.id + '">' + endPoint.id + '</option>';
+        }
+    });
+    $("#users").append(usersList);
+}
+
+function groupMemberLeaved(member) {
+    var ep = member.getEndpoint();
+    $("#users option[value='" + ep.id + "']").remove();
 }
 
 function showGrpMsgArea() {
@@ -72,7 +91,7 @@ function sendGroupMessage() {
     messageObj["lang"] = language;
     messageObj["type"] = 'text';
     //console.log(messageObj);
-    rChat.sendMessage(messageObj, loadGroupMessageHistory);
+    rChat.sendGroupMessage(messageObj, loadGroupMessageHistory);
 
     //reset textbox
     $("#textToSend").val("");
@@ -88,3 +107,12 @@ function loadGroupMessageHistory(sender, messageObj) {
 }
 
 //************* End Group Chat Functions ***************
+
+function enterPrivateChat(userId) {
+    console.log("trying private chat");
+    rChat.joinPrivateChat(userId, function(){
+        console.log("Entered in a private chat successfully");
+        //TODO remove dummy code
+        rChat.sendPrivateMessage({message:"Test private Message", lang:$("#language").val(), "type":"text"}, userId, loadGroupMessageHistory);
+    });
+}

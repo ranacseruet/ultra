@@ -1,7 +1,7 @@
 function ULTraChat(translator) {
 	this.appId		= "176fa7bc-ad48-4dda-8b98-9281844d559a";
 	this.group		= null;
-	this.endpoint   = null;
+	this.privateChats   = {};
 	this.developmentMode = true;
 	this.translator = translator;
 	this.myLang		= "fr";
@@ -27,27 +27,7 @@ function ULTraChat(translator) {
 		});
 
 		this.client.listen('connect', function () {
-			//user successfully connected
-			me.client.join({
-				"id": "UpStageCoder", //TODO change hard coded value
-				//"onJoin": handleJoin,
-				//"onLeave": handleLeave,
-				"onSuccess": function (grp) {
-
-					// request all current endpoints
-					grp.getMembers().done(function getMembers(members) {
-						/*for (var i = 0; i < members.length; i++) {
-						 var evt = {};
-						 evt.connection = members[i];
-						 //handleJoin(evt);
-						 }*/
-						console.log(members.length+" members found\n");
-					});
-					//showMsgArea();
-					me.group = grp;
-					callback(true);
-				}
-			});
+			callback(true);
 			me.userId = userId;
 		});
 
@@ -56,26 +36,35 @@ function ULTraChat(translator) {
 			callback(false);
 		});
 	};
-	
-	this.sendMessage = function(messageObj, callback){
-		/*console.log("msgObsj"+messageObj.message);
-		if (this.endpoint) {
-			this.endpoint.sendMessage({
-				"message": messageObj,
-				"onSuccess": function(evt){
-					callback("Me",messageObj.message,"");
-				}
-			});
-		}else{
-			this.group.sendMessage({
-				"message": messageObj,
-				"onSuccess": function(evt){
-					callback("Me",messageObj.message,"group");
-				}
-			});
-		}*/
-		//console.log(this.group);
 
+	this.joinGroup = function(groupName, joinHandler, leaveHandler, callback){
+		//user successfully connected
+		me.client.join({
+			"id": groupName,
+			"onJoin": function(evt){
+				console.log("new user joined: "+evt.connection);
+				joinHandler([evt.connection]);
+			},
+			"onLeave": function(evt){
+				console.log("user is leaving: "+evt.connection);
+				leaveHandler(evt.connection);
+			},
+			"onSuccess": function (grp) {
+				me.group = grp;
+				callback(true);
+			}
+		});
+	};
+
+	this.getGroupMembers = function(callback) {
+		// request all current endpoints
+		this.group.getMembers().done(function getMembers(members) {
+			console.log(members.length+" members found\n");
+			callback(members);
+		});
+	};
+	
+	this.sendGroupMessage = function(messageObj, callback){
 		this.group.sendMessage({
 			"message": JSON.stringify(messageObj),
 			"onSuccess": function(evt){
@@ -89,33 +78,43 @@ function ULTraChat(translator) {
 		});
 		
 	};
-	
-	this.changeContactUser = function(userId){
-		// if the value is "group-message" then we're in group chat mode
-
-		console.log("changing chat connection");
-
-		/*if (userId == "group-message") {
-			// null out the endpoint
-			this.endpoint = null;		
-
-		} else {
-			this.endpoint = this.client.getEndpoint({
-					"id": userId
-			});
-		}*/
-	};
 
 	this.onMessage = function (callback){
 		// listen for incoming messages
 		this.client.listen('message', function (evt) {
-			console.log("recieved a message: "+evt.message.message);
+			//TODO check group/private message
+			console.log("received a message: "+evt.message.message);
 			var msgObj = JSON.parse(evt.message.message);
 			me.translator.translate(msgObj.message, msgObj.lang, me.myLang, function(tranlatedMessage){
 				//TODO need to enhance for return both version
 				msgObj.message = tranlatedMessage;
 				callback(evt.message.endpointId, msgObj);
 			});
+		});
+	};
+
+	this.joinPrivateChat = function(userId, callbak){
+		var endpoint = this.client.getEndpoint({
+			"id": userId
+		});
+		this.privateChats[userId] = endpoint;
+		callbak();
+	};
+
+	this.leavePrivateChat = function(userId, callback){
+		//this.client.rem
+		delete this.privateChats[userId];
+		//TODO callback/test
+	};
+
+	this.sendPrivateMessage = function(messageObj, userId, callback) {
+		var endPoint = this.privateChats[userId];
+
+		endPoint.sendMessage({
+			"message": JSON.stringify(messageObj),
+			"onSuccess": function(evt){
+				callback("Me",messageObj);
+			}
 		});
 	}
 }
