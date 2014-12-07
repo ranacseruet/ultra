@@ -90,23 +90,26 @@
 			</div>
 			
 			<div id="private-section privateBox" class="row top10">
-				<div class="privateChatBox"></div>
-				<div class="col-md-2  privateChatBox">
+				<div class="col-md-3  privateChatBox">
 					<div class="row border">
-						<div class="row-fluid topArea text-right">
-							<span class="startAudio glyphicon glyphicon-earphone"></span>
-							<span class="closeBox glyphicon glyphicon-remove"></span>
+						<div class="col-md-12 topArea text-right">
+							<div class="row">
+								<span class="startAudio glyphicon glyphicon-earphone"></span>
+								<span class="closeBox glyphicon glyphicon-remove"></span>
+							</div>
 						</div>
-						<div class="row-fluid msg">
-							<div class="col-md-2 text-left">
-								<span class="glyphicon glyphicon-user avatar-pic"></span>
-								<span class="name text-success">Rana</span>
-							</div>
-							<div class="col-md-8  text-left">
-								hello
-							</div>
-							<div class="col-md-1  text-left">
-								<span class="glyphicon glyphicon-info-sign text-primary msgInfo" data-toggle="tooltip" data-placement="top" title="time and lang"></span>
+						<div class="privateMsg col-md-12 ">
+							<div class="row">
+								<div class="col-md-2 text-left">
+									<span class="glyphicon glyphicon-user avatar-pic"></span>
+									<span class="name text-success sender">Rana</span>
+								</div>
+								<div class="col-md-8  text-left content">
+									hello
+								</div>
+								<div class="col-md-1  text-left">
+									<span class="glyphicon glyphicon-info-sign text-primary msgInfo" data-toggle="tooltip" data-placement="top" title="time and lang"></span>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -138,7 +141,6 @@
 		<script src="js/ultra.js"></script>
 		<script>
 			$(document).ready(function () {
-				$(".msgInfo").tooltip({container: 'body'});
 				initAudioListener();
 			});
 

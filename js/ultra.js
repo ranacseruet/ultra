@@ -71,9 +71,6 @@ function loadGroupMembers(members) {
         var endPoint = members[index].getEndpoint();
 
         var userElement = usersList.find(".row:first").clone();
-		
-        //console.log("adding user: "+userElement.html());
-		console.log(usersList.hasClass("user-"+endPoint.id));
         if(endPoint.id != rChat.userId && !usersList.hasClass("user-"+endPoint.id)) {
 			console.log("herre");
 			userElement.addClass("user-"+endPoint.id);
@@ -115,7 +112,9 @@ function loadGroupMessageHistory(sender, messageObj) {
     var newRow = msgRows.last().clone();
     newRow.find(".sender").text(sender);
     newRow.find(".content").text(messageObj.message);
+	newRow.find(".msgInfo").attr("title","Original Language: "+messageObj.lang);
     msgRows.last().after(newRow);
+	$(".msgInfo").tooltip({container: 'body'});
 }
 
 //************* End Group Chat Functions ***************
@@ -125,13 +124,18 @@ function loadGroupMessageHistory(sender, messageObj) {
 //************** private chat functions ***************
 
 function enterPrivateChat(userId) {
-    console.log("trying private chat");
-    rChat.joinPrivateChat(userId, function(){
+	var privateChatBox = $('.privateChatBox');
+    if(!privateChatBox.hasClass("private-chat-"+userId)){
+		createPrivateChateBox(userId);
+	}
+    /*rChat.joinPrivateChat(userId, function(){
         console.log("Entered in a private chat successfully");
         //TODO remove dummy code
         rChat.sendPrivateMessage({message:"Test private Message", lang:$("#language").val(), "type":"voice", "genre":"private"}, userId, loadPrivateMessageHistory);
     });
     //TODO show private chat box if not available
+        rChat.sendPrivateMessage({message:"Test private Message", lang:$("#language").val(), "type":"text"}, userId, loadGroupMessageHistory);
+    });*/
 }
 
 function loadPrivateMessageHistory(sender, messageObj) {
@@ -141,6 +145,15 @@ function loadPrivateMessageHistory(sender, messageObj) {
     }
     //TODO show message in private message box
 }
+function createPrivateChateBox(userId){
+	var privateChatBox = $('.privateChatBox');
+    var newBox = privateChatBox.first().clone();
+	newBox.addClass("private-chat-"+userId).show();
+    privateChatBox.last().after(newBox);
+	
+}
+/*$(".onlineUser").click(function(){
+	var privateChatBoxContent = $("#privateChatBoxContent").html();
 
 function leftPrivateChat(userId) {
     console.log("Leaving private chat with: "+userId);
