@@ -27,8 +27,8 @@ function ULTraChat(translator) {
 		});
 
 		this.client.listen('connect', function () {
-			callback(true);
 			me.userId = userId;
+			callback(true);
 		});
 
 		this.client.listen('error', function (err) {
