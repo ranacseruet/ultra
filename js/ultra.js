@@ -104,12 +104,14 @@ function sendGroupMessage() {
 }
 
 function loadGroupMessageHistory(sender, messageObj) {
-    //console.log(messageObj.message);
+    console.log(messageObj);
     var msgRows = $('.groupMsg');
     var newRow = msgRows.last().clone();
     newRow.find(".sender").text(sender);
     newRow.find(".content").text(messageObj.message);
+	newRow.find(".msgInfo").attr("title","Original Language: "+messageObj.lang);
     msgRows.last().after(newRow);
+	$(".msgInfo").tooltip({container: 'body'});
 }
 
 //************* End Group Chat Functions ***************
@@ -128,5 +130,17 @@ function enterPrivateChat(userId) {
 }
 
 
+$(".onlineUser").click(function(){
+	var privateChatBoxContent = $("#privateChatBoxContent").html();
 
+	var selIdentity = $(this).find(".identityName").html();
+	privateChatBoxContent = privateChatBoxContent.replace(/{identity}/g, selIdentity);
+	$('#private-section .privateChatBox').last().after(privateChatBoxContent);
+
+});
+
+$("#private-section").on("click",".closeBox",function(){
+	var chatBox = ($(this).parent().parent().parent().attr('id'));
+	$("#"+chatBox).remove();
+});
 //************** End private chat functions ***************

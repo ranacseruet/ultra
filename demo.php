@@ -138,7 +138,6 @@
 		<script src="js/ultra.js"></script>
 		<script>
 			$(document).ready(function () {
-				$(".msgInfo").tooltip({container: 'body'});
 				initAudioListener();
 			});
 
