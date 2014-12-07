@@ -69,13 +69,12 @@
 					</div>
 					
 					<div class="col-md-5 border msgList">
-						<div class="row msg">
+						<div class="row groupMsg">
 							<div class="col-md-2 text-left">
 								<span class="glyphicon glyphicon-user avatar-pic"></span>
-								<span class="name text-success">Rana</span>
+								<span class="name text-success sender">Rana</span>
 							</div>
-							<div class="col-md-9  text-left">
-								hello
+							<div class="col-md-9  text-left content">
 							</div>
 							<div class="col-md-1  text-left">
 								<span class="glyphicon glyphicon-info-sign text-primary msgInfo" data-toggle="tooltip" data-placement="top" title="time and lang"></span>
@@ -90,9 +89,9 @@
 				
 			</div>
 			
-			<div id="private-section" class="row top10">
+			<div id="private-section privateBox" class="row top10">
 				<div class="privateChatBox"></div>
-				<div class="col-md-2  privateChatBoxs">
+				<div class="col-md-2  privateChatBox">
 					<div class="row border">
 						<div class="row-fluid topArea text-right">
 							<span class="startAudio glyphicon glyphicon-earphone"></span>
