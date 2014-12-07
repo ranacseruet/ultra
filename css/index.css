@@ -37,19 +37,15 @@ hr{
 	margin-left: 8px;
 }
 
-.name{
+.name,.chatWith{
 	font-weight: bold;
 }
 .msg{
 	margin-bottom: 5px;
 }
 
-.groupSendBtn{
+.groupSendBtn,.privateSendBtn{
 	padding: 12px;
-}
-
-.privateChatBox .col-md-2{
-	padding-left: 0px;
 }
 
 .topArea{
@@ -66,4 +62,6 @@ hr{
 .onlineUser:first-child, .groupMsg:first-child,.privateChatBox:first-child,.privateMsg{
   display: none;
 }
-
+.audio{
+	margin-right: 10px;
+}

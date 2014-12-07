@@ -87,6 +87,7 @@ function groupMemberLeaved(member) {
     var ep		= member.getEndpoint();
 	var user	= $(".user-"+ ep.id);
     user.remove();
+	leftPrivateChat(ep.id);
 }
 
 function sendGroupMessage() {
@@ -134,31 +135,69 @@ function enterPrivateChat(userId) {
     });
 }
 
-function loadPrivateMessageHistory(sender, messageObj) {
-    console.log("private message: "+sender+" says "+messageObj.message);
+function loadPrivateMessageHistory(sender, receiver, messageObj) {
+	
     if(messageObj.type == "voice" && sender != "Me") {
         robotSpeaker.speak(messageObj.lang, messageObj.message);
     }
+	var privateChatBox  = $('.privateChatBox');
+	var privateChatname = 'private-chat-'+sender;
+	if(sender=="Me")
+		privateChatname = 'private-chat-'+receiver;
+	
+	if(!privateChatBox.hasClass(privateChatname)){
+		createPrivateChateBox(sender);
+	}
+	var msgRows = $('.'+privateChatname +' .privateMsg');
+    var newRow = msgRows.first().clone();
+    newRow.find(".sender").text(sender);
+    newRow.find(".content").text(messageObj.message);
+	newRow.find(".msgInfo").attr("title","Original Language: "+messageObj.lang);
+	newRow.show();
+    msgRows.last().after(newRow);
+	$(".msgInfo").tooltip({container: 'body'});
     //TODO show message in private message box
     //create chat box if not available
     //.show()
 }
+
 function createPrivateChateBox(userId){
 	var privateChatBox = $('.privateChatBox');
     var newBox = privateChatBox.first().clone();
 	newBox.addClass("private-chat-"+userId);
+	newBox.find(".chatWith").text(userId);
     privateChatBox.last().after(newBox);
+	
     newBox.find(".privateSendBtn").click(function(){
-        rChat.sendPrivateMessage({message:"Test private Message", lang:$("#language").val(),
-                                  "type":"voice", "genre":"private"}, userId, loadPrivateMessageHistory);
+		sendPrivateMessage(userId); 
     });
-    //TODO leave chat event handling
-    //rChat.leavePrivateChat(userId, leftPrivateChat);
+	
+	newBox.find(".closeBox").click(function(){
+		rChat.leavePrivateChat(userId, leftPrivateChat);
+    });
+
 }
 
-function leftPrivateChat(userId) {
-    console.log("Leaving private chat with: "+userId);
-    //TODO hide private chat box
+function leftPrivateChat(userId){
+	$(".private-chat-"+userId).remove();
+}
+
+function sendPrivateMessage(userId) {
+    var messageObj  = {};
+	var privateTextArea = $(".private-chat-"+userId+" .privateTextToSend");
+    var messageText = privateTextArea.val();
+    var language    = $("#language").val();
+    if (messageText.trim().length === 0) return;
+
+    messageObj["message"] = messageText;
+    messageObj["lang"]    = language;
+    messageObj["type"]    = 'text';
+    messageObj["genre"]   = 'private';
+    //console.log(messageObj);
+    rChat.sendPrivateMessage(messageObj, userId, loadPrivateMessageHistory);
+
+    //reset textbox
+    privateTextArea.val("");
 }
 
 //************** End private chat functions ***************
