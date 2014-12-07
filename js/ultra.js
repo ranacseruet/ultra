@@ -139,16 +139,19 @@ function loadPrivateMessageHistory(sender, messageObj) {
         robotSpeaker.speak(messageObj.lang, messageObj.message);
     }
     //TODO show message in private message box
+    //.show()
 }
 function createPrivateChateBox(userId){
 	var privateChatBox = $('.privateChatBox');
     var newBox = privateChatBox.first().clone();
-	newBox.addClass("private-chat-"+userId).show();
+	newBox.addClass("private-chat-"+userId);
     privateChatBox.last().after(newBox);
     newBox.find(".privateSendBtn").click(function(){
         rChat.sendPrivateMessage({message:"Test private Message", lang:$("#language").val(),
                                   "type":"voice", "genre":"private"}, userId, loadPrivateMessageHistory);
     });
+    //TODO leave chat event handling
+    //rChat.leavePrivateChat(userId, leftPrivateChat);
 }
 
 function leftPrivateChat(userId) {
