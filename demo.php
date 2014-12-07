@@ -53,7 +53,7 @@
 			
 			<div id="group-section">
 				<div class="row">
-					<select id="langguage">
+					<select id="language">
 						<option value="">Select language</option>
 					</select>
 				</div>

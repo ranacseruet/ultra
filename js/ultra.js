@@ -42,7 +42,7 @@ function loadAvailableLanguages() {
 
         var language = $("#language");
 
-        language.html(languageOption);
+        language.append(languageOption);
         language.change(function(){
             console.log("Changed language to"+language.val());
             rChat.setLanguage(language.val());
@@ -75,7 +75,7 @@ function loadGroupMembers(members) {
         var endPoint = members[index].getEndpoint();
 
         var userElement = usersList.find(".row").clone();
-        console.log("adding user: "+userElement.html());
+        //console.log("adding user: "+userElement.html());
         if(endPoint.id != rChat.userId) {
             userElement.find(".identityName").html(endPoint.id);
             usersList.append(userElement);
@@ -85,7 +85,7 @@ function loadGroupMembers(members) {
 
 function groupMemberLeaved(member) {
     var ep = member.getEndpoint();
-    $("#users option[value='" + ep.id + "']").remove();
+    $(".onlineUserList .identityName[text='" + ep.id + "']").remove();
 }
 
 function sendGroupMessage() {
