@@ -16,15 +16,23 @@ function RobotSpeaker()
     };
 }
 
-function AudioListener(callback)
+function AudioListener(lang, callback)
 {
     this.listener = new webkitSpeechRecognition();
+    this.listener.continuous = true;
+    this.listener.lang = lang;
     this.listener.onresult = function(event) {
         if (event.results.length > 0) {
-            callback(event.results[0][0].transcript);
+            var result = event.results[event.results.length-1];
+            console.log(result);
+            callback(result[0].transcript);
         }
     };
     this.listen = function() {
         this.listener.start();
     };
+    this.stop = function() {
+        this.listener.stop();
+        console.log("audio listener stopped");
+    }
 }

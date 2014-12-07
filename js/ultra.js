@@ -74,7 +74,7 @@ function loadGroupMembers(members) {
     $.each(members, function(index){
         var endPoint = members[index].getEndpoint();
 
-        var userElement = usersList.find(".row").clone();
+        var userElement = usersList.find(".row:first").clone();
 		
         //console.log("adding user: "+userElement.html());
 		console.log(usersList.hasClass("user-"+endPoint.id));
