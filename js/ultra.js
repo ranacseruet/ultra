@@ -77,6 +77,9 @@ function loadGroupMembers(members) {
 			userElement.addClass("user-"+endPoint.id);
             userElement.find(".identityName").html(endPoint.id);
             usersList.append(userElement);
+            userElement.click(function(){
+                enterPrivateChat(endPoint.id);
+            });
         }
     });
 }
