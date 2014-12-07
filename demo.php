@@ -66,6 +66,12 @@
 							</div>
 							<div class="col-md-8  text-left identityName">Rana</div>
 						</div>
+						<div class="row onlineUser">
+							<div class="col-md-2 text-left">
+								<span class="glyphicon glyphicon-user "></span>
+							</div>
+							<div class="col-md-8  text-left identityName">Nila</div>
+						</div>
 					</div>
 					
 					<div class="col-md-5 border msgList">
@@ -92,30 +98,6 @@
 			
 			<div id="private-section" class="row top10">
 				<div class="privateChatBox"></div>
-				<div class="col-md-2  privateChatBox" id="{identity}">
-					<div class="row border">
-						<div class="row-fluid topArea text-right">
-							<span class="startAudio glyphicon glyphicon-earphone"></span>
-							<span class="closeBox glyphicon glyphicon-remove"></span>
-						</div>
-						<div class="row-fluid msg">
-							<div class="col-md-2 text-left">
-								<span class="glyphicon glyphicon-user avatar-pic"></span>
-								<span class="name text-success">Rana</span>
-							</div>
-							<div class="col-md-8  text-left">
-								hello
-							</div>
-							<div class="col-md-1  text-left">
-								<span class="glyphicon glyphicon-info-sign text-primary msgInfo" data-toggle="tooltip" data-placement="top" title="time and lang"></span>
-							</div>
-						</div>
-					</div>
-					<div class="row">
-						<textarea id="textToSend" class="col-md-8"></textarea>
-						<button type="button" class="btn btn-default btn-primary col-md-4 privateSendBtn">Send</button>	
-					</div>
-				</div>
 			</div>
 
 		</div>
@@ -126,7 +108,32 @@
 				</div>
 			</div>
 		</footer>
-		
+		<div style="display: none" id="privateChatBoxContent">
+			<div class="col-md-2  privateChatBox" id="chat-{identity}">
+				<div class="row border">
+					<div class="row-fluid topArea text-right">
+						<span class="startAudio glyphicon glyphicon-earphone"></span>
+						<span class="closeBox glyphicon glyphicon-remove"></span>
+					</div>
+					<div class="row-fluid msg">
+						<div class="col-md-2 text-left">
+							<span class="glyphicon glyphicon-user avatar-pic"></span>
+							<span class="name text-success">{identity}</span>
+						</div>
+						<div class="col-md-8  text-left">
+							hello
+						</div>
+						<div class="col-md-1  text-left">
+							<span class="glyphicon glyphicon-info-sign text-primary msgInfo" data-toggle="tooltip" data-placement="top" title="time and lang"></span>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<textarea id="textToSend" class="col-md-8"></textarea>
+					<button type="button" class="btn btn-default btn-primary col-md-4 privateSendBtn">Send</button>	
+				</div>
+			</div>
+		</div>
 		
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
@@ -137,7 +144,19 @@
 				//$('.intro-modal').modal({ backdrop: 'static', keyboard: false });
 				$(".msgInfo").tooltip({container: 'body'});
 				
+				$(".onlineUser").click(function(){
+					var privateChatBoxContent = $("#privateChatBoxContent").html();
 				
+					var selIdentity = $(this).find(".identityName").html();
+					privateChatBoxContent = privateChatBoxContent.replace(/{identity}/g, selIdentity);
+					$('#private-section .privateChatBox').last().after(privateChatBoxContent);
+					
+				});
+				
+				$("#private-section").on("click",".closeBox",function(){
+					var chatBox = ($(this).parent().parent().parent().attr('id'));
+					$("#"+chatBox).remove();
+				});
 			})
 		</script>
     </body>
