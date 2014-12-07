@@ -12,10 +12,11 @@ function YTranslator(apiKey) {
 		this.text     = text;
 		this.toLang   = toLang;
 		this.fromLang = fromLang;
-		//console.log("from language: "+this.fromLang);
-		//console.log("to language: "+this.toLang);
+
+		var apiURL = "https://translate.yandex.net/api/v1.5/tr.json/translate?key="+this.appKey+"&lang="+this.fromLang+"-"+this.toLang+"&text="+this.text;
+		console.log("Translate API request: "+apiURL);
 		$.when(
-			$.get( "https://translate.yandex.net/api/v1.5/tr.json/translate?key="+this.appKey+"&lang="+this.fromLang+"-"+this.toLang+"&text="+this.text)
+			$.get(apiURL)
 		).done(function(data) {
 			var text  = data.text[0];
 			callback(text);

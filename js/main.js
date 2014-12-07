@@ -8,7 +8,7 @@ var identity;
 $(document).ready(function () {
 
 		/*translationObj     = new Translation();
-		respokeChatObj     = new RespokeChat();
+		respokeChatObj     = new ULTraChat();
 		
 		// all user interface state functions moved to another file/class
 		$("#doLogin").click(function () {

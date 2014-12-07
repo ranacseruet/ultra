@@ -1,10 +1,17 @@
-function RespokeChat(apiKey) {
-	this.appId		= apiKey;
+function ULTraChat(translator) {
+	this.appId		= "176fa7bc-ad48-4dda-8b98-9281844d559a";
 	this.group		= null;
 	this.endpoint   = null;
 	this.developmentMode = true;
+	this.translator = translator;
+	this.myLang		= "fr";
+	this.userId		= null;
 
 	var me = this;
+
+	this.setLanguage = function(lang) {
+		this.myLang = lang;
+	};
 
 	// create a Respoke client object using the App ID
 	this.client = new respoke.Client({
@@ -12,9 +19,9 @@ function RespokeChat(apiKey) {
 		"developmentMode": this.developmentMode
 	});
 
-	this.connect = function(endpoint, callback) {
+	this.connect = function(userId, callback) {
 		this.client.connect({
-			endpointId: endpoint,
+			endpointId: userId,
 			developmentMode: this.developmentMode,
 			appId: this.appId
 		});
@@ -41,6 +48,7 @@ function RespokeChat(apiKey) {
 					callback(true);
 				}
 			});
+			me.userId = userId;
 		});
 
 		this.client.listen('error', function (err) {
@@ -102,11 +110,12 @@ function RespokeChat(apiKey) {
 		// listen for incoming messages
 		this.client.listen('message', function (evt) {
 			console.log("recieved a message: "+evt.message.message);
-			//TODO get out of this scope
-			/*translationObj.translate(evt.message.message.message, evt.message.message.lang,$("#language").val(),function(convertedMessage){
-			 loadMsgList(evt.message.endpointId,convertedMessage,evt.group);
-			 });*/
-			callback(evt.message.endpointId, JSON.parse(evt.message.message));
+			var msgObj = JSON.parse(evt.message.message);
+			me.translator.translate(msgObj.message, msgObj.lang, me.myLang, function(tranlatedMessage){
+				//TODO need to enhance for return both version
+				msgObj.message = tranlatedMessage;
+				callback(evt.message.endpointId, msgObj);
+			});
 		});
 	}
 }

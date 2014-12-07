@@ -3,7 +3,7 @@
  */
 
 $(document).ready(function(){
-    var rchat = new RespokeChat("176fa7bc-ad48-4dda-8b98-9281844d559a");
+    var rchat = new ULTraChat("176fa7bc-ad48-4dda-8b98-9281844d559a");
     rchat.connect("testuser", function(status){
         if(!status){
             consol.err("Couldn't connect");
