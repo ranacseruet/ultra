@@ -92,7 +92,7 @@
 			
 			<div id="private-section" class="row top10">
 				<div class="privateChatBox"></div>
-				<div class="col-md-2  privateChatBox" id="{identity}">
+				<div class="col-md-2  privateChatBoxs">
 					<div class="row border">
 						<div class="row-fluid topArea text-right">
 							<span class="startAudio glyphicon glyphicon-earphone"></span>

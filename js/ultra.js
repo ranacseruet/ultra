@@ -75,8 +75,12 @@ function loadGroupMembers(members) {
         var endPoint = members[index].getEndpoint();
 
         var userElement = usersList.find(".row").clone();
-        console.log("adding user: "+userElement.html());
-        if(endPoint.id != rChat.userId) {
+		
+        //console.log("adding user: "+userElement.html());
+		console.log(usersList.hasClass("user-"+endPoint.id));
+        if(endPoint.id != rChat.userId && !usersList.hasClass("user-"+endPoint.id)) {
+			console.log("herre");
+			userElement.addClass("user-"+endPoint.id);
             userElement.find(".identityName").html(endPoint.id);
             usersList.append(userElement);
         }
@@ -84,8 +88,9 @@ function loadGroupMembers(members) {
 }
 
 function groupMemberLeaved(member) {
-    var ep = member.getEndpoint();
-    $("#users option[value='" + ep.id + "']").remove();
+    var ep		= member.getEndpoint();
+	var user	= $(".user-"+ ep.id);
+    user.remove();
 }
 
 function sendGroupMessage() {
