@@ -54,7 +54,7 @@ function loadAvailableLanguages() {
 
 function initializeGroupChat() {
     showGrpMsgArea();
-    $(".container").on('click','.submitBtn',function(){
+    $(".container").on('click','.groupSendBtn',function(){
         sendGroupMessage();
         return false;
     });
@@ -111,7 +111,7 @@ function sendGroupMessage() {
 
 function loadGroupMessageHistory(sender, messageObj) {
     //console.log(messageObj.message);
-    var msgRows = $('.message');
+    var msgRows = $('.groupMsg');
     var newRow = msgRows.last().clone();
     newRow.find(".sender").text(sender);
     newRow.find(".content").text(messageObj.message);
