@@ -206,7 +206,7 @@ function sendPrivateMessage(userId) {
 //*************** Audio Chat *********************
 var inAudioChat = false;
 function initAudioListener(userId) {
-    var btn = $(".private-chat-"+userId+" .startAudio");
+    var btn = $(".private-chat-"+userId+" .audio.start");
     console.log("private audio call btn: "+btn.html());
     btn.unbind('click');
     btn.click(function startListen() {

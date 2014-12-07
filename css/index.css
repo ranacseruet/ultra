@@ -54,8 +54,9 @@ hr{
 	color: white;
 	border: 1px solid #000;
 	border-bottom: 0px;
+	padding-top: 3px;
 }
-.startAudio:hover,.closeBox:hover{
+.audio:hover,.closeBox:hover{
 	cursor: pointer;
 }
 .privateChatBox{
@@ -73,4 +74,12 @@ hr{
 	height: 300px;
 	max-height: 300px !important;
 	overflow:auto;
+}
+
+.audio.start{
+	color: green;
+}
+
+.audio.stop{
+	color: red;
 }

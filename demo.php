@@ -96,7 +96,7 @@
 							<div class="row">
 								<span class="chatWith pull-left"></span>
 								<span class="closeBox glyphicon glyphicon-remove pull-right"></span>
-								<span class="audio startAudio glyphicon glyphicon-earphone pull-right"></span>
+								<span class="audio start glyphicon glyphicon-earphone pull-right"></span>
 								
 							</div>
 						</div>
