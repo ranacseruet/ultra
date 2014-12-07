@@ -4,6 +4,7 @@
 
 var rChat;
 var translator;
+var robotSpeaker;
 
 $(document).ready(function(){
     translator     = new YTranslator("trnsl.1.1.20141130T053443Z.abe0172019286ab4.38cf8c2055843d9fa61079da020e63286c7c5dcf");
@@ -11,6 +12,7 @@ $(document).ready(function(){
 
     $('.intro-modal').modal({ backdrop: 'static', keyboard: false });
     $("#joinBtn").click(tryLogin);
+    robotSpeaker = new RobotSpeaker();
 });
 
 function tryLogin()
@@ -25,7 +27,7 @@ function tryLogin()
         else {
             console.log("Connection successfull!");
             initializeGroupChat();
-            rChat.onMessage(loadGroupMessageHistory);
+            rChat.onMessage(loadGroupMessageHistory, loadPrivateMessageHistory);
             loadAvailableLanguages();
             $(".intro-modal").modal('hide');
         }
@@ -97,8 +99,9 @@ function sendGroupMessage() {
     if (messageText.trim().length === 0) return;
 
     messageObj["message"] = messageText;
-    messageObj["lang"] = language;
-    messageObj["type"] = 'text';
+    messageObj["lang"]    = language;
+    messageObj["type"]    = 'text';
+    messageObj["genre"]   = 'group';
     //console.log(messageObj);
     rChat.sendGroupMessage(messageObj, loadGroupMessageHistory);
 
@@ -126,10 +129,22 @@ function enterPrivateChat(userId) {
     rChat.joinPrivateChat(userId, function(){
         console.log("Entered in a private chat successfully");
         //TODO remove dummy code
-        rChat.sendPrivateMessage({message:"Test private Message", lang:$("#language").val(), "type":"text"}, userId, loadGroupMessageHistory);
+        rChat.sendPrivateMessage({message:"Test private Message", lang:$("#language").val(), "type":"voice", "genre":"private"}, userId, loadPrivateMessageHistory);
     });
+    //TODO show private chat box if not available
 }
 
+function loadPrivateMessageHistory(sender, messageObj) {
+    console.log("private message: "+sender+" says "+messageObj.message);
+    if(messageObj.type == "voice" && sender != "Me") {
+        robotSpeaker.speak(messageObj.lang, messageObj.message);
+    }
+    //TODO show message in private message box
+}
 
+function leftPrivateChat(userId) {
+    console.log("Leaving private chat with: "+userId);
+    //TODO hide private chat box
+}
 
 //************** End private chat functions ***************

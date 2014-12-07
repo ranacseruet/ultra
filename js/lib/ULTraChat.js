@@ -20,6 +20,14 @@ function ULTraChat(translator) {
 	});
 
 	this.connect = function(userId, callback) {
+		var endPoints = this.client.getEndpoints();
+		console.log(endPoints.length+" endpoints found");
+		for(var i=0; i<endPoints.length; i++) {
+			console.log("user "+i+" :"+endPoints[i].id);
+			if(endPoints[i].id == userId) {
+				return callback(false);
+			}
+		}
 		this.client.connect({
 			endpointId: userId,
 			developmentMode: this.developmentMode,
@@ -52,7 +60,12 @@ function ULTraChat(translator) {
 			"onSuccess": function (grp) {
 				me.group = grp;
 				callback(true);
+			},
+			"onError": function(err){
+				console.error(err);
+				callback(false);
 			}
+
 		});
 	};
 
@@ -79,7 +92,7 @@ function ULTraChat(translator) {
 		
 	};
 
-	this.onMessage = function (callback){
+	this.onMessage = function (grpMsgCallback, prvtMsgCallback){
 		// listen for incoming messages
 		this.client.listen('message', function (evt) {
 			//TODO check group/private message
@@ -88,7 +101,12 @@ function ULTraChat(translator) {
 			me.translator.translate(msgObj.message, msgObj.lang, me.myLang, function(tranlatedMessage){
 				//TODO need to enhance for return both version
 				msgObj.message = tranlatedMessage;
-				callback(evt.message.endpointId, msgObj);
+				if(msgObj.genre == "private") {
+					prvtMsgCallback(evt.message.endpointId, msgObj);
+				}
+				else {
+					grpMsgCallback(evt.message.endpointId, msgObj);
+				}
 			});
 		});
 	};
@@ -104,7 +122,7 @@ function ULTraChat(translator) {
 	this.leavePrivateChat = function(userId, callback){
 		//this.client.rem
 		delete this.privateChats[userId];
-		//TODO callback/test
+		callback(userId);
 	};
 
 	this.sendPrivateMessage = function(messageObj, userId, callback) {
