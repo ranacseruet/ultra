@@ -109,7 +109,9 @@ function ULTraChat(translator) {
 			//TODO need to enhance for return both version
 			msgObj.message = tranlatedMessage;
 			if(msgObj.genre == "private") {
-				prvtMsgCallback(sender, "Me", msgObj);
+				me.joinPrivateChat(sender, function(){
+					prvtMsgCallback(sender, "Me", msgObj);
+				});
 			}
 			else {
 				grpMsgCallback(sender, msgObj);

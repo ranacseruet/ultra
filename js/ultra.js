@@ -30,6 +30,7 @@ function tryLogin()
             rChat.onMessage(loadGroupMessageHistory, loadPrivateMessageHistory);
             loadAvailableLanguages();
             $(".intro-modal").modal('hide');
+            $("#userId").html(identity);
         }
     });
     return false;
@@ -95,7 +96,7 @@ function groupMemberLeaved(member) {
     var ep		= member.getEndpoint();
 	var user	= $(".user-"+ ep.id);
     user.remove();
-	leftPrivateChat(ep.id);
+    rChat.leavePrivateChat(userId, leftPrivateChat);
 }
 
 function sendGroupMessage() {
