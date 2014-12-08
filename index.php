@@ -35,10 +35,13 @@
 			<div class="row">
 				<div class="col-md-6">
 					<h1>Universal Language Translated Chat System</h1>
-					<h3>
-						Break the language barrier!<br>
-						Voice/Text chat with anyone around the world, speaking any(well almost) language!
-					</h3>
+					<h4>
+						Break the language barrier!<br><br>
+						Voice/Text chat with anyone around the world, <br><br>
+						speaking any(well almost) language! <br><br>
+						No need for costly and time consuming bilingual assistance!<br><br>
+						Communicate via instant text/voice messaging!
+					</h4>
 					<br>
 					<p class="text-center">
 						<a class="btn btn-success btn-lg" href="demo.php" target="_blank">Try It Now!</a>
@@ -56,13 +59,13 @@
 						  <!-- Wrapper for slides -->
 						  <div class="carousel-inner" role="listbox">
 							<div class="item active">
-							  <img src="img/screenshot-1.png" alt="screenshot-1">
+							  <img src="img/screenshot-2.png" alt="screenshot-2">
 							  <div class="carousel-caption">
 								First
 							  </div>
 							</div>
 							<div class="item">
-							  <img src="img/screenshot-1.png" alt="screenshot-1">
+							  <img src="img/screenshot-3.png" alt="screenshot-3">
 							  <div class="carousel-caption">
 								SeconD
 							  </div>
@@ -109,9 +112,9 @@
 			</div>
 			<div class="row">
 				<div class="col-md-12">
-					<div class="name">Real Time Communication:</div>
+					<div class="name">Web Based Communication:</div>
 					<div class="description">
-						ULTraChat is a web based real time communication system, which allows you to communicate with people, who don't speak/understand your
+						ULTraChat is a web based real time web based communication system, which allows you to communicate with people, who don't speak/understand your
 						language.
 					</div>
 				</div>
@@ -120,10 +123,14 @@
 			
 			<div class="row top10">
 				<div class="col-md-12">
-					<div class="name">Group/Private Chat:</div>
+					<div class="name">Group/Private Chat:(Translated)</div>
 					<div class="description">
 						You can text chat with anyone in the group chat room, all theirs message will be shown in your own preferred language and yours to them as
-						their preferred language.
+						their preferred language. If multiple persons message you in different languages, you will see all of them in your native(which you can select from
+						top left select box) language!
+						<br>
+						The translation service are served by <a href="http://api.yandex.com/translate/">Yandex  API</a>, which supports
+						a wide area of languages.
 					</div>
 				</div>
 				
@@ -131,15 +138,61 @@
 
 			<div class="row top10">
 				<div class="col-md-12">
-					<div class="name">Voice Communication:</div>
+					<div class="name">Voice Communication:(Translated)</div>
 					<div class="description">
+						<div class="col-md-6">
 						You can also communicate to other people(speaking different language) via voice as well. This is available in private
 						chat system only. You can speak your own language, that will be recognized and played to your chat partner as robotic
-						voice in his preffered language.
+						voice in his preferred language.
+
+						To use this feature, first click on the username of a online user, and then click on the 'phone' icon that will appear
+						on the top bar of private message box.
+						</div>
+						<div class="col-md-6">
+							<img src="img/audio.png" class="pull-right">
+						</div>
 					</div>
 				</div>
-				
 			</div>
+
+			<div class="row top10">
+				<div class="col-md-12">
+					<div class="name">Requirement:</div>
+					<div class="description">
+						<ul>
+							<li>Google Chrome Browser(Latest Version)</li>
+							<li>Audio Input(For Voice Recognition Based Communication)</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+
+			<div class="row top10">
+				<div class="col-md-12">
+					<div class="name">Limitations:</div>
+					<div class="description">
+						<ul>
+							<li>Currently voice recognition technology only available on Google Chrome. However, we can expect this feature to come
+							to other browsers very soon, as well.
+							</li>
+							<li>If you are using Windows OS environment, then continuous audio input is not supported even in chrome, thus
+							you will have to use the 'phone' icon again and again to allow you each time you speak something. On other hand,
+							in Mac OSx environment, you should be able to go smoothly for longer conversation in a single allow.</li>
+							<li>As currently this software isn't hosted under 'https' protocol, the voice input allow button will pop up
+							each time you want to talk. We are expecting to move this to 'https' very soon when you won't have to do it
+							again and again.</li>
+							<li>Currently the chat system is powered by <a href="https://www.respoke.io">Respoke API</a> FREE tier, which
+							limits to 5 concurrent users only! We will upgrade soon and you will be able to try it with more of your friends!</li>
+
+						</ul>
+					</div>
+				</div>
+			</div>
+
+			<p class="text-center">
+				<a class="btn btn-success btn-lg" href="demo.php" target="_blank">Try It Now!</a>
+			</p>
+
          </div>
 
        
