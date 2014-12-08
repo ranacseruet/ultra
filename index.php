@@ -33,19 +33,58 @@
         <!-- home -->
         <div id="home">
 			<div class="row">
-				<div class="col-md-8">
+				<div class="col-md-6">
 					<h1>Universal Language Translated Chat System</h1>
-					<h2>
+					<h3>
 						Break the language barrier!<br>
 						Voice/Text chat with anyone around the world, speaking any(well almost) language!
-					</h2>
+					</h3>
 					<br>
 					<p class="text-center">
 						<a class="btn btn-success btn-lg" href="demo.php" target="_blank">Try It Now!</a>
 					</p>
 				</div>
-				<div class="col-md-4">
-					<img class="img-circle img-responsive pull-right" src="img/communication.png">
+				<div class="col-md-6">
+					<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+						  <!-- Indicators -->
+						  <ol class="carousel-indicators">
+							<li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+							<li data-target="#carousel-example-generic" data-slide-to="1"></li>
+							<li data-target="#carousel-example-generic" data-slide-to="2"></li>
+						  </ol>
+
+						  <!-- Wrapper for slides -->
+						  <div class="carousel-inner" role="listbox">
+							<div class="item active">
+							  <img src="img/screenshot-1.png" alt="screenshot-1">
+							  <div class="carousel-caption">
+								First
+							  </div>
+							</div>
+							<div class="item">
+							  <img src="img/screenshot-1.png" alt="screenshot-1">
+							  <div class="carousel-caption">
+								SeconD
+							  </div>
+							</div>
+							<div class="item">
+							  <img src="img/screenshot-1.png" alt="screenshot-1">
+							  <div class="carousel-caption">
+								Third
+							  </div>
+							</div>
+						  </div>
+
+						  <!-- Controls -->
+						  <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+							<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+							<span class="sr-only">Previous</span>
+						  </a>
+						  <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+							<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+							<span class="sr-only">Next</span>
+						  </a>
+</div>
 				</div>
 			</div>
          </div>
@@ -145,6 +184,8 @@
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
         <script src="js/plugins.js"></script>
+		<script src="js/vendor/bootstrap.min.js"></script>
+		
         <script src="js/main.js"></script>
     </body>
 </html>
