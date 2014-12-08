@@ -1,5 +1,5 @@
 <?php
-$base_url = "http://localhost/ultra/";
+$base_url = "http://hackathon/";
 ?>
 
 <!-- Navigation -->

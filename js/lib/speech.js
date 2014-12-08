@@ -19,7 +19,7 @@ function RobotSpeaker()
 function AudioListener(lang, callback)
 {
     this.listener = new webkitSpeechRecognition();
-    //this.listener.continuous = true;
+    this.listener.continuous = true;
     //this.listener.interimResults = true;
     this.listener.lang = lang;
 

@@ -117,7 +117,11 @@ function sendGroupMessage() {
 
 function loadGroupMessageHistory(sender, messageObj) {
     var timestamp = new Date(messageObj.timestamp);
-	timestamp     = timestamp.getHours()+":"+timestamp.getMinutes()+":"+timestamp.getSeconds();
+    var newDate = new Date();
+    newDate.setTime(timestamp);
+    dateString = newDate.toLocaleTimeString();
+
+	//timestamp     = timestamp.getHours()+":"+timestamp.getMinutes()+":"+timestamp.getSeconds();
 	var messageType = "";
 	if(messageObj.type=="voice")
 		messageType = "(Voice) ";
@@ -126,7 +130,7 @@ function loadGroupMessageHistory(sender, messageObj) {
     newRow.find(".sender").text(sender);
     newRow.find(".content").text(messageType+messageObj.message);
 	newRow.find(".msgInfo").attr("title","Original Language: "+messageObj.lang);
-	newRow.find(".timestamp").text(timestamp);
+	newRow.find(".timestamp").text(dateString);
     msgRows.last().after(newRow);
 	$(".msgInfo").tooltip({container: 'body'});
 }
@@ -163,14 +167,17 @@ function loadPrivateMessageHistory(sender, receiver, messageObj) {
 	}
 	var msgRows = $('.'+privateChatname +' .privateMsg');
 	var timestamp = new Date(messageObj.timestamp);
-	timestamp     = timestamp.getHours()+":"+timestamp.getMinutes()+":"+timestamp.getSeconds();
+    var newDate = new Date();
+    newDate.setTime(timestamp);
+    timeString = newDate.toLocaleTimeString();
+	//timestamp     = timestamp.getHours()+":"+timestamp.getMinutes()+":"+timestamp.getSeconds();
 	var messageType = "";
 	if(messageObj.type=="voice")
 		messageType = "(Voice) ";
     var newRow = msgRows.first().clone();
     newRow.find(".sender").text(sender);
     newRow.find(".content").text(messageType+messageObj.message);
-	newRow.find(".timestamp").text(timestamp);
+	newRow.find(".timestamp").text(timeString);
 	//newRow.find(".msgInfo").attr("title","Original Language: "+messageObj.lang);
 	newRow.show();
     msgRows.last().after(newRow);
