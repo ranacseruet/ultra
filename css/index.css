@@ -108,3 +108,7 @@ hr{
 .timestamp{
 	font-size: .80em;
 }
+
+.privateChatBox .audio,.privateChatBox .closeBox{
+	font-size: 1.8em;
+}
