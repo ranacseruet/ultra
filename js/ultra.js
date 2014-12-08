@@ -60,6 +60,14 @@ function initializeGroupChat() {
         sendGroupMessage();
         return false;
     });
+	
+	$("#textToSend").keypress(function (e) {
+		if (e.which == 13) {
+			sendGroupMessage();
+			return false;
+		}
+	});
+	
     rChat.joinGroup("UpStageCoder",loadGroupMembers, groupMemberLeaved, function(status){
         rChat.getGroupMembers(loadGroupMembers);
     });
@@ -168,9 +176,7 @@ function loadPrivateMessageHistory(sender, receiver, messageObj) {
 	newRow.show();
     msgRows.last().after(newRow);
 	$(".msgInfo").tooltip({container: 'body'});
-    //TODO show message in private message box
-    //create chat box if not available
-    //.show()
+    
 }
 
 function createPrivateChateBox(userId){
@@ -184,6 +190,11 @@ function createPrivateChateBox(userId){
 		sendPrivateMessage(userId); 
     });
 	
+	newBox.find(".privateTextToSend").keypress(function (e) {
+		if (e.which == 13) {
+			sendPrivateMessage(userId);
+		}
+	});
 	newBox.find(".closeBox").click(function(){
 		rChat.leavePrivateChat(userId, leftPrivateChat);
     });
