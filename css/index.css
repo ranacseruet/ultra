@@ -17,6 +17,9 @@ hr{
 	margin-top: 10px;
 }
 
+.demo-container{
+	font-size: 12px;
+}
 .border{
 	border: 1px solid #000;
 	height: 300px;
@@ -40,6 +43,10 @@ hr{
 .name,.chatWith{
 	font-weight: bold;
 }
+.chatWith{
+	text-transform: capitalize;
+}
+
 .msg{
 	margin-bottom: 5px;
 }
@@ -83,4 +90,9 @@ hr{
 
 .audio.stop{
 	color: red;
+}
+
+.np{
+	padding-left: 0px;
+	padding-right: 0px;
 }
