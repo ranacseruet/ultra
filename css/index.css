@@ -63,7 +63,7 @@ hr{
 	border-bottom: 0px;
 	padding-top: 3px;
 }
-.audio:hover,.closeBox:hover{
+.privateChatBox .audio:hover,.privateChatBox .closeBox:hover{
 	cursor: pointer;
 }
 .privateChatBox{
