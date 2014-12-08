@@ -12,6 +12,12 @@ $(document).ready(function(){
 
     $('.intro-modal').modal({ backdrop: 'static', keyboard: false });
     $("#joinBtn").click(tryLogin);
+    //console.log("Browser:"+platform.name);
+    if(platform && platform.name.toString() != "Chrome") {
+        //console.log("here");
+        $(".compatibility-warning").show().removeClass("hidden");
+        return;
+    }
     robotSpeaker = new RobotSpeaker();
 });
 

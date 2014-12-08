@@ -57,6 +57,7 @@
 						<option value="">Select language</option>
 					</select>
 					<span>Logged in As: <label id="username"></label>&nbsp;&nbsp;&nbsp;<a href="">logout</a></span>
+					<span class="text-danger pull-right hidden compatibility-warning"><h4>Warning! Please use latest Google Chrome Browser for voice based service.</h4></span>
 				</div>
 				<div class="group-header row top10">
 					<div class="col-md-2 text-center topGroupheader">
