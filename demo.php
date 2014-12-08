@@ -56,7 +56,7 @@
 					<select id="language">
 						<option value="">Select language</option>
 					</select>
-					<span>Logged in As: <label id="userId"></label>&nbsp;&nbsp;&nbsp;<a href="">logout</a></span>
+					<span>Logged in As: <label id="username"></label>&nbsp;&nbsp;&nbsp;<a href="">logout</a></span>
 				</div>
 				<div class="group-header row top10">
 					<div class="col-md-2 text-center topGroupheader">

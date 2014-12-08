@@ -30,7 +30,7 @@ function tryLogin()
             rChat.onMessage(loadGroupMessageHistory, loadPrivateMessageHistory);
             loadAvailableLanguages();
             $(".intro-modal").modal('hide');
-            $("#userId").html(identity);
+            $("#username").html(identity);
         }
     });
     return false;
