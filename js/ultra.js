@@ -100,6 +100,7 @@ function sendGroupMessage() {
     messageObj["lang"]    = language;
     messageObj["type"]    = 'text';
     messageObj["genre"]   = 'group';
+    messageObj["timestamp"]   = Date.now();
     //console.log(messageObj);
     rChat.sendGroupMessage(messageObj, loadGroupMessageHistory);
 
@@ -193,6 +194,7 @@ function sendPrivateMessage(userId) {
     messageObj["lang"]    = language;
     messageObj["type"]    = 'text';
     messageObj["genre"]   = 'private';
+    messageObj["timestamp"]   = Date.now();
     //console.log(messageObj);
     rChat.sendPrivateMessage(messageObj, userId, loadPrivateMessageHistory);
 
@@ -210,6 +212,7 @@ function initAudioListener(userId) {
     console.log("private audio call btn: "+btn.html());
     btn.unbind('click');
     btn.click(function startListen() {
+        $(this).removeClass("start").addClass("stop");
         console.log("starting to listen audio input");
         if(inAudioChat){
             alert("You are in a audio chat already. stop that first");
@@ -225,6 +228,7 @@ function initAudioListener(userId) {
         inAudioChat = true;
         btn.click(function stoptListen() {
             listener.stop();
+            $(this).removeClass("stop").addClass("start");
             inAudioChat = false;
             btn.click(startListen);
         });
