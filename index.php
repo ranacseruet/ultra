@@ -183,7 +183,11 @@
 							again and again.</li>
 							<li>Currently the chat system is powered by <a href="https://www.respoke.io">Respoke API</a> FREE tier, which
 							limits to 5 concurrent users only! We will upgrade soon and you will be able to try it with more of your friends!</li>
-
+							<li>Currently we are relying on third party services for all backend process, which causes some additional message communication
+							cycle(sender->voice recognition service->recognized message back to sender-> to chat server->to receiver), which is delaying the communication significantly.
+							We are planning to reduce it by establishing a backend infrastructure that will reduce these cycles and give you several times faster(sender->
+							ULTra server on cloud->recognized message to receiver) speed
+							even for voice recognized messages!</li>
 						</ul>
 					</div>
 				</div>
