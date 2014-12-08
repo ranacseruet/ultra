@@ -17,6 +17,9 @@ hr{
 	margin-top: 10px;
 }
 
+.demo-container{
+	font-size: 12px;
+}
 .border{
 	border: 1px solid #000;
 	height: 300px;
@@ -33,13 +36,17 @@ hr{
 	cursor: pointer;
 	background-color: #269abc;
 }
-.avatar-pic{
+.groupMsg .avatar-pic{
 	margin-left: 8px;
 }
 
 .name,.chatWith{
 	font-weight: bold;
 }
+.chatWith{
+	text-transform: capitalize;
+}
+
 .msg{
 	margin-bottom: 5px;
 }
@@ -49,7 +56,7 @@ hr{
 }
 
 .topArea{
-	background-color: gray;
+	background-color: #999;
 	height: 30px;
 	color: white;
 	border: 1px solid #000;
@@ -74,6 +81,7 @@ hr{
 	height: 300px;
 	max-height: 300px !important;
 	overflow:auto;
+	padding-top: 10px;
 }
 
 .audio.start{
@@ -82,4 +90,9 @@ hr{
 
 .audio.stop{
 	color: red;
+}
+
+.np{
+	padding-left: 0px;
+	padding-right: 0px;
 }

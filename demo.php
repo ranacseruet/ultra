@@ -28,7 +28,7 @@
 
         <!-- Add your site or application content here -->
 		<?php include 'header.php';?>
-        <div class="container">
+        <div class="container demo-container">
 			<div id="intro-section">
 				<div class="modal fade intro-modal" tabindex="-1" role="dialog" aria-labelledby=""  aria-hidden="true" >
 					<div class="modal-dialog">
@@ -68,13 +68,16 @@
 						</div>
 					</div>
 					
-					<div class="col-md-5 border msgList">
+					<div class="col-md-6 border msgList">
 						<div class="row groupMsg">
 							<div class="col-md-2 text-left">
 								<span class="glyphicon glyphicon-user avatar-pic"></span>
 								<span class="name text-success sender">Rana</span>
 							</div>
-							<div class="col-md-9  text-left content">
+							<div class="col-md-8  text-left content">
+							</div>
+							<div class="col-md-1  text-left np">
+								<span class="timestamp"></span>
 							</div>
 							<div class="col-md-1  text-left">
 								<span class="glyphicon glyphicon-info-sign text-primary msgInfo" data-toggle="tooltip" data-placement="top" title="time and lang"></span>
@@ -83,7 +86,7 @@
 					</div>
 				</div>
 				<div class="row">
-					<textarea name="textToSend" id="textToSend" class="col-md-6"></textarea>
+					<textarea name="textToSend" id="textToSend" class="col-md-7"></textarea>
 					<button type="button" class="btn btn-default btn-primary col-md-1 groupSendBtn">Send</button>	
 				</div>
 				
@@ -103,16 +106,19 @@
 						<div class="privateMsgList">
 							<div class="privateMsg col-md-12 ">
 								<div class="row">
-									<div class="col-md-2 text-left">
-										<span class="glyphicon glyphicon-user avatar-pic"></span>
+									<div class="col-md-2 text-left np">
 										<span class="name text-success sender">Rana</span>
 									</div>
-									<div class="col-md-8  text-left content">
+									<div class="col-md-7  text-left content">
 										hello
 									</div>
+									<div class="col-md-1  text-left np">
+										<span class="timestamp"></span>
+									</div>
+									<!--
 									<div class="col-md-1  text-left">
 										<span class="glyphicon glyphicon-info-sign text-primary msgInfo" data-toggle="tooltip" data-placement="top" title="time and lang"></span>
-									</div>
+									</div>-->
 								</div>
 							</div>
 						</div>
