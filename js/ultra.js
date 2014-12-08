@@ -180,7 +180,10 @@ function createPrivateChateBox(userId){
 }
 
 function leftPrivateChat(userId){
-	$(".private-chat-"+userId).remove();
+    if(inAudioChat) {
+        stopListening($(".private-chat-" + userId + " .audio.stop"), userId)
+    }
+    $(".private-chat-"+userId).remove();
 }
 
 function sendPrivateMessage(userId) {
@@ -207,31 +210,50 @@ function sendPrivateMessage(userId) {
 
 //*************** Audio Chat *********************
 var inAudioChat = false;
+var listener;
+
 function initAudioListener(userId) {
-    var btn = $(".private-chat-"+userId+" .audio.start");
-    console.log("private audio call btn: "+btn.html());
+    var btn = $(".private-chat-" + userId + " .audio.start");
+    console.log("private audio call btn: " + btn.html());
     btn.unbind('click');
-    btn.click(function startListen() {
-        $(this).removeClass("start").addClass("stop");
-        console.log("starting to listen audio input");
-        if(inAudioChat){
-            alert("You are in a audio chat already. stop that first");
-            return;
-        }
-        var listener = new AudioListener($("#language").val(), function(text){
-            console.log("audio: "+text);
-            rChat.sendPrivateMessage({message:text, lang:$("#language").val(),
-                "type":"voice", "genre":"private"}, userId, loadPrivateMessageHistory);
-        });
-        listener.listen();
-        btn.unbind('click');
-        inAudioChat = true;
-        btn.click(function stoptListen() {
-            listener.stop();
-            $(this).removeClass("stop").addClass("start");
-            inAudioChat = false;
-            btn.click(startListen);
-        });
+    btn.click(function(){
+        startListening(btn, userId);
     });
 }
+
+function startListening(btn, userId) {
+    btn.removeClass("start").addClass("stop");
+    console.log("starting to listen audio input");
+    if (inAudioChat) {
+        alert("You are in a audio chat already. stop that first");
+        return;
+    }
+    listener = new AudioListener($("#language").val(), function(text){
+        sendRecognizedVoiceMessage(text, userId);
+    });
+    listener.listen();
+    btn.unbind('click');
+    inAudioChat = true;
+    btn.click(function () {
+        stopListening(btn, userId);
+    });
+}
+
+function sendRecognizedVoiceMessage(text, userId) {
+    console.log("audio: " + text+" sending to:"+userId);
+    rChat.sendPrivateMessage({
+        message: text, lang: $("#language").val(),
+        "type": "voice", "genre": "private"
+    }, userId, loadPrivateMessageHistory);
+}
+
+function stopListening(btn, userId) {
+    listener.stop();
+    btn.removeClass("stop").addClass("start");
+    inAudioChat = false;
+    btn.click(function(){
+        startListening(btn, userId);
+    });
+}
+
 //*************** End Audio Chat *****************
