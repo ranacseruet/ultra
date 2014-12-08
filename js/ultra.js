@@ -96,7 +96,7 @@ function groupMemberLeaved(member) {
     var ep		= member.getEndpoint();
 	var user	= $(".user-"+ ep.id);
     user.remove();
-    rChat.leavePrivateChat(userId, leftPrivateChat);
+    rChat.leavePrivateChat(ep.id, leftPrivateChat);
 }
 
 function sendGroupMessage() {
