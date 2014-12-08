@@ -218,7 +218,7 @@
 							<a href="https://github.com/ranacseruet/ultra" class="btn btn-default btn-lg"><i class="fa fa-github fa-fw"></i> <span class="network-name">Github</span></a>
 						</li>
 						<li>
-							<a href="https://www.linkedin.com/in/ranacseruet" class="btn btn-default btn-lg"><i class="fa fa-google-plus fa-fw"></i> <span class="network-name">LinkedIn</span></a>
+							<a href="https://github.com/koding/global.hackathon/blob/master/Teams/UpStageCoder/ABOUT.md" class="btn btn-default btn-lg"><i class="fa fa-google-plus fa-fw"></i> <span class="network-name">Team UpStageCoder</span></a>
 						</li>
 					</ul>
 				</div>
