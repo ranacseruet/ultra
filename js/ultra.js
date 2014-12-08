@@ -254,7 +254,7 @@ function sendRecognizedVoiceMessage(text, userId) {
     console.log("audio: " + text+" sending to:"+userId);
     rChat.sendPrivateMessage({
         message: text, lang: $("#language").val(),
-        "type": "voice", "genre": "private"
+        "type": "voice", "genre": "private", "timestamp": Date.now()
     }, userId, loadPrivateMessageHistory);
 }
 
