@@ -111,8 +111,12 @@
 										hello
 									</div>
 									<div class="col-md-1  text-left">
-										<span class="glyphicon glyphicon-info-sign text-primary msgInfo" data-toggle="tooltip" data-placement="top" title="time and lang"></span>
+										<span class="time"></span>
 									</div>
+									<!--
+									<div class="col-md-1  text-left">
+										<span class="glyphicon glyphicon-info-sign text-primary msgInfo" data-toggle="tooltip" data-placement="top" title="time and lang"></span>
+									</div>-->
 								</div>
 							</div>
 						</div>

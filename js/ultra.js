@@ -113,7 +113,10 @@ function loadGroupMessageHistory(sender, messageObj) {
     var msgRows = $('.groupMsg');
     var newRow = msgRows.last().clone();
     newRow.find(".sender").text(sender);
-    newRow.find(".content").text(messageObj.message);
+	var messageType = "";
+	if(messageObj.type=="voice")
+		messageType = "(Voice) ";
+    newRow.find(".content").text(messageType+messageObj.message);
 	newRow.find(".msgInfo").attr("title","Original Language: "+messageObj.lang);
     msgRows.last().after(newRow);
 	$(".msgInfo").tooltip({container: 'body'});
@@ -152,7 +155,10 @@ function loadPrivateMessageHistory(sender, receiver, messageObj) {
 	var msgRows = $('.'+privateChatname +' .privateMsg');
     var newRow = msgRows.first().clone();
     newRow.find(".sender").text(sender);
-    newRow.find(".content").text(messageObj.message);
+	var messageType = "";
+	if(messageObj.type=="voice")
+		messageType = "(Voice) ";
+    newRow.find(".content").text(messageType+messageObj.message);
 	newRow.find(".msgInfo").attr("title","Original Language: "+messageObj.lang);
 	newRow.show();
     msgRows.last().after(newRow);
