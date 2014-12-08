@@ -1,3 +1,7 @@
+<?php
+$base_url = "http://localhost/ultra/";
+?>
+
 <!-- Navigation -->
 <nav class="navbar navbar-inverse navbar-fixed-top header" role="navigation">
 	<div class="container">
@@ -15,13 +19,13 @@
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
 				<li>
-					<a href="#about">About</a>
+					<a href="<?php echo $base_url;?>#about">About</a>
 				</li>
 				<li>
-					<a href="demo.php">Try It!</a>
+					<a href="<?php echo $base_url;?>demo.php">Try It!</a>
 				</li>
 				<li>
-					<a href="#contact">Contact</a>
+					<a href="<?php echo $base_url;?>#contact">Contact</a>
 				</li>
 				
 			</ul>
