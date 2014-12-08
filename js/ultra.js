@@ -185,6 +185,7 @@ function createPrivateChateBox(userId){
 	newBox.addClass("private-chat-"+userId);
 	newBox.find(".chatWith").text(userId);
     privateChatBox.last().after(newBox);
+    newBox.css('position', 'absolute').css('bottom','0px');
 	
     newBox.find(".privateSendBtn").click(function(){
 		sendPrivateMessage(userId); 

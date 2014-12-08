@@ -50,11 +50,15 @@
 			</div>
          </div>
 
-       
+			<hr>
+				<h3 class="text-center">Proudly Built With:</h3>
+				<img src="#" width="300">
+				<img src="#" width="300">
+				<img src="#" width="300">
+			<hr>
 
         <!-- about -->
         <div id="about" class="margin-top">
-			 <hr>
 			<div class="row">
 				<div class="col-md-12">
 					<h1>
