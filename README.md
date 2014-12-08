@@ -1,8 +1,6 @@
 # [ULTraChat](http://urkk41752e17.ranacseruet.koding.io/ultra/)
 
-This is a sample submission repository for the hackathon. If you don't know what that is, please [go here](https://koding.com/Hackathon). You can fork this repo and use this as a starting point. You *do not* have
-send a pull request for this repo. This is just a sample of what your repo can look like when you submit it
-to us as part of the final process for the hackathon.
+We are team [UpStageCoder](https://github.com/koding/global.hackathon/blob/master/Teams/UpStageCoder/ABOUT.md), have choose the theme 'Challenges associated with real time communication and translation' and implemented this project as an outcome of our idea.
 
 ## Description
 
