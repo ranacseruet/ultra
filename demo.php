@@ -58,7 +58,15 @@
 					</select>
 					<span>Logged in As: <label id="userId"></label>&nbsp;&nbsp;&nbsp;<a href="">logout</a></span>
 				</div>
-				<div id="groupBox" class="row top10">
+				<div class="group-header row top10">
+					<div class="col-md-2 text-center topGroupheader">
+						<h4>Online Users</h4>
+					</div>
+					<div class="col-md-6 text-center topGroupheader">
+						<h4>Group Chat History</h4>
+					</div>
+				</div>
+				<div id="groupBox" class="row ">
 					
 					<div  class="col-md-2 border onlineUserList">
 						<div class="row onlineUser">
