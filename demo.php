@@ -154,6 +154,7 @@
         <script src="js/plugins.js"></script>
         <script src="js/vendor/bootstrap.min.js"></script>
 		<script src="js/vendor/respoke.min.js"></script>
+		<script src="js/vendor/platform.js"></script>
 		<script src="js/lib/speech.js"></script>
 		<script src="js/lib/ULTraChat.js"></script>
 		<script src="js/lib/ytranslator.js"></script>

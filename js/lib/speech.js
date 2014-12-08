@@ -5,7 +5,7 @@ function RobotSpeaker()
 {
     this.u = new SpeechSynthesisUtterance();
 
-    this.u.rate = 1.2;
+    this.u.rate = 1.0;
     this.u.onend = function(event) {
         console.log('Finished in ' + event.elapsedTime + ' seconds.');
     };
@@ -19,7 +19,13 @@ function RobotSpeaker()
 function AudioListener(lang, callback)
 {
     this.listener = new webkitSpeechRecognition();
-    this.listener.continuous = true;
+
+    console.log("Browser: "+platform.name);
+
+    if(platform.os.toString().indexOf("OS X") > -1) {
+        this.listener.continuous = true;
+    }
+
     //this.listener.interimResults = true;
     this.listener.lang = lang;
 
@@ -35,7 +41,7 @@ function AudioListener(lang, callback)
         }
     };
     this.listener.onsoundstart = function(event) {
-        console.log("sound started");
+        //console.log("sound started");
         this.startTime = Date.now();
         console.log(event);
     };
@@ -44,7 +50,7 @@ function AudioListener(lang, callback)
         console.log(event);
     };
     this.listener.onsoundend = function(event) {
-        console.log("sound stopped");
+        //console.log("sound stopped");
         console.log(event);
     };
     this.listen = function() {
@@ -53,5 +59,9 @@ function AudioListener(lang, callback)
     this.stop = function() {
         this.listener.stop();
         console.log("audio listener stopped");
+    }
+
+    this.isContinuous = function() {
+        return this.listener.continuous;
     }
 }

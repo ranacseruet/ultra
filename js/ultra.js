@@ -274,6 +274,9 @@ function sendRecognizedVoiceMessage(text, userId) {
         message: text, lang: $("#language").val(),
         "type": "voice", "genre": "private", "timestamp": Date.now()
     }, userId, loadPrivateMessageHistory);
+    if(!listener.isContinuous()){
+        stopListening($(".private-chat-" + userId + " .audio.stop"), userId);
+    }
 }
 
 function stopListening(btn, userId) {
