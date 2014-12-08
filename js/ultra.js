@@ -78,10 +78,8 @@ function loadGroupMembers(members) {
     var usersList = $(".onlineUserList");
     $.each(members, function(index){
         var endPoint = members[index].getEndpoint();
-
         var userElement = usersList.find(".row:first").clone();
-        if(endPoint.id != rChat.userId && !usersList.hasClass("user-"+endPoint.id)) {
-			console.log("herre");
+        if(endPoint.id != rChat.userId && !$('.onlineUser').hasClass("user-"+endPoint.id)) {
 			userElement.addClass("user-"+endPoint.id);
             userElement.find(".identityName").html(endPoint.id);
             usersList.append(userElement);
