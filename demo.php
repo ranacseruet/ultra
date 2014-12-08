@@ -83,9 +83,9 @@
 								<span class="glyphicon glyphicon-user avatar-pic"></span>
 								<span class="name text-success sender">Rana</span>
 							</div>
-							<div class="col-md-8  text-left content">
+							<div class="col-md-7  text-left content">
 							</div>
-							<div class="col-md-1  text-left np">
+							<div class="col-md-2  text-left np">
 								<span class="timestamp"></span>
 							</div>
 							<div class="col-md-1  text-left">
@@ -121,7 +121,7 @@
 									<div class="col-md-7  text-left content">
 										hello
 									</div>
-									<div class="col-md-1  text-left np">
+									<div class="col-md-2  text-left np">
 										<span class="timestamp"></span>
 									</div>
 									<!--
