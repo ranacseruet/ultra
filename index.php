@@ -52,9 +52,11 @@
 
 			<hr>
 				<h3 class="text-center">Proudly Built With:</h3>
-				<img src="#" width="300">
-				<img src="#" width="300">
-				<img src="#" width="300">
+				<div class="text-center">
+					<img class="api-img" src="img/respoke.jpg" width="300">
+					<img class="api-img" src="img/yandex.png" width="300">
+					<img class="api-img" src="img/spech.png" width="300">
+				</div>
 			<hr>
 
         <!-- about -->
@@ -67,33 +69,29 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-md-8">
+				<div class="col-md-12">
 					<div class="name">Real Time Communication:</div>
 					<div class="description">
 						ULTraChat is a web based real time communication system, which allows you to communicate with people, who don't speak/understand your
 						language.
 					</div>
 				</div>
-				<div class="col-md-4">
-					<img class=" img-responsive pull-right" src="https://avatars0.githubusercontent.com/u/368209?v=3&s=200">
-				</div>
+				
 			</div>
 			
 			<div class="row top10">
-				<div class="col-md-8">
+				<div class="col-md-12">
 					<div class="name">Group/Private Chat:</div>
 					<div class="description">
 						You can text chat with anyone in the group chat room, all theirs message will be shown in your own preferred language and yours to them as
 						their preferred language.
 					</div>
 				</div>
-				<div class="col-md-4">
-					<img class=" img-responsive pull-right" src="https://avatars2.githubusercontent.com/u/1213589?v=3&s=200">
-				</div>
+				
 			</div>
 
 			<div class="row top10">
-				<div class="col-md-8">
+				<div class="col-md-12">
 					<div class="name">Voice Communication:</div>
 					<div class="description">
 						You can also communicate to other people(speaking different language) via voice as well. This is available in private
@@ -101,9 +99,7 @@
 						voice in his preffered language.
 					</div>
 				</div>
-				<div class="col-md-4">
-					<img class=" img-responsive pull-right" src="https://avatars2.githubusercontent.com/u/1213589?v=3&s=200">
-				</div>
+				
 			</div>
          </div>
 

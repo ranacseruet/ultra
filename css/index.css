@@ -45,6 +45,7 @@ hr{
 }
 .chatWith{
 	text-transform: capitalize;
+	font-size: 1.8em;
 }
 
 .msg{
@@ -103,4 +104,17 @@ hr{
 .topGroupheader{
 	background-color: #269abc;
 	color: #fff;
+}
+
+.privateChatBox .audio:hover,.privateChatBox .closeBox:hover{
+	cursor: pointer;
+}
+
+.api-img{
+	padding: 15px;
+	
+}
+
+.privateChatBox .audio,.privateChatBox .closeBox{
+	font-size:  1.8em;
 }
