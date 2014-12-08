@@ -102,7 +102,7 @@
 				
 			</div>
 			
-			<div id="private-section privateBox" class="row top10">
+			<div id="private-section" class="row top10">
 				<div class="col-md-3  privateChatBox">
 					<div class="row privateBorder">
 						<div class="col-md-12 topArea ">

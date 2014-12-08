@@ -19,6 +19,7 @@ $(document).ready(function(){
         return;
     }
     robotSpeaker = new RobotSpeaker();
+    $("#private-section").css('position', 'absolute').css('bottom','0px').css('width','100%').css('z-index','1000');
 });
 
 function tryLogin()
@@ -169,7 +170,7 @@ function loadPrivateMessageHistory(sender, receiver, messageObj) {
 		privateChatname = 'private-chat-'+receiver;
 	
 	if(!privateChatBox.hasClass(privateChatname)){
-		createPrivateChateBox(sender);
+        enterPrivateChat(sender);
 	}
 	var msgRows = $('.'+privateChatname +' .privateMsg');
 	var timestamp = new Date(messageObj.timestamp);
@@ -197,7 +198,7 @@ function createPrivateChateBox(userId){
 	newBox.addClass("private-chat-"+userId);
 	newBox.find(".chatWith").text(userId);
     privateChatBox.last().after(newBox);
-    newBox.css('position', 'absolute').css('bottom','0px');
+    //newBox.css('position', 'absolute').css('bottom','0px');
 	
     newBox.find(".privateSendBtn").click(function(){
 		sendPrivateMessage(userId); 
