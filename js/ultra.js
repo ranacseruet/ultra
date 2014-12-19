@@ -83,7 +83,7 @@ function initializeGroupChat() {
 
 function loadGroupMembers(members) {
     var usersList = $(".onlineUserList");
-    $.each(members, function(index){
+    /*$.each(members, function(index){
         var endPoint = members[index].getEndpoint();
         var userElement = usersList.find(".row:first").clone();
         if(endPoint.id != rChat.userId && !$('.onlineUser').hasClass("user-"+endPoint.id)) {
@@ -94,7 +94,7 @@ function loadGroupMembers(members) {
                 enterPrivateChat(endPoint.id);
             });
         }
-    });
+    });*/
 }
 
 function groupMemberLeaved(member) {

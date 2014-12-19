@@ -51,7 +51,7 @@ function ULTraChat(translator) {
 			"id": groupName,
 			"onJoin": function(evt){
 				console.log("new user joined: "+evt.connection);
-				joinHandler([evt.connection]);
+				joinHandler(evt.connection);
 			},
 			"onLeave": function(evt){
 				console.log("user is leaving: "+evt.connection);
@@ -71,6 +71,10 @@ function ULTraChat(translator) {
 
 	this.getGroupMembers = function(callback) {
 		// request all current endpoints
+		if(!this.group){
+			return callback(false);
+		}
+
 		this.group.getMembers().done(function getMembers(members) {
 			console.log(members.length+" members found\n");
 			callback(members);

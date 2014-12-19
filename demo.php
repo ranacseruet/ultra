@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
@@ -21,7 +21,7 @@
 		<link href="css/index.css" rel="stylesheet">
         <script src="js/vendor/modernizr-2.6.2.min.js"></script>
     </head>
-    <body>
+    <body ng-app="chat">
         <!--[if lt IE 7]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
@@ -29,34 +29,32 @@
         <!-- Add your site or application content here -->
 		<?php include 'header.php';?>
         <div class="container demo-container">
-			<div id="intro-section">
-				<div class="modal fade intro-modal" tabindex="-1" role="dialog" aria-labelledby=""  aria-hidden="true" >
-					<div class="modal-dialog">
-						<div class="modal-content">
-						  <div class="modal-header" style="background: #00396a; border-radius: 2px 2px 0 0;">
-								<h3 style="color: #fff; float: left;">Join in chat room</h3>
-								<div class="clearfix"></div>
-							</div>
-							<div class="modal-body text-center">
-								<span class="join-error-status text-danger"></span>
-								<form id="form-upload-logo" role="form">
-									<input type="text" id="identity">
-									<br/><br/>
-									<button id="joinBtn" class="btn btn-primary" data-id="">Enter</button>
-								</form>
-								<div class="clearfix"></div>
-						  </div>
-					  </div>
-				  </div>
-				</div>
+			<div id="intro-section" ng-controller="LoginBoxController">
+				<script type="text/ng-template" id="loginModal">
+					<div class="modal-header" style="background: #00396a; border-radius: 2px 2px 0 0;">
+						<h3 style="color: #fff; float: left;">Join in chat room</h3>
+						<div class="clearfix"></div>
+					</div>
+					<div class="modal-body text-center">
+						<span class="join-error-status text-danger"></span>
+						<form id="form-upload-logo" role="form">
+							<input type="text" id="identity" ng-model="identity">
+							<br/><br/>
+							<button id="joinBtn" class="btn btn-primary" data-id="" ng-click="tryLogin()">Enter</button>
+						</form>
+						<div class="clearfix"></div>
+					</div>
+				</script>
 			</div>
 			
 			<div id="group-section">
 				<div class="row">
-					<select id="language">
-						<option value="">Select language</option>
-					</select>
-					<span>Logged in As: <label id="username"></label>&nbsp;&nbsp;&nbsp;<a href="">logout</a></span>
+					<span ng-controller="LanguageController">
+						<select id="language" ng-model="lang" ng-change="languageChanged()">
+							<option ng-repeat="lang in languages" value="{{lang.key}}">{{lang.value}}</option>
+						</select>
+					</span>
+					<span ng-controller="GroupController">Logged in As: <label></label>&nbsp;&nbsp;&nbsp;<a href="">logout</a></span>
 					<span class="text-danger pull-right hidden compatibility-warning"><h4>Warning! Please use latest Google Chrome Browser for voice based service.</h4></span>
 				</div>
 				<div class="group-header row top10">
@@ -69,42 +67,41 @@
 				</div>
 				<div id="groupBox" class="row ">
 					
-					<div  class="col-md-2 border onlineUserList">
-						<div class="row onlineUser">
+					<div  class="col-md-2 border onlineUserList"  ng-controller="UserListController as usrCtl">
+						<div class="row onlineUser" ng-repeat="user in users">
 							<div class="col-md-2 text-left">
 								<span class="glyphicon glyphicon-user "></span>
 							</div>
-							<div class="col-md-8  text-left identityName">Rana</div>
+							<div class="col-md-8  text-left identityName" ng-click="openPrivateChat(user)">{{user}}</div>
 						</div>
 					</div>
 					
-					<div class="col-md-6 border msgList">
-						<div class="row groupMsg">
+					<div class="col-md-6 border msgList" ng-controller="GroupMessageController">
+						<div class="row groupMsg" ng-repeat="msg in messages">
 							<div class="col-md-2 text-left">
 								<span class="glyphicon glyphicon-user avatar-pic"></span>
-								<span class="name text-success sender">Rana</span>
+								<span class="name text-success sender"></span>
 							</div>
-							<div class="col-md-7  text-left content">
-							</div>
+							<div class="col-md-7  text-left content">{{msg.message}}</div>
 							<div class="col-md-2  text-left np">
-								<span class="timestamp"></span>
+								<span class="timestamp">{{msg.timestamp}}</span>
 							</div>
 							<div class="col-md-1  text-left">
 								<span class="glyphicon glyphicon-info-sign text-primary msgInfo" data-toggle="tooltip" data-placement="top" title="time and lang"></span>
 							</div>
 						</div>
 					</div>
-				</div>
-				<div class="row">
-					<textarea name="textToSend" id="textToSend" class="col-md-7"></textarea>
-					<button type="button" class="btn btn-default btn-primary col-md-1 groupSendBtn">Send</button>	
+					<div class="row"  ng-controller="GroupMessageController">
+						<textarea name="textToSend" id="textToSend" class="col-md-7" ng-model="textToSend"></textarea>
+						<button type="button" class="btn btn-default btn-primary col-md-1 groupSendBtn" ng-click="sendGroupMessage()">Send</button>
+					</div>
 				</div>
 				
 			</div>
 			
-			<div id="private-section" class="row top10">
-				<div class="col-md-3  privateChatBox">
-					<div class="row privateBorder">
+			<div id="private-section" class="row top10" ng-controller="PrivateMessageController as pCtl">
+				<div class="col-md-3  privateChatBox" ng-repeat="box in boxes">
+					<div class="row privateBorder" ng-class="box.class">
 						<div class="col-md-12 topArea ">
 							<div class="row">
 								<span class="chatWith pull-left"></span>
@@ -156,9 +153,12 @@
         <script src="js/vendor/bootstrap.min.js"></script>
 		<script src="js/vendor/respoke.min.js"></script>
 		<script src="js/vendor/platform.js"></script>
+		<script src="js/vendor/angular.min.js"></script>
+		<script src="js/vendor/ui-bootstrap-tpls-0.12.0.js"></script>
 		<script src="js/lib/speech.js"></script>
 		<script src="js/lib/ULTraChat.js"></script>
 		<script src="js/lib/ytranslator.js"></script>
-		<script src="js/ultra.js"></script>
+		<!--<script src="js/ultra.js"></script>-->
+		<script src="js/main.js"></script>
     </body>
 </html>
