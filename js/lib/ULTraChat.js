@@ -98,12 +98,15 @@ function ULTraChat(translator) {
 
 	this.onMessage = function (grpMsgCallback, prvtMsgCallback){
 		var msgObj, sender;
+		
 		// listen for incoming messages
 		this.client.listen('message', function (evt) {
+			
 			console.log("received a message: "+evt.message.message);
 			msgObj = JSON.parse(evt.message.message);
 			sender = evt.message.endpointId;
 			if(msgObj.lang == me.myLang){
+				
 				return deliverProcessedMessage(msgObj.message);
 			}
 			me.translator.translate(msgObj.message, msgObj.lang, me.myLang, deliverProcessedMessage);
@@ -118,6 +121,7 @@ function ULTraChat(translator) {
 				});
 			}
 			else {
+				
 				grpMsgCallback(sender, msgObj);
 			}
 		}

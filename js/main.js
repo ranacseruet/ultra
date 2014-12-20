@@ -69,6 +69,7 @@ function GroupController($scope, $rootScope, uchat, getIdentity) {
 					console.log("group join attempt failed");
 				}
 		});
+		
 	});
 
 }
@@ -115,7 +116,7 @@ function GroupMessageController($scope, $rootScope, uchat) {
 
 	//TODO catch language change event
 	$scope.lang = "en";
-
+	
 	$scope.sendGroupMessage = function() {
 		console.log("sending text: "+$scope.textToSend);
 		var messageObj = {};
@@ -126,18 +127,30 @@ function GroupMessageController($scope, $rootScope, uchat) {
 		messageObj["timestamp"]   = Date.now();
 		//console.log(messageObj);
 		$scope.textToSend = "";
-		uchat.sendGroupMessage(messageObj, $scope.loadGroupMessage);
+		uchat.sendGroupMessage(messageObj, $scope.loadGroupMessageHistory);
 	};
-
-	$scope.loadGroupMessage = function(sender, msg){
+	
+	$scope.loadGroupMessageHistory = function(sender, msg){
 		console.log("loading to message history");
 		msg.sender = sender;
+		
 		$scope.$apply(function () {
-			//TODO not working - may be because controller is bound to two different element?
+			var timestamp = new Date(msg.timestamp);
+			var newDate   = new Date();
+			newDate.setTime(timestamp);
+			var dateString = newDate.toLocaleTimeString();
+			msg.timestamp  = dateString;
 			$scope.messages.push(msg);
+			console.log(msg);
 		});
 	};
+	
+	$scope.loadPrivateMessageHistory = function(){
+		
+	}
+	uchat.onMessage($scope.loadGroupMessageHistory,$scope.loadPrivateMessageHistory);
 }
+
 
 function PrivateChatBoxesController($scope, $rootScope, uchat) {
 	$scope.boxes = [{class: "private-chat-rana"}];

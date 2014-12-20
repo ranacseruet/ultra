@@ -81,14 +81,14 @@
 								<div class="row groupMsg" ng-repeat="msg in messages">
 									<div class="col-md-2 text-left">
 										<span class="glyphicon glyphicon-user avatar-pic"></span>
-										<span class="name text-success sender"></span>
+										<span class="name text-success sender">{{msg.sender}}</span>
 									</div>
 									<div class="col-md-7  text-left content">{{msg.message}}</div>
 									<div class="col-md-2  text-left np">
 										<span class="timestamp">{{msg.timestamp}}</span>
 									</div>
 									<div class="col-md-1  text-left">
-										<span class="glyphicon glyphicon-info-sign text-primary msgInfo" data-toggle="tooltip" data-placement="top" title="time and lang"></span>
+										<span class="glyphicon glyphicon-info-sign text-primary msgInfo"  tooltip-placement="top" tooltip="{{msg.lang}}"></span>
 									</div>
 								</div>
 							</div>
