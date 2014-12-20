@@ -48,54 +48,62 @@
 			</div>
 			
 			<div id="group-section">
-				<div class="row">
+				<div class="row col-md-12">
 					<span ng-controller="LanguageController">
 						<select id="language" ng-model="lang" ng-change="languageChanged()">
 							<option ng-repeat="lang in languages" value="{{lang.key}}">{{lang.value}}</option>
 						</select>
 					</span>
-					<span ng-controller="GroupController">Logged in As: <label></label>&nbsp;&nbsp;&nbsp;<a href="">logout</a></span>
+					<span ng-controller="GroupController">Logged in As: <span ng-bind="identity"></span><label></label>&nbsp;&nbsp;&nbsp;<a href="">logout</a></span>
 					<span class="text-danger pull-right hidden compatibility-warning"><h4>Warning! Please use latest Google Chrome Browser for voice based service.</h4></span>
 				</div>
-				<div class="group-header row top10">
-					<div class="col-md-2 text-center topGroupheader">
-						<h4>Online Users</h4>
-					</div>
-					<div class="col-md-6 text-center topGroupheader">
-						<h4>Group Chat History</h4>
-					</div>
-				</div>
-				<div id="groupBox" class="row ">
-					
-					<div  class="col-md-2 border onlineUserList"  ng-controller="UserListController as usrCtl">
-						<div class="row onlineUser" ng-repeat="user in users">
-							<div class="col-md-2 text-left">
-								<span class="glyphicon glyphicon-user "></span>
+				<div class="row">
+					<div class="col-md-2 onlineUserContainer top10">
+						<div class="col-md-12 text-center topGroupheader">
+							<h4>Online Users</h4>
+						</div>
+						<div  class="col-md-12 border onlineUserList"  ng-controller="UserListController as usrCtl">
+							<div class="row onlineUser" ng-repeat="user in users">
+								<div class="col-md-2 text-left">
+									<span class="glyphicon glyphicon-user "></span>
+								</div>
+								<div class="col-md-8  text-left identityName" ng-click="openPrivateChat(user)">{{user}}</div>
 							</div>
-							<div class="col-md-8  text-left identityName" ng-click="openPrivateChat(user)">{{user}}</div>
 						</div>
 					</div>
 					
-					<div class="col-md-6 border msgList" ng-controller="GroupMessageController">
-						<div class="row groupMsg" ng-repeat="msg in messages">
-							<div class="col-md-2 text-left">
-								<span class="glyphicon glyphicon-user avatar-pic"></span>
-								<span class="name text-success sender"></span>
+					<div class="col-md-6 groupMsgContainer top10">
+						<div class="row text-center topGroupheader">
+							<h4>Group Chat History</h4>
+						</div>
+						<div id="groupBox" class="row " ng-controller="GroupMessageController">
+							<div class="col-md-12 border msgList">
+								<div class="row groupMsg" ng-repeat="msg in messages">
+									<div class="col-md-2 text-left">
+										<span class="glyphicon glyphicon-user avatar-pic"></span>
+										<span class="name text-success sender"></span>
+									</div>
+									<div class="col-md-7  text-left content">{{msg.message}}</div>
+									<div class="col-md-2  text-left np">
+										<span class="timestamp">{{msg.timestamp}}</span>
+									</div>
+									<div class="col-md-1  text-left">
+										<span class="glyphicon glyphicon-info-sign text-primary msgInfo" data-toggle="tooltip" data-placement="top" title="time and lang"></span>
+									</div>
+								</div>
 							</div>
-							<div class="col-md-7  text-left content">{{msg.message}}</div>
-							<div class="col-md-2  text-left np">
-								<span class="timestamp">{{msg.timestamp}}</span>
-							</div>
-							<div class="col-md-1  text-left">
-								<span class="glyphicon glyphicon-info-sign text-primary msgInfo" data-toggle="tooltip" data-placement="top" title="time and lang"></span>
+							<div class=""  >
+								<textarea name="textToSend" id="textToSend" class="col-md-10" ng-model="textToSend"></textarea>
+								<button type="button" class="btn btn-default btn-primary col-md-2 groupSendBtn" ng-click="sendGroupMessage()">Send</button>
 							</div>
 						</div>
 					</div>
-					<div class="row"  ng-controller="GroupMessageController">
-						<textarea name="textToSend" id="textToSend" class="col-md-7" ng-model="textToSend"></textarea>
-						<button type="button" class="btn btn-default btn-primary col-md-1 groupSendBtn" ng-click="sendGroupMessage()">Send</button>
-					</div>
+					
+					
 				</div>
+				
+				
+				
 				
 			</div>
 			
@@ -160,5 +168,6 @@
 		<script src="js/lib/ytranslator.js"></script>
 		<!--<script src="js/ultra.js"></script>-->
 		<script src="js/main.js"></script>
+		<script src="js/factory.js"></script>
     </body>
 </html>

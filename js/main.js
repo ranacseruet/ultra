@@ -28,7 +28,7 @@ function LoginBoxController($scope, $modal){
 	});
 }
 
-function LoginAttemptController($scope, $modalInstance, uchat, $rootScope) {
+function LoginAttemptController($scope, $modalInstance, uchat, $rootScope,getIdentity) {
 	$scope.tryLogin = function(){
 		if ((!$scope.identity) || ($scope.identity.length < 3)){
 			return alert("username must be at least 3 letter");
@@ -41,15 +41,18 @@ function LoginAttemptController($scope, $modalInstance, uchat, $rootScope) {
 			else {
 				console.log("Connection successfull!");
 				$modalInstance.close();
+				getIdentity.dataIdentity = $scope.identity;
+				console.log(getIdentity.dataIdentity);
 				$rootScope.$broadcast("loginSuccess");
 			}
 		});
 	}
 }
 
-function GroupController($scope, $rootScope, uchat) {
+function GroupController($scope, $rootScope, uchat, getIdentity) {
 
 	$scope.$on("loginSuccess", function(){
+		$scope.identity = getIdentity.dataIdentity;
 		uchat.joinGroup("UpStageCoder",
 			function memberJoined(member) {
 				//TODO member joined
@@ -122,6 +125,7 @@ function GroupMessageController($scope, $rootScope, uchat) {
 		messageObj["genre"]   = 'group';
 		messageObj["timestamp"]   = Date.now();
 		//console.log(messageObj);
+		$scope.textToSend = "";
 		uchat.sendGroupMessage(messageObj, $scope.loadGroupMessage);
 	};
 
@@ -156,6 +160,13 @@ var app = angular.module("chat",['ui.bootstrap'])
 		return new ULTraChat(translator);
 	});
 });
+
+
+app.factory("getIdentity", function(){
+  return {dataIdentity: null }
+});
+
+
 
 app.controller("UserListController", UserListController);
 app.controller("GroupController", GroupController);
