@@ -42,7 +42,6 @@ function LoginAttemptController($scope, $modalInstance, uchat, $rootScope,getIde
 				console.log("Connection successfull!");
 				$modalInstance.close();
 				getIdentity.dataIdentity = $scope.identity;
-				console.log(getIdentity.dataIdentity);
 				$rootScope.$broadcast("loginSuccess");
 			}
 		});
@@ -74,8 +73,9 @@ function GroupController($scope, $rootScope, uchat, getIdentity) {
 
 }
 
-function UserListController($scope, $rootScope, uchat){
+function UserListController($scope, $rootScope, uchat, getIdentity){
 	$scope.users = [];
+	
 	$scope.addUser = function(user){
 		$scope.$apply(function () {
 			$scope.users.push(user.id);
@@ -93,8 +93,12 @@ function UserListController($scope, $rootScope, uchat){
 	};
 	$scope.$on("groupJoinSuccess", function(){
 		console.log("loading user list");
+		$scope.identity = getIdentity.dataIdentity;
 		uchat.getGroupMembers(function(members){
 			angular.forEach(members, function(member, index) {
+				console.log(member.getEndpoint());
+				console.log("aaa"+$scope.identity);
+				if(member.getEndpoint().id!=$scope.identity)
 				$scope.addUser(member.getEndpoint());
 			});
 		});

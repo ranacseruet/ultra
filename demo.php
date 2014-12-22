@@ -88,7 +88,7 @@
 										<span class="timestamp">{{msg.timestamp}}</span>
 									</div>
 									<div class="col-md-1  text-left">
-										<span class="glyphicon glyphicon-info-sign text-primary msgInfo"  tooltip-placement="top" tooltip="{{msg.lang}}"></span>
+										<span class="glyphicon glyphicon-info-sign text-primary msgInfo"  tooltip="{{msg.lang}}" tooltip-placement="top"></span>
 									</div>
 								</div>
 							</div>
