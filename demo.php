@@ -101,50 +101,49 @@
 					
 					
 				</div>
-				
-				
-				
-				
 			</div>
 			
+			<!-- private section -->
 			<div id="private-section" class="row top10" ng-controller="PrivateMessageController as pCtl">
-				<div class="col-md-3  privateChatBox" ng-repeat="box in boxes">
-					<div class="row privateBorder" ng-class="box.class">
-						<div class="col-md-12 topArea ">
-							<div class="row">
-								<span class="chatWith pull-left"></span>
-								<span class="closeBox glyphicon glyphicon-remove pull-right"></span>
-								<span class="audio start glyphicon glyphicon-earphone pull-right"></span>
-								
-							</div>
-						</div>
-						<div class="privateMsgList">
-							<div class="privateMsg col-md-12 ">
+				<div ng-repeat="(key, value) in boxes">
+					<div class="col-md-3  privateChatBox" ng-class="private-chat-{{key}}" >
+						<div class="row privateBorder" >
+							<div class="col-md-12 topArea ">
 								<div class="row">
-									<div class="col-md-2 text-left np">
-										<span class="name text-success sender">Rana</span>
+									<span class="chatWith pull-left">{{key}}</span>
+									<span class="closeBox glyphicon glyphicon-remove pull-right"></span>
+									<span class="audio start glyphicon glyphicon-earphone pull-right"></span>
+
+								</div>
+							</div>
+							<div class="privateMsgList">
+								<div class="privateMsg col-md-12 ">
+									<div class="row" ng-repeat="msg in value.messages">
+										<div class="col-md-2 text-left np">
+											<span class="name text-success sender">{{msg.sender}}</span>
+										</div>
+										<div class="col-md-7  text-left content">
+											{{msg.message}}
+										</div>
+										<div class="col-md-2  text-left np">
+											<span class="timestamp">{{msg.timestamp}}</span>
+										</div>
+										<!--
+										<div class="col-md-1  text-left">
+											<span class="glyphicon glyphicon-info-sign text-primary msgInfo" data-toggle="tooltip" data-placement="top" title="time and lang"></span>
+										</div>-->
 									</div>
-									<div class="col-md-7  text-left content">
-										hello
-									</div>
-									<div class="col-md-2  text-left np">
-										<span class="timestamp"></span>
-									</div>
-									<!--
-									<div class="col-md-1  text-left">
-										<span class="glyphicon glyphicon-info-sign text-primary msgInfo" data-toggle="tooltip" data-placement="top" title="time and lang"></span>
-									</div>-->
 								</div>
 							</div>
 						</div>
-					</div>
-					<div class="row">
-						<textarea class="privateTextToSend col-md-8"></textarea>
-						<button type="button" class="btn btn-default btn-primary col-md-4 privateSendBtn">Send</button>	
+						<div class="row">
+							<textarea class="privateTextToSend col-md-8"></textarea>
+							<button type="button" class="btn btn-default btn-primary col-md-4 privateSendBtn">Send</button>	
+						</div>
 					</div>
 				</div>
 			</div>
-
+			<!--end private chat section-->
 		</div>
 		<footer>
 			<div class="row">

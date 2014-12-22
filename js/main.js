@@ -89,7 +89,7 @@ function UserListController($scope, $rootScope, uchat, getIdentity){
 	$scope.openPrivateChat = function(userId) {
 		console.log("Trying private chat: "+userId);
 		//TODO not yet being listened
-		$rootScope.$broadcast("privateChatAttempt");
+		$rootScope.$broadcast("privateChatAttempt",userId);
 	};
 	$scope.$on("groupJoinSuccess", function(){
 		console.log("loading user list");
@@ -158,12 +158,16 @@ function GroupMessageController($scope, $rootScope, uchat) {
 
 function PrivateChatBoxesController($scope, $rootScope, uchat) {
 	$scope.boxes = [{class: "private-chat-rana"}];
-	//TODO implement
+	
+	
 }
 
 function PrivateMessageController($scope, $rootScope, uchat) {
-	$scope.prototype = new GroupMessageController($scope, $rootScope, uchat);
-	//TODO implement
+	//$scope.prototype = new GroupMessageController($scope, $rootScope, uchat);
+	$scope.boxes = {}; 
+	$scope.$on("privateChatAttempt",function(event,userId){
+		$scope.boxes[userId]= {"messages":[{'sender':"me",'message':'hi'}]};
+	});
 }
 
 
