@@ -164,12 +164,14 @@ function PrivateChatBoxesController($scope, $rootScope, uchat) {
 function PrivateMessageController($scope, $rootScope, uchat) {
 	//$scope.prototype = new GroupMessageController($scope, $rootScope, uchat);
 	$scope.boxes = {}; 
+	$scope.textToSend ={};
 	$scope.$on("privateChatAttempt",function(event,userId){
 		uchat.joinPrivateChat(userId, function(){
 			
 			if(!$scope.boxes[userId]){
 				
 				$scope.boxes[userId]= {"messages":[]};
+				$scope.textToSend[userId] = "";
 			}
 			//initAudioListener(userId);
 		});
@@ -181,14 +183,14 @@ function PrivateMessageController($scope, $rootScope, uchat) {
 	$scope.lang = "en";
 	
 	$scope.sendPrivateMessage = function(userId) {
-		
+		console.log($scope.textToSend);
 		var messageObj = {};
-		messageObj["message"] = $scope.textToSend;
+		messageObj["message"] = $scope.textToSend[userId];
 		messageObj["lang"]    = $scope.lang;
 		messageObj["type"]    = 'text';
 		messageObj["genre"]   = 'private';
 		messageObj["timestamp"]   = Date.now();
-		$scope.textToSend = "";
+		$scope.textToSend[userId] = "";
 		uchat.sendPrivateMessage(messageObj, userId, $scope.loadPrivateMessageHistory);
 	};
 	

@@ -134,7 +134,7 @@
 							</div>
 						</div>
 						<div class="row">
-							<textarea class="privateTextToSend col-md-8"  ng-model="textToSend"></textarea>
+							<textarea class="privateTextToSend col-md-8"  ng-model="textToSend[key]"></textarea>
 							<button type="button" class="btn btn-default btn-primary col-md-4 privateSendBtn" ng-click="sendPrivateMessage(key)">Send</button>	
 						</div>
 					</div>
