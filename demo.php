@@ -128,17 +128,14 @@
 										<div class="col-md-2  text-left np">
 											<span class="timestamp">{{msg.timestamp}}</span>
 										</div>
-										<!--
-										<div class="col-md-1  text-left">
-											<span class="glyphicon glyphicon-info-sign text-primary msgInfo" data-toggle="tooltip" data-placement="top" title="time and lang"></span>
-										</div>-->
+										
 									</div>
 								</div>
 							</div>
 						</div>
 						<div class="row">
-							<textarea class="privateTextToSend col-md-8"></textarea>
-							<button type="button" class="btn btn-default btn-primary col-md-4 privateSendBtn">Send</button>	
+							<textarea class="privateTextToSend col-md-8"  ng-model="textToSend"></textarea>
+							<button type="button" class="btn btn-default btn-primary col-md-4 privateSendBtn" ng-click="sendPrivateMessage(key)">Send</button>	
 						</div>
 					</div>
 				</div>

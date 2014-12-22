@@ -142,6 +142,7 @@ function ULTraChat(translator) {
 	};
 
 	this.sendPrivateMessage = function(messageObj, userId, callback) {
+		
 		var endPoint = this.privateChats[userId];
 		if(!endPoint){
 			console.log("user not found for private messaging!");

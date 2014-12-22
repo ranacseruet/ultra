@@ -96,8 +96,7 @@ function UserListController($scope, $rootScope, uchat, getIdentity){
 		$scope.identity = getIdentity.dataIdentity;
 		uchat.getGroupMembers(function(members){
 			angular.forEach(members, function(member, index) {
-				console.log(member.getEndpoint());
-				console.log("aaa"+$scope.identity);
+				
 				if(member.getEndpoint().id!=$scope.identity)
 				$scope.addUser(member.getEndpoint());
 			});
@@ -166,8 +165,77 @@ function PrivateMessageController($scope, $rootScope, uchat) {
 	//$scope.prototype = new GroupMessageController($scope, $rootScope, uchat);
 	$scope.boxes = {}; 
 	$scope.$on("privateChatAttempt",function(event,userId){
-		$scope.boxes[userId]= {"messages":[{'sender':"me",'message':'hi'}]};
+		uchat.joinPrivateChat(userId, function(){
+			
+			if(!$scope.boxes[userId]){
+				
+				$scope.boxes[userId]= {"messages":[]};
+			}
+			//initAudioListener(userId);
+		});
+		
 	});
+	
+
+	//TODO catch language change event
+	$scope.lang = "en";
+	
+	$scope.sendPrivateMessage = function(userId) {
+		
+		var messageObj = {};
+		messageObj["message"] = $scope.textToSend;
+		messageObj["lang"]    = $scope.lang;
+		messageObj["type"]    = 'text';
+		messageObj["genre"]   = 'private';
+		messageObj["timestamp"]   = Date.now();
+		$scope.textToSend = "";
+		uchat.sendPrivateMessage(messageObj, userId, $scope.loadPrivateMessageHistory);
+	};
+	
+	$scope.loadPrivateMessageHistory = function(sender, receiver, msg){
+		console.log("kkk"+sender);
+		/*
+		if(messageObj.type == "voice" && sender != "Me") {
+			robotSpeaker.speak(messageObj.lang, messageObj.message);
+		}*/
+		console.log(msg);
+		msg.sender = sender;
+		
+		$scope.$apply(function () {
+			var timestamp = new Date(msg.timestamp);
+			var newDate   = new Date();
+			newDate.setTime(timestamp);
+			var dateString = newDate.toLocaleTimeString();
+			msg.timestamp  = dateString;
+			$scope.boxes[receiver].messages.push(msg);
+		});
+		/*var privateChatBox  = $('.privateChatBox');
+		var privateChatname = 'private-chat-'+sender;
+		if(sender=="Me")
+			privateChatname = 'private-chat-'+receiver;
+
+		if(!privateChatBox.hasClass(privateChatname)){
+			enterPrivateChat(sender);
+		}
+		var msgRows = $('.'+privateChatname +' .privateMsg');
+		var timestamp = new Date(messageObj.timestamp);
+		var newDate = new Date();
+		newDate.setTime(timestamp);
+		timeString = newDate.toLocaleTimeString();
+		//timestamp     = timestamp.getHours()+":"+timestamp.getMinutes()+":"+timestamp.getSeconds();
+		var messageType = "";
+		if(messageObj.type=="voice")
+			messageType = "(Voice) ";
+		var newRow = msgRows.first().clone();
+		newRow.find(".sender").text(sender);
+		newRow.find(".content").text(messageType+messageObj.message);
+		newRow.find(".timestamp").text(timeString);
+		//newRow.find(".msgInfo").attr("title","Original Language: "+messageObj.lang);
+		newRow.show();
+		msgRows.last().after(newRow);*/
+		
+    
+	}
 }
 
 
