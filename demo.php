@@ -111,8 +111,8 @@
 							<div class="col-md-12 topArea ">
 								<div class="row">
 									<span class="chatWith pull-left">{{key}}</span>
-									<span class="closeBox glyphicon glyphicon-remove pull-right"></span>
-									<span class="audio start glyphicon glyphicon-earphone pull-right"></span>
+									<span class="closeBox glyphicon glyphicon-remove pull-right" ng-click="closeBox(key)"></span>
+									<span class="audio start glyphicon glyphicon-earphone pull-right " ng-click="audio(key)"></span>
 
 								</div>
 							</div>

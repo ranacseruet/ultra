@@ -83,6 +83,7 @@ function UserListController($scope, $rootScope, uchat, getIdentity){
 	};
 	$scope.removeUser = function(user){
 		$scope.$apply(function () {
+			$rootScope.$broadcast("closePrivateChatBox",user.id);
 			$scope.users.splice($scope.users.indexOf(user.id), 1);
 		});
 	};
@@ -148,24 +149,25 @@ function GroupMessageController($scope, $rootScope, uchat) {
 		});
 	};
 	
-	$scope.loadPrivateMessageHistory = function(){
-		
-	}
+	$scope.loadPrivateMessageHistory = function(sender, receiver, msg){
+		$rootScope.$broadcast("onLoadPrivateMessageHistory",sender, receiver, msg);
+	};
 	uchat.onMessage($scope.loadGroupMessageHistory,$scope.loadPrivateMessageHistory);
 }
 
 
 function PrivateChatBoxesController($scope, $rootScope, uchat) {
 	$scope.boxes = [{class: "private-chat-rana"}];
-	
-	
 }
 
 function PrivateMessageController($scope, $rootScope, uchat) {
 	//$scope.prototype = new GroupMessageController($scope, $rootScope, uchat);
 	$scope.boxes = {}; 
 	$scope.textToSend ={};
-	$scope.$on("privateChatAttempt",function(event,userId){
+	
+	//TODO catch language change event
+	$scope.lang = "en";
+	$scope.joinPrivateChat = function(userId){
 		uchat.joinPrivateChat(userId, function(){
 			
 			if(!$scope.boxes[userId]){
@@ -173,17 +175,17 @@ function PrivateMessageController($scope, $rootScope, uchat) {
 				$scope.boxes[userId]= {"messages":[]};
 				$scope.textToSend[userId] = "";
 			}
+			
 			//initAudioListener(userId);
 		});
-		
+	};
+	
+	$scope.$on("privateChatAttempt",function(event,userId){
+		$scope.joinPrivateChat(userId);
 	});
 	
-
-	//TODO catch language change event
-	$scope.lang = "en";
-	
 	$scope.sendPrivateMessage = function(userId) {
-		console.log($scope.textToSend);
+		
 		var messageObj = {};
 		messageObj["message"] = $scope.textToSend[userId];
 		messageObj["lang"]    = $scope.lang;
@@ -194,16 +196,23 @@ function PrivateMessageController($scope, $rootScope, uchat) {
 		uchat.sendPrivateMessage(messageObj, userId, $scope.loadPrivateMessageHistory);
 	};
 	
-	$scope.loadPrivateMessageHistory = function(sender, receiver, msg){
-		console.log("kkk"+sender);
+	$scope.loadPrivateMessageHistory = function(sender, receiver, msg,listenMsg){
+		
 		/*
 		if(messageObj.type == "voice" && sender != "Me") {
 			robotSpeaker.speak(messageObj.lang, messageObj.message);
 		}*/
-		console.log(msg);
 		msg.sender = sender;
 		
+		if(listenMsg){
+			if(!$scope.boxes[receiver]){
+				$scope.joinPrivateChat(receiver);
+			}
+			msg.sender = receiver;
+		}
+		
 		$scope.$apply(function () {
+			
 			var timestamp = new Date(msg.timestamp);
 			var newDate   = new Date();
 			newDate.setTime(timestamp);
@@ -211,33 +220,20 @@ function PrivateMessageController($scope, $rootScope, uchat) {
 			msg.timestamp  = dateString;
 			$scope.boxes[receiver].messages.push(msg);
 		});
-		/*var privateChatBox  = $('.privateChatBox');
-		var privateChatname = 'private-chat-'+sender;
-		if(sender=="Me")
-			privateChatname = 'private-chat-'+receiver;
-
-		if(!privateChatBox.hasClass(privateChatname)){
-			enterPrivateChat(sender);
-		}
-		var msgRows = $('.'+privateChatname +' .privateMsg');
-		var timestamp = new Date(messageObj.timestamp);
-		var newDate = new Date();
-		newDate.setTime(timestamp);
-		timeString = newDate.toLocaleTimeString();
-		//timestamp     = timestamp.getHours()+":"+timestamp.getMinutes()+":"+timestamp.getSeconds();
-		var messageType = "";
-		if(messageObj.type=="voice")
-			messageType = "(Voice) ";
-		var newRow = msgRows.first().clone();
-		newRow.find(".sender").text(sender);
-		newRow.find(".content").text(messageType+messageObj.message);
-		newRow.find(".timestamp").text(timeString);
-		//newRow.find(".msgInfo").attr("title","Original Language: "+messageObj.lang);
-		newRow.show();
-		msgRows.last().after(newRow);*/
-		
-    
-	}
+	};
+	
+	$scope.closeBox = function(chatIdentity){
+		if($scope.boxes[chatIdentity])
+			delete $scope.boxes[chatIdentity];
+	};
+	
+	$scope.$on("closePrivateChatBox", function(event, chatIdentity){
+		$scope.closeBox(chatIdentity);
+	});
+	
+	$scope.$on("onLoadPrivateMessageHistory", function(event, sender, receiver, msg){
+		$scope.loadPrivateMessageHistory(receiver, sender, msg, true);
+	});
 }
 
 
