@@ -21,13 +21,13 @@
 		<link href="css/index.css" rel="stylesheet">
         <script src="js/vendor/modernizr-2.6.2.min.js"></script>
     </head>
-    <body>
+    <body ng-app="home">
         <!--[if lt IE 7]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
 
         <!-- Add your site or application content here -->
-		<?php include 'header.php';?>
+		<div header></div>
         <div class="container">
 
         <!-- home -->
@@ -242,7 +242,7 @@
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
         <script src="js/plugins.js"></script>
 		<script src="js/vendor/bootstrap.min.js"></script>
-		
-        <script src="js/main.js"></script>
+		<script src="js/vendor/angular.min.js"></script>
+        <script src="js/home.js"></script>
     </body>
 </html>
