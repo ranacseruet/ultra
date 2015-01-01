@@ -202,11 +202,25 @@ function PrivateMessageController($scope, $rootScope, uchat, listener, speaker) 
 	
 	$scope.loadPrivateMessageHistory = function(sender, receiver, msg){
 		
-
+		var boxName = "";
 		if(msg.type == "voice" && sender != "Me") {
 			speaker.speak(msg.lang, msg.message);
 		}
-		msg.sender = sender;
+
+		if(sender == "Me") {
+			boxName = receiver;
+		}
+		else {
+			boxName = sender;
+		}
+
+		if(!$scope.boxes[boxName]){
+			$scope.joinPrivateChat(boxName);
+			msg.sender = boxName;
+		}
+		else {
+			msg.sender = sender;
+		}
 		
 		$scope.$apply(function () {
 			
@@ -215,7 +229,7 @@ function PrivateMessageController($scope, $rootScope, uchat, listener, speaker) 
 			newDate.setTime(timestamp);
 			var dateString = newDate.toLocaleTimeString();
 			msg.timestamp  = dateString;
-			$scope.boxes[receiver].messages.push(msg);
+			$scope.boxes[boxName].messages.push(msg);
 		});
 	};
 	
