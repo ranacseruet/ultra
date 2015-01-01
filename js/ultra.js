@@ -200,22 +200,13 @@ function PrivateMessageController($scope, $rootScope, uchat, listener, speaker) 
 		uchat.sendPrivateMessage(messageObj, userId, $scope.loadPrivateMessageHistory);
 	};
 	
-	$scope.loadPrivateMessageHistory = function(sender, receiver, msg, listenMsg){
+	$scope.loadPrivateMessageHistory = function(sender, receiver, msg){
 		
 
 		if(msg.type == "voice" && sender != "Me") {
 			speaker.speak(msg.lang, msg.message);
 		}
 		msg.sender = sender;
-
-
-		//TODO WHAT is it!
-		if(listenMsg){
-			if(!$scope.boxes[receiver]){
-				$scope.joinPrivateChat(receiver);
-			}
-			msg.sender = receiver;
-		}
 		
 		$scope.$apply(function () {
 			
@@ -267,7 +258,7 @@ function PrivateMessageController($scope, $rootScope, uchat, listener, speaker) 
 	});
 	
 	$scope.$on("onLoadPrivateMessageHistory", function(event, sender, receiver, msg){
-		$scope.loadPrivateMessageHistory(sender, receiver, msg, true);
+		$scope.loadPrivateMessageHistory(sender, receiver, msg);
 	});
 
 }
