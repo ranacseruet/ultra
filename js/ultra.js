@@ -160,13 +160,17 @@ function PrivateChatBoxesController($scope, $rootScope, uchat) {
 	$scope.boxes = [{class: "private-chat-rana"}];
 }
 
-function PrivateMessageController($scope, $rootScope, uchat) {
+function PrivateMessageController($scope, $rootScope, uchat, listener, speaker) {
 	//$scope.prototype = new GroupMessageController($scope, $rootScope, uchat);
 	$scope.boxes = {}; 
 	$scope.textToSend ={};
 	
 	//TODO catch language change event
 	$scope.lang = "en";
+	$scope.inAudioChat = false;
+
+
+
 	$scope.joinPrivateChat = function(userId){
 		uchat.joinPrivateChat(userId, function(){
 			
@@ -196,14 +200,16 @@ function PrivateMessageController($scope, $rootScope, uchat) {
 		uchat.sendPrivateMessage(messageObj, userId, $scope.loadPrivateMessageHistory);
 	};
 	
-	$scope.loadPrivateMessageHistory = function(sender, receiver, msg,listenMsg){
+	$scope.loadPrivateMessageHistory = function(sender, receiver, msg, listenMsg){
 		
-		/*
-		if(messageObj.type == "voice" && sender != "Me") {
-			robotSpeaker.speak(messageObj.lang, messageObj.message);
-		}*/
+
+		if(msg.type == "voice" && sender != "Me") {
+			speaker.speak(msg.lang, msg.message);
+		}
 		msg.sender = sender;
-		
+
+
+		//TODO WHAT is it!
 		if(listenMsg){
 			if(!$scope.boxes[receiver]){
 				$scope.joinPrivateChat(receiver);
@@ -223,8 +229,37 @@ function PrivateMessageController($scope, $rootScope, uchat) {
 	};
 	
 	$scope.closeBox = function(chatIdentity){
-		if($scope.boxes[chatIdentity])
+		if($scope.boxes[chatIdentity]) {
 			delete $scope.boxes[chatIdentity];
+		}
+	};
+
+	$scope.toggleAudioChat = function(userId){
+		$scope.inAudioChat = !$scope.inAudioChat;
+		if($scope.inAudioChat){
+			$scope.startAudioChat(userId);
+		}
+		else{
+			$scope.stopAudioChat(userId);
+		}
+	};
+
+	$scope.startAudioChat = function(userId){
+		//TODO button color change
+		//update language
+		listener.listen("en", function(text){
+			var messageObj = {};
+			messageObj["message"] = text;
+			messageObj["lang"]    = $scope.lang;
+			messageObj["type"]    = 'voice';
+			messageObj["genre"]   = 'private';
+			messageObj["timestamp"]   = Date.now();
+			uchat.sendPrivateMessage(messageObj, userId, $scope.loadPrivateMessageHistory);
+		});
+	};
+
+	$scope.stopAudioChat = function(userId){
+		listener.stop();
 	};
 	
 	$scope.$on("closePrivateChatBox", function(event, chatIdentity){
@@ -232,8 +267,9 @@ function PrivateMessageController($scope, $rootScope, uchat) {
 	});
 	
 	$scope.$on("onLoadPrivateMessageHistory", function(event, sender, receiver, msg){
-		$scope.loadPrivateMessageHistory(receiver, sender, msg, true);
+		$scope.loadPrivateMessageHistory(sender, receiver, msg, true);
 	});
+
 }
 
 
@@ -245,6 +281,12 @@ var app = angular.module("chat",['ui.bootstrap'])
 	});
 	$provide.factory('uchat', function(){
 		return new ULTraChat(translator);
+	});
+	$provide.factory('speaker', function(){
+		return new RobotSpeaker();
+	});
+	$provide.factory('listener', function(){
+		return new AudioListener();
 	});
 });
 

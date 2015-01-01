@@ -1,5 +1,9 @@
 /**
- * Created by Rana on 14-12-06.
+ * Created by Rana on 14-12-20.
+ */
+
+/**
+ * a robotic speaker who speaks with given text and laguage
  */
 function RobotSpeaker()
 {
@@ -7,7 +11,7 @@ function RobotSpeaker()
 
     this.u.rate = 1.0;
     this.u.onend = function(event) {
-        console.log('Finished in ' + event.elapsedTime + ' seconds.');
+        //TODO
     };
     this.speak = function(lang, text){
         this.u.lang = lang;
@@ -16,52 +20,70 @@ function RobotSpeaker()
     };
 }
 
-function AudioListener(lang, callback)
+/**
+ * An audio listener which will listen and convert spoken sounds to text
+ * @param lang
+ * @param callback
+ * @constructor
+ */
+function AudioListener(callback)
 {
     this.listener = new webkitSpeechRecognition();
-
-    console.log("Browser: "+platform.name);
 
     if(platform.os.toString().indexOf("OS X") > -1) {
         this.listener.continuous = true;
     }
-
+    if(callback) {
+        this.callBack = callback;
+    }
+    this.listener.lang = "en";
     //this.listener.interimResults = true;
-    this.listener.lang = lang;
+    var me = this;
 
-    this.startTime = null;
-
+    //-----Events---------
     this.listener.onresult = function(event) {
         if (event.results.length > 0) {
             var result = event.results[event.results.length-1];
-            console.log(result+" time taken: "+(Date.now()-this.startTime));
             if(result.isFinal) {
-                callback(result[0].transcript);
+                me.callBack(result[0].transcript);
             }
         }
     };
     this.listener.onsoundstart = function(event) {
-        //console.log("sound started");
-        this.startTime = Date.now();
-        console.log(event);
+        //TODO
     };
     this.listener.onspeechstart = function(event) {
-        console.log("speech started");
-        console.log(event);
+        //TODO
     };
     this.listener.onsoundend = function(event) {
-        //console.log("sound stopped");
-        console.log(event);
+        //TODO
     };
-    this.listen = function() {
-        this.listener.start();
-    };
-    this.stop = function() {
-        this.listener.stop();
-        console.log("audio listener stopped");
-    }
+    //-----End Events---------
 
     this.isContinuous = function() {
         return this.listener.continuous;
+    };
+
+    /**
+     * Start listening with given language(optional, defaults is english)
+     * @param lang
+     */
+    this.listen = function(lang, callback) {
+        if(lang) {
+            this.listener.lang = lang;
+        }
+        if(callback) {
+            this.callBack = callback;
+        }
+        this.listener.start();
+    };
+
+    /**
+     * Stop listening
+     * @param lang
+     */
+    this.stop = function() {
+        this.listener.stop();
+        console.log("audio listener stopped");
     }
 }
