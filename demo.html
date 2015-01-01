@@ -93,7 +93,7 @@
 								</div>
 							</div>
 							<div class=""  >
-								<textarea name="textToSend" id="textToSend" class="col-md-10" ng-model="textToSend"></textarea>
+								<textarea name="textToSend" id="textToSend" class="col-md-10" ng-model="textToSend" ng-keypress="enterKeypress($event)"></textarea>
 								<button type="button" class="btn btn-default btn-primary col-md-2 groupSendBtn" ng-click="sendGroupMessage()">Send</button>
 							</div>
 						</div>
@@ -134,7 +134,7 @@
 							</div>
 						</div>
 						<div class="row">
-							<textarea class="privateTextToSend col-md-8"  ng-model="textToSend[key]"></textarea>
+							<textarea class="privateTextToSend col-md-8"  ng-model="textToSend[key]" ng-keypress="enterKeypress($event,key)"></textarea>
 							<button type="button" class="btn btn-default btn-primary col-md-4 privateSendBtn" ng-click="sendPrivateMessage(key)">Send</button>	
 						</div>
 					</div>

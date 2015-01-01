@@ -134,6 +134,12 @@ function GroupMessageController($scope, $rootScope, uchat) {
 		uchat.sendGroupMessage(messageObj, $scope.loadGroupMessageHistory);
 	};
 	
+	$scope.enterKeypress = function(keyEvent) {
+		if (keyEvent.which === 13){
+			$scope.sendGroupMessage();
+		}
+	};
+
 	$scope.loadGroupMessageHistory = function(sender, msg){
 		console.log("loading to message history");
 		msg.sender = sender;
@@ -198,6 +204,12 @@ function PrivateMessageController($scope, $rootScope, uchat, listener, speaker) 
 		messageObj["timestamp"]   = Date.now();
 		$scope.textToSend[userId] = "";
 		uchat.sendPrivateMessage(messageObj, userId, $scope.loadPrivateMessageHistory);
+	};
+	
+	$scope.enterKeypress = function(keyEvent,userId) {
+		if (keyEvent.which === 13){
+			$scope.sendPrivateMessage(userId);
+		}
 	};
 	
 	$scope.loadPrivateMessageHistory = function(sender, receiver, msg){
