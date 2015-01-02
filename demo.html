@@ -50,8 +50,8 @@
 			<div id="group-section">
 				<div class="row col-md-12">
 					<span ng-controller="LanguageController">
-						<select id="language" ng-model="lang" ng-change="languageChanged()">
-							<option ng-repeat="lang in languages" value="{{lang.key}}">{{lang.value}}</option>
+						<select id="language" ng-model="lang" ng-change="languageChanged()" ng-options="language.value for language in languages track by language.key" >
+							<option value="">choose Language</option>
 						</select>
 					</span>
 					<span ng-controller="GroupController">Logged in As: <span ng-bind="identity"></span><label></label>&nbsp;&nbsp;&nbsp;<a href="">logout</a></span>

@@ -1,21 +1,29 @@
 
-function LanguageController($scope, $rootScope, translator) {
+function LanguageController($scope, $rootScope, translator,uchat,ultraGlobal) {
 	$scope.languages = [{"key":null, "value":"Select language"}];
-	$scope.lang = null;
+	$scope.lang		 = null;
+	
 	//TODO error: initial value isn't being selected
 	translator.getLanguageList(function(languages){
 		$scope.$apply(function () {
 			angular.forEach(languages, function(language, key) {
 				$scope.languages.push({"key":key, "value":language});
+				
+				if(key==ultraGlobal.dataLang){
+					$scope.lang = $scope.languages[$scope.languages.length-1];
+				}
 			});
 		});
 	});
 
 	$scope.languageChanged = function(){
 		console.log("language just changed");
-		$rootScope.$broadcast("languageChanged");
+		//$rootScope.$broadcast("languageChanged");
 		//TODO haven't caught anywhere yet/validation
-	}
+		ultraGlobal.dataLang = $scope.lang.key;
+		uchat.setLanguage(ultraGlobal.dataLang);
+		
+	};
 }
 
 function LoginBoxController($scope, $modal){
@@ -28,7 +36,7 @@ function LoginBoxController($scope, $modal){
 	});
 }
 
-function LoginAttemptController($scope, $modalInstance, uchat, $rootScope,getIdentity) {
+function LoginAttemptController($scope, $modalInstance, uchat, $rootScope,ultraGlobal) {
 	$scope.tryLogin = function(){
 		if ((!$scope.identity) || ($scope.identity.length < 3)){
 			return alert("username must be at least 3 letter");
@@ -41,17 +49,17 @@ function LoginAttemptController($scope, $modalInstance, uchat, $rootScope,getIde
 			else {
 				console.log("Connection successfull!");
 				$modalInstance.close();
-				getIdentity.dataIdentity = $scope.identity;
+				ultraGlobal.dataIdentity = $scope.identity;
 				$rootScope.$broadcast("loginSuccess");
 			}
 		});
 	}
 }
 
-function GroupController($scope, $rootScope, uchat, getIdentity) {
+function GroupController($scope, $rootScope, uchat, ultraGlobal) {
 
 	$scope.$on("loginSuccess", function(){
-		$scope.identity = getIdentity.dataIdentity;
+		$scope.identity = ultraGlobal.dataIdentity;
 		uchat.joinGroup("UpStageCoder",
 			function memberJoined(member) {
 				//TODO member joined
@@ -73,7 +81,7 @@ function GroupController($scope, $rootScope, uchat, getIdentity) {
 
 }
 
-function UserListController($scope, $rootScope, uchat, getIdentity){
+function UserListController($scope, $rootScope, uchat, ultraGlobal){
 	$scope.users = [];
 	
 	$scope.addUser = function(user){
@@ -94,7 +102,7 @@ function UserListController($scope, $rootScope, uchat, getIdentity){
 	};
 	$scope.$on("groupJoinSuccess", function(){
 		console.log("loading user list");
-		$scope.identity = getIdentity.dataIdentity;
+		$scope.identity = ultraGlobal.dataIdentity;
 		uchat.getGroupMembers(function(members){
 			angular.forEach(members, function(member, index) {
 				
@@ -113,19 +121,19 @@ function UserListController($scope, $rootScope, uchat, getIdentity){
 	});
 }
 
-function GroupMessageController($scope, $rootScope, uchat) {
+function GroupMessageController($scope, $rootScope, uchat, ultraGlobal) {
 	$scope.messages = [];
 
 	$scope.textToSend = "";
 
 	//TODO catch language change event
-	$scope.lang = "en";
+	
 	
 	$scope.sendGroupMessage = function() {
 		console.log("sending text: "+$scope.textToSend);
 		var messageObj = {};
 		messageObj["message"] = $scope.textToSend;
-		messageObj["lang"]    = $scope.lang;
+		messageObj["lang"]    = uchat.getLanguage();
 		messageObj["type"]    = 'text';
 		messageObj["genre"]   = 'group';
 		messageObj["timestamp"]   = Date.now();
@@ -166,13 +174,13 @@ function PrivateChatBoxesController($scope, $rootScope, uchat) {
 	$scope.boxes = [{class: "private-chat-rana"}];
 }
 
-function PrivateMessageController($scope, $rootScope, uchat, listener, speaker) {
+function PrivateMessageController($scope, $rootScope, uchat, listener, speaker , ultraGlobal) {
 	//$scope.prototype = new GroupMessageController($scope, $rootScope, uchat);
 	$scope.boxes = {}; 
 	$scope.textToSend ={};
 	
 	//TODO catch language change event
-	$scope.lang = "en";
+	
 	$scope.inAudioChat = false;
 
 
@@ -198,7 +206,7 @@ function PrivateMessageController($scope, $rootScope, uchat, listener, speaker) 
 		
 		var messageObj = {};
 		messageObj["message"] = $scope.textToSend[userId];
-		messageObj["lang"]    = $scope.lang;
+		messageObj["lang"]    = uchat.getLanguage();
 		messageObj["type"]    = 'text';
 		messageObj["genre"]   = 'private';
 		messageObj["timestamp"]   = Date.now();
@@ -264,10 +272,10 @@ function PrivateMessageController($scope, $rootScope, uchat, listener, speaker) 
 	$scope.startAudioChat = function(userId){
 		//TODO button color change
 		//update language
-		listener.listen("en", function(text){
+		listener.listen(uchat.getLanguage(), function(text){
 			var messageObj = {};
 			messageObj["message"] = text;
-			messageObj["lang"]    = $scope.lang;
+			messageObj["lang"]    = uchat.getLanguage();
 			messageObj["type"]    = 'voice';
 			messageObj["genre"]   = 'private';
 			messageObj["timestamp"]   = Date.now();
@@ -308,8 +316,11 @@ var app = angular.module("chat",['ui.bootstrap'])
 });
 
 
-app.factory("getIdentity", function(){
-  return {dataIdentity: null }
+app.factory("ultraGlobal", function(){
+  return {
+	  dataIdentity: null, 
+	  dataLang    : 'en'
+  };
 });
 
 

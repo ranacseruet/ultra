@@ -11,8 +11,12 @@ function ULTraChat(translator) {
 
 	this.setLanguage = function(lang) {
 		this.myLang = lang;
+		console.log("setLanguage..."+this.myLang);
 	};
-
+	
+	this.getLanguage = function() {
+		return this.myLang;
+	};
 	// create a Respoke client object using the App ID
 	this.client = new respoke.Client({
 		"appId": this.appId,
