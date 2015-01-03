@@ -179,8 +179,6 @@ function PrivateMessageController($scope, $rootScope, uchat, listener, speaker ,
 	$scope.boxes = {}; 
 	$scope.textToSend ={};
 	
-	//TODO catch language change event
-	
 	$scope.inAudioChat = false;
 
 
@@ -269,6 +267,12 @@ function PrivateMessageController($scope, $rootScope, uchat, listener, speaker ,
 			$scope.stopAudioChat(userId);
 			angular.element(".private-chat-" + userId.trim() + " .audio.stop").removeClass("stop").addClass("start");
 		}
+	};
+
+	$scope.toggleHeight = function(userId){
+		var height = $(".private-chat-"+userId+" .privateMsgList").css("height");
+		console.log("current height: "+height);
+		angular.element(".private-chat-"+userId+" .privateMsgList").css("height", (height == "12px")?"300px":"12px");
 	};
 
 	$scope.startAudioChat = function(userId){
