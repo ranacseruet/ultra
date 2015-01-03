@@ -171,7 +171,7 @@ function GroupMessageController($scope, $rootScope, uchat, ultraGlobal) {
 
 
 function PrivateChatBoxesController($scope, $rootScope, uchat) {
-	$scope.boxes = [{class: "private-chat-rana"}];
+	$scope.boxes = [];
 }
 
 function PrivateMessageController($scope, $rootScope, uchat, listener, speaker , ultraGlobal) {
@@ -193,8 +193,6 @@ function PrivateMessageController($scope, $rootScope, uchat, listener, speaker ,
 				$scope.boxes[userId]= {"messages":[]};
 				$scope.textToSend[userId] = "";
 			}
-			
-			//initAudioListener(userId);
 		});
 	};
 	
@@ -260,18 +258,20 @@ function PrivateMessageController($scope, $rootScope, uchat, listener, speaker ,
 	};
 
 	$scope.toggleAudioChat = function(userId){
+
 		$scope.inAudioChat = !$scope.inAudioChat;
+
 		if($scope.inAudioChat){
 			$scope.startAudioChat(userId);
+			angular.element(".private-chat-" + userId.trim() + " .audio.start").removeClass("start").addClass("stop");
 		}
 		else{
 			$scope.stopAudioChat(userId);
+			angular.element(".private-chat-" + userId.trim() + " .audio.stop").removeClass("stop").addClass("start");
 		}
 	};
 
 	$scope.startAudioChat = function(userId){
-		//TODO button color change
-		//update language
 		listener.listen(uchat.getLanguage(), function(text){
 			var messageObj = {};
 			messageObj["message"] = text;
