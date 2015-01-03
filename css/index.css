@@ -21,7 +21,7 @@ hr{
 	font-size: 12px;
 }
 .border{
-	border: 1px solid #000;
+	border: 1px solid #b3b3b3;
 	height: 300px;
 	max-height: 300px !important;
 	overflow:auto;
@@ -34,7 +34,7 @@ hr{
 
 .onlineUser:hover{
 	cursor: pointer;
-	background-color: #269abc;
+	background-color: #cccccc;
 }
 .groupMsg .avatar-pic{
 	margin-left: 8px;
@@ -64,14 +64,18 @@ hr{
 	border-bottom: 0px;
 	padding-top: 3px;
 }
+
+.topArea .chatWith {
+	width: 80%;
+}
+
 .privateChatBox .audio:hover,.privateChatBox .closeBox:hover, .privateChatBox .topArea{
 	cursor: pointer;
 }
 .privateChatBox{
 	margin-right: 5px;
 	background: aliceblue;
-	position: absolute;
-	bottom: 0px;
+	z-index: 10;
 }
 /*.onlineUser:first-child, .groupMsg:first-child,.privateChatBox:first-child,.privateMsg{
   display: none;
@@ -117,4 +121,18 @@ hr{
 .api-img{
 	margin: 10px;
 	padding: 10px;
+}
+
+#private-section{
+	position: absolute;
+	bottom: 0px;
+	width: 100%;
+}
+
+textarea, input[type="text"]{
+	height: 48px;
+	font-size: large;
+}
+#identity{
+	text-align: center;
 }

@@ -40,7 +40,7 @@
 						<form id="form-upload-logo" role="form">
 							<input type="text" id="identity" ng-model="identity">
 							<br/><br/>
-							<button id="joinBtn" class="btn btn-primary" data-id="" ng-click="tryLogin()">Enter</button>
+							<button id="joinBtn" class="btn btn-primary btn-lg" data-id="" ng-click="tryLogin()">Enter</button>
 						</form>
 						<div class="clearfix"></div>
 					</div>
@@ -48,21 +48,15 @@
 			</div>
 			
 			<div id="group-section">
-				<div class="row col-md-12">
-					<span ng-controller="LanguageController">
-						<select id="language" ng-model="lang" ng-change="languageChanged()" ng-options="language.value for language in languages track by language.key" >
-							<option value="">choose Language</option>
-						</select>
-					</span>
-					<span ng-controller="GroupController">Logged in As: <span ng-bind="identity"></span><label></label>&nbsp;&nbsp;&nbsp;<a href="">logout</a></span>
+				<div class="row">
 					<span class="text-danger pull-right hidden compatibility-warning"><h4>Warning! Please use latest Google Chrome Browser for voice based service.</h4></span>
 				</div>
 				<div class="row">
 					<div class="col-md-2 onlineUserContainer top10">
-						<div class="col-md-12 text-center topGroupheader">
+						<div class="col-md-12 text-center topGroupheader panel panel-default">
 							<h4>Online Users</h4>
 						</div>
-						<div  class="col-md-12 border onlineUserList"  ng-controller="UserListController as usrCtl">
+						<div  class="col-md-12 onlineUserList border panel panel-default"  ng-controller="UserListController as usrCtl">
 							<div class="row onlineUser" ng-repeat="user in users">
 								<div class="col-md-2 text-left">
 									<span class="glyphicon glyphicon-user "></span>
@@ -72,12 +66,12 @@
 						</div>
 					</div>
 					
-					<div class="col-md-6 groupMsgContainer top10">
-						<div class="row text-center topGroupheader">
+					<div class="col-md-8 groupMsgContainer top10">
+						<div class="row text-center topGroupheader panel panel-default">
 							<h4>Group Chat History</h4>
 						</div>
 						<div id="groupBox" class="row " ng-controller="GroupMessageController">
-							<div class="col-md-12 border msgList">
+							<div class="col-md-12 border msgList panel panel-default">
 								<div class="row groupMsg" ng-repeat="msg in messages">
 									<div class="col-md-2 text-left">
 										<span class="glyphicon glyphicon-user avatar-pic"></span>
@@ -92,13 +86,24 @@
 									</div>
 								</div>
 							</div>
-							<div class=""  >
+							<div>
 								<textarea name="textToSend" id="textToSend" class="col-md-10" ng-model="textToSend" ng-keypress="enterKeypress($event)"></textarea>
-								<button type="button" class="btn btn-default btn-primary col-md-2 groupSendBtn" ng-click="sendGroupMessage()">Send</button>
+								<button type="button" class="btn btn-lg btn-primary col-md-2 groupSendBtn" ng-click="sendGroupMessage()">Send</button>
 							</div>
 						</div>
 					</div>
-					
+					<div class="col-md-2">
+					<span ng-controller="LanguageController">
+						Language:
+						<select id="language" ng-model="lang" ng-change="languageChanged()" ng-options="language.value for language in languages track by language.key" class="form-control" >
+							<option value="">choose Language</option>
+						</select>
+					</span>
+						<br>
+						<span ng-controller="GroupController">Logged in As: <strong><span ng-bind="identity"></span></strong>
+							<br><br><a href="" class="btn-danger btn-lg">Logout</a></span>
+						<br>
+					</div>
 					
 				</div>
 			</div>
@@ -106,14 +111,13 @@
 			<!-- private section -->
 			<div id="private-section" class="row top10" ng-controller="PrivateMessageController as pCtl">
 				<div ng-repeat="(key, value) in boxes">
-					<div class="col-md-3  privateChatBox private-chat-{{key}}" ng-class="private-chat-{{key}}">
+					<div class="col-md-3  privateChatBox private-chat-{{key}} panel panel-default" ng-class="private-chat-{{key}}">
 						<div class="row privateBorder" >
-							<div class="col-md-12 topArea" ng-click="toggleHeight(key)">
+							<div class="col-md-12 topArea">
 								<div class="row">
-									<span class="chatWith pull-left">{{key}}</span>
+									<span class="chatWith pull-left" ng-click="toggleHeight(key)">{{key}}</span>
 									<span class="closeBox glyphicon glyphicon-remove pull-right" ng-click="closeBox(key)"></span>
 									<span class="audio start glyphicon glyphicon-earphone pull-right" ng-click="toggleAudioChat(key)"></span>
-
 								</div>
 							</div>
 							<div class="privateMsgList">
@@ -134,8 +138,8 @@
 							</div>
 						</div>
 						<div class="row">
-							<textarea class="privateTextToSend col-md-8"  ng-model="textToSend[key]" ng-keypress="enterKeypress($event,key)"></textarea>
-							<button type="button" class="btn btn-default btn-primary col-md-4 privateSendBtn" ng-click="sendPrivateMessage(key)">Send</button>	
+							<input type="text" class="privateTextToSend col-md-8"  ng-model="textToSend[key]" ng-keypress="enterKeypress($event,key)">
+							<button type="button" class="btn btn-lg btn-primary col-md-4 privateSendBtn" ng-click="sendPrivateMessage(key)">Send</button>
 						</div>
 					</div>
 				</div>
