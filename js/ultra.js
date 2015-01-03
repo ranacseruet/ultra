@@ -340,7 +340,7 @@ app.controller("PrivateChatBoxesController", PrivateChatBoxesController);
 
 app.directive("header", function(){
 	return {
-		templateUrl: "header.php"
+		templateUrl: "header.html"
 	};
 });
 
