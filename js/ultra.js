@@ -344,6 +344,14 @@ app.directive("header", function(){
 	};
 });
 
-$(document).ready(function(){
-	//$('.carousel').carousel();
+app.directive("footer", function(){
+	return {
+		templateUrl: "footer.html"
+	};
+});
+
+app.directive("share", function(){
+	return {
+		templateUrl: "share.html"
+	};
 });
