@@ -3,7 +3,7 @@
 
 # TEAM
 
-    <name> -- <role> -- <twitter>
+    Md Ali Ahsan Rana -- Developer -- ranacseruet
 
 # THANKS
 
@@ -12,4 +12,4 @@
 # TECHNOLOGY COLOPHON
 
     HTML5, CSS3
-    Normalize.css, jQuery, Modernizr
+    AngularJS, Bootstrap

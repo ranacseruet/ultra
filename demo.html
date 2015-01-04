@@ -63,6 +63,9 @@
 								</div>
 								<div class="col-md-8  text-left identityName" ng-click="openPrivateChat(user)">{{user}}</div>
 							</div>
+							<div ng-show="!users.length">
+								<label><strong>Empty. Invite Friends!</strong></label>
+							</div>
 						</div>
 					</div>
 					
@@ -133,6 +136,7 @@
 											<span class="name text-success sender">{{msg.sender}}</span>
 										</div>
 										<div class="col-md-7  text-left content">
+											{{msg.type=="voice"?"(voice)":""}}
 											{{msg.message}}
 										</div>
 										<div class="col-md-2  text-left np">
@@ -152,10 +156,10 @@
 			</div>
 			<!--end private chat section-->
 		</div>
-		<footer footer>
+		<footer>
 		</footer>
-		
-		
+
+
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
         <script src="js/plugins.js"></script>
