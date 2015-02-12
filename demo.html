@@ -129,28 +129,31 @@
 									<span class="audio start glyphicon glyphicon-earphone pull-right" ng-click="toggleAudioChat(key)"></span>
 								</div>
 							</div>
-							<div class="privateMsgList">
-								<div class="privateMsg col-md-12 ">
-									<div class="row" ng-repeat="msg in value.messages">
-										<div class="col-md-2 text-left np">
-											<span class="name text-success sender">{{msg.sender}}</span>
+							<div class="msgListWithSendbox">
+								<div class="privateMsgList">
+									<div class="privateMsg col-md-12 ">
+										<div class="row" ng-repeat="msg in value.messages">
+											<div class="col-md-2 text-left np">
+												<span class="name text-success sender">{{msg.sender}}</span>
+											</div>
+											<div class="col-md-7  text-left content">
+												{{msg.type=="voice"?"(voice)":""}}
+												{{msg.message}}
+											</div>
+											<div class="col-md-2  text-left np">
+												<span class="timestamp">{{msg.timestamp}}</span>
+											</div>
+
 										</div>
-										<div class="col-md-7  text-left content">
-											{{msg.type=="voice"?"(voice)":""}}
-											{{msg.message}}
-										</div>
-										<div class="col-md-2  text-left np">
-											<span class="timestamp">{{msg.timestamp}}</span>
-										</div>
-										
 									</div>
+								</div>
+								<div class="row-fluid">
+									<input type="text" class="privateTextToSend col-md-8"  ng-model="textToSend[key]" ng-keypress="enterKeypress($event,key)">
+									<button type="button" class="btn btn-lg btn-primary col-md-4 privateSendBtn" ng-click="sendPrivateMessage(key)">Send</button>
 								</div>
 							</div>
 						</div>
-						<div class="row">
-							<input type="text" class="privateTextToSend col-md-8"  ng-model="textToSend[key]" ng-keypress="enterKeypress($event,key)">
-							<button type="button" class="btn btn-lg btn-primary col-md-4 privateSendBtn" ng-click="sendPrivateMessage(key)">Send</button>
-						</div>
+						
 					</div>
 				</div>
 			</div>
