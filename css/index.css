@@ -123,14 +123,17 @@ hr{
 	padding: 10px;
 }
 
-#privateChatBox{
+#private-section{
 	position: absolute;
-	bottom: 0px ;
+	bottom: 0px;
 	width: 100%;
 }
 
-
-
+.privateBorder {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
 textarea, input[type="text"]{
 	height: 48px;
 	font-size: large;
