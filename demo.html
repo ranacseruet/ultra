@@ -122,7 +122,7 @@
 				<div ng-repeat="(key, value) in boxes">
 					<div class="col-md-3  privateChatBox private-chat-{{key}} panel panel-default" ng-class="private-chat-{{key}}">
 						<div class="row privateBorder" >
-							<div class="col-md-12 topArea">
+							<div class="col-md-12 topArea panel panel-default">
 								<div class="row">
 									<span class="chatWith pull-left" ng-click="toggleHeight(key)">{{key}}</span>
 									<span class="closeBox glyphicon glyphicon-remove pull-right" ng-click="closeBox(key)"></span>
@@ -130,7 +130,7 @@
 								</div>
 							</div>
 							<div class="msgListWithSendbox">
-								<div class="privateMsgList">
+								<div class="privateMsgList panel panel-default">
 									<div class="privateMsg col-md-12 ">
 										<div class="row" ng-repeat="msg in value.messages">
 											<div class="col-md-2 text-left np">

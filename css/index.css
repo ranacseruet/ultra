@@ -84,12 +84,19 @@ hr{
 	margin-right: 10px;
 }
 
+.topArea{
+    margin-bottom: 0px;
+    padding-bottom: 0px;
+}
 .privateMsgList{
 	border: 1px solid #000;
 	height: 300px;
 	max-height: 300px !important;
 	overflow:auto;
 	padding-top: 10px;
+    background: white;
+    margin-bottom: 0px;
+    padding-bottom: 0px;
 }
 
 .audio.start{
