@@ -10,17 +10,17 @@ function nrtc(name, host, token) {
     this.onConnect = function (cb) {
         socket.on('connect', function () {
             //cb(true);
-            console.log('connected');
+            //console.log('connected');
         });
         socket.on("init", function(users){
-            console.log(users);
+            //console.log(users);
             cb(users);
         });
     };
 
     this.ondisconnect = function(cb) {
         socket.on('disconnect', function () {
-            console.log('disconnected');
+            //console.log('disconnected');
         });
     };
 
@@ -28,7 +28,7 @@ function nrtc(name, host, token) {
         socket.on("error", function(error) {
             if (error.type == "UnauthorizedError" || error.code == "invalid_token") {
                 // redirect user to login page perhaps?
-                console.log("User's token has expired");
+                //console.log("User's token has expired");
             }
         });
     };
@@ -73,5 +73,5 @@ function nrtc(name, host, token) {
 
     window.onbeforeunload = function (e) {
         socket.emit('disconnect', {username: name});
-    }
+    };
 }

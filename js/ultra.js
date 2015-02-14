@@ -17,7 +17,7 @@ function LanguageController($scope, $rootScope, translator,uchat,ultraGlobal) {
 	});
 
 	$scope.languageChanged = function(){
-		console.log("language just changed");
+		//console.log("language just changed");
 		//$rootScope.$broadcast("languageChanged");
 		//TODO haven't caught anywhere yet/validation
 		ultraGlobal.dataLang = $scope.lang.key;
@@ -43,11 +43,11 @@ function LoginAttemptController($scope, $modalInstance, uchat, $rootScope,ultraG
 		}
 		uchat.connect($scope.identity, function(status) {
 			if (!status) {
-				console.log("Couldn't connect");
+				//console.log("Couldn't connect");
 				return false;
 			}
 			else {
-				console.log("Connection successfull!");
+				//console.log("Connection successfull!");
 				$modalInstance.close();
 				ultraGlobal.dataIdentity = $scope.identity;
 				$rootScope.$broadcast("loginSuccess");
@@ -73,7 +73,7 @@ function GroupController($scope, $rootScope, uchat, ultraGlobal) {
 					$rootScope.$broadcast("groupJoinSuccess");
 				}
 				else {
-					console.log("group join attempt failed");
+					//console.log("group join attempt failed");
 				}
 		});
 		
@@ -96,17 +96,17 @@ function UserListController($scope, $rootScope, uchat, ultraGlobal){
 		});
 	};
 	$scope.openPrivateChat = function(userId) {
-		console.log("Trying private chat: "+userId);
+		//console.log("Trying private chat: "+userId);
 		//TODO not yet being listened
 		$rootScope.$broadcast("privateChatAttempt",userId);
 	};
 	$scope.$on("groupJoinSuccess", function(){
-		console.log("loading user list");
+		//console.log("loading user list");
 		$scope.identity = ultraGlobal.dataIdentity;
 		uchat.getGroupMembers(function(members){
 			//console.log(members.length+" members trying on");
             angular.forEach(members, function(member, index) {
-				console.log("member "+index+" : "+member.username);
+				//console.log("member "+index+" : "+member.username);
 				if(member.username != $scope.identity){
                     $scope.addUser(member.username);
                 }
@@ -114,11 +114,11 @@ function UserListController($scope, $rootScope, uchat, ultraGlobal){
 		});
 	});
 	$scope.$on("newMemberJoin", function(event, member){
-		console.log("new member id: "+member.username);
+		//console.log("new member id: "+member.username);
 		$scope.addUser(member.username);
 	});
 	$scope.$on("memberLeave", function(event, member){
-		console.log("Leaving member id: "+member.username);
+		//console.log("Leaving member id: "+member.username);
 		$scope.removeUser(member.username);
 	});
 }
@@ -133,7 +133,7 @@ function GroupMessageController($scope, $rootScope, uchat, ultraGlobal) {
 
 
         $scope.sendGroupMessage = function () {
-            console.log("sending text: " + $scope.textToSend);
+            //console.log("sending text: " + $scope.textToSend);
             var messageObj = {};
             messageObj["message"] = $scope.textToSend;
             messageObj["lang"] = uchat.getLanguage();
@@ -152,7 +152,7 @@ function GroupMessageController($scope, $rootScope, uchat, ultraGlobal) {
         };
 
         $scope.loadGroupMessageHistory = function (sender, msg) {
-            console.log("loading to message history");
+            //console.log("loading to message history");
             msg.sender = sender;
 
             $scope.$apply(function () {
@@ -162,7 +162,7 @@ function GroupMessageController($scope, $rootScope, uchat, ultraGlobal) {
                 var dateString = newDate.toLocaleTimeString();
                 msg.timestamp = dateString;
                 $scope.messages.push(msg);
-                console.log(msg);
+                //console.log(msg);
             });
         };
 
@@ -282,7 +282,7 @@ function PrivateMessageController($scope, $rootScope, uchat, listener, speaker ,
 	};
 
 	$scope.toggleHeight = function(userId){
-		console.log('click');
+		//console.log('click');
 		//var height = $(".private-chat-"+userId+" .privateMsgList").css("height");
 		var msgListWithSendbox = $(".private-chat-"+userId+" .msgListWithSendbox");
 		if (msgListWithSendbox.is(':visible')){
