@@ -1,10 +1,10 @@
 # [ULTraChat](http://urkk41752e17.ranacseruet.koding.io/ultra/)
 
+[![Koding Hackathon](/img/badge.png?raw=true "Koding Hackathon")](https://koding.com/Hackathon)
+
 We are team [UpStageCoder](https://github.com/koding/global.hackathon/blob/master/Teams/UpStageCoder/ABOUT.md), have choose the theme 'Challenges associated with real time communication and translation' and implemented this project as an outcome of our idea.
 
 ## Description
-
-[![Koding Hackathon](/img/badge.png?raw=true "Koding Hackathon")](https://koding.com/Hackathon)
 
 ULTraChat is a web based real time web based communication system, which allows you to communicate with people, who don't speak/understand your language.
 
@@ -19,11 +19,9 @@ You can also communicate to other people(speaking different language) via voice 
 ![Koding](img/screenshot-2.png "Koding")
 ![Koding](img/screenshot-3.png "Koding")
 
-## APIs used
-* Respoke Real Time Communication API(http://respoke.github.io/koding-hackathon/)
-* Yandex Translation API(http://api.yandex.com/translate/)
- 
-## Other Libraries used
-* Boostrap(http://getbootstrap.com/)
-* Boilerplate(http://html5boilerplate.com/)
-* jQuery(http://jquery.com/)
+## APIs/Libraries used
+* [Socket.IO](http://scoket.io)
+* [Yandex Translation API](http://api.yandex.com/translate/)
+* [Bootstrap CSS Framework](http://getbootstrap.com/)
+* [AngularJS JavaScript Framework](https://angularjs.org/)
+* [HTML5 Web Speech API](https://github.com/ranacseruet/webspeech)
