@@ -129,6 +129,11 @@ hr{
 	width: 100%;
 }
 
+.privateBorder {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
 textarea, input[type="text"]{
 	height: 48px;
 	font-size: large;

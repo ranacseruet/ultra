@@ -282,9 +282,19 @@ function PrivateMessageController($scope, $rootScope, uchat, listener, speaker ,
 	};
 
 	$scope.toggleHeight = function(userId){
-		var height = $(".private-chat-"+userId+" .privateMsgList").css("height");
-		console.log("current height: "+height);
-		angular.element(".private-chat-"+userId+" .privateMsgList").css("height", (height == "12px")?"300px":"12px");
+		console.log('click');
+		//var height = $(".private-chat-"+userId+" .privateMsgList").css("height");
+		var msgListWithSendbox = $(".private-chat-"+userId+" .msgListWithSendbox");
+		if (msgListWithSendbox.is(':visible')){
+			msgListWithSendbox.hide();
+		}
+		else{
+			msgListWithSendbox.show();
+		}
+		//console.log("current height: "+height);
+		//angular.element(".private-chat-"+userId+" .privateMsgList").css("height", (height == "12px")?"300px":"12px",'important');
+		//height = $(".private-chat-"+userId+" .msgListWithSendbox").css("height");
+		//console.log("next height: "+height);
 	};
 
 	$scope.startAudioChat = function(userId){
