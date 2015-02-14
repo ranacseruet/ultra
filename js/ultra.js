@@ -43,7 +43,7 @@ function LoginAttemptController($scope, $modalInstance, uchat, $rootScope,ultraG
 		}
 		uchat.connect($scope.identity, function(status) {
 			if (!status) {
-				console.err("Couldn't connect");
+				console.log("Couldn't connect");
 				return false;
 			}
 			else {
@@ -69,7 +69,7 @@ function GroupController($scope, $rootScope, uchat, ultraGlobal) {
 				$rootScope.$broadcast("memberLeave", member);
 			}, function (status) {
 				if (status) {
-					console.log("Joined group successfully");
+					//console.log("Joined group successfully");
 					$rootScope.$broadcast("groupJoinSuccess");
 				}
 				else {
@@ -86,13 +86,13 @@ function UserListController($scope, $rootScope, uchat, ultraGlobal){
 	
 	$scope.addUser = function(user){
 		$scope.$apply(function () {
-			$scope.users.push(user.id);
+			$scope.users.push(user);
 		});
 	};
 	$scope.removeUser = function(user){
 		$scope.$apply(function () {
-			$rootScope.$broadcast("closePrivateChatBox",user.id);
-			$scope.users.splice($scope.users.indexOf(user.id), 1);
+			$rootScope.$broadcast("closePrivateChatBox",user);
+			$scope.users.splice($scope.users.indexOf(user), 1);
 		});
 	};
 	$scope.openPrivateChat = function(userId) {
@@ -104,20 +104,22 @@ function UserListController($scope, $rootScope, uchat, ultraGlobal){
 		console.log("loading user list");
 		$scope.identity = ultraGlobal.dataIdentity;
 		uchat.getGroupMembers(function(members){
-			angular.forEach(members, function(member, index) {
-				
-				if(member.getEndpoint().id!=$scope.identity)
-				$scope.addUser(member.getEndpoint());
+			//console.log(members.length+" members trying on");
+            angular.forEach(members, function(member, index) {
+				console.log("member "+index+" : "+member.username);
+				if(member.username != $scope.identity){
+                    $scope.addUser(member.username);
+                }
 			});
 		});
 	});
 	$scope.$on("newMemberJoin", function(event, member){
-		//console.log("new member id: "+member.id);
-		$scope.addUser(member.getEndpoint());
+		console.log("new member id: "+member.username);
+		$scope.addUser(member.username);
 	});
 	$scope.$on("memberLeave", function(event, member){
-		//console.log("Leaving member id: "+member.getEndpoint()));
-		$scope.removeUser(member.getEndpoint());
+		console.log("Leaving member id: "+member.username);
+		$scope.removeUser(member.username);
 	});
 }
 
@@ -127,47 +129,50 @@ function GroupMessageController($scope, $rootScope, uchat, ultraGlobal) {
 	$scope.textToSend = "";
 
 	//TODO catch language change event
-	
-	
-	$scope.sendGroupMessage = function() {
-		console.log("sending text: "+$scope.textToSend);
-		var messageObj = {};
-		messageObj["message"] = $scope.textToSend;
-		messageObj["lang"]    = uchat.getLanguage();
-		messageObj["type"]    = 'text';
-		messageObj["genre"]   = 'group';
-		messageObj["timestamp"]   = Date.now();
-		//console.log(messageObj);
-		$scope.textToSend = "";
-		uchat.sendGroupMessage(messageObj, $scope.loadGroupMessageHistory);
-	};
-	
-	$scope.enterKeypress = function(keyEvent) {
-		if (keyEvent.which === 13){
-			$scope.sendGroupMessage();
-		}
-	};
+    $scope.$on("groupJoinSuccess", function() {
 
-	$scope.loadGroupMessageHistory = function(sender, msg){
-		console.log("loading to message history");
-		msg.sender = sender;
-		
-		$scope.$apply(function () {
-			var timestamp = new Date(msg.timestamp);
-			var newDate   = new Date();
-			newDate.setTime(timestamp);
-			var dateString = newDate.toLocaleTimeString();
-			msg.timestamp  = dateString;
-			$scope.messages.push(msg);
-			console.log(msg);
-		});
-	};
-	
-	$scope.loadPrivateMessageHistory = function(sender, receiver, msg){
-		$rootScope.$broadcast("onLoadPrivateMessageHistory",sender, receiver, msg);
-	};
-	uchat.onMessage($scope.loadGroupMessageHistory,$scope.loadPrivateMessageHistory);
-}
+
+        $scope.sendGroupMessage = function () {
+            console.log("sending text: " + $scope.textToSend);
+            var messageObj = {};
+            messageObj["message"] = $scope.textToSend;
+            messageObj["lang"] = uchat.getLanguage();
+            messageObj["type"] = 'text';
+            messageObj["genre"] = 'group';
+            messageObj["timestamp"] = Date.now();
+            //console.log(messageObj);
+            $scope.textToSend = "";
+            uchat.sendGroupMessage(messageObj, $scope.loadGroupMessageHistory);
+        };
+
+        $scope.enterKeypress = function (keyEvent) {
+            if (keyEvent.which === 13) {
+                $scope.sendGroupMessage();
+            }
+        };
+
+        $scope.loadGroupMessageHistory = function (sender, msg) {
+            console.log("loading to message history");
+            msg.sender = sender;
+
+            $scope.$apply(function () {
+                var timestamp = new Date(msg.timestamp);
+                var newDate = new Date();
+                newDate.setTime(timestamp);
+                var dateString = newDate.toLocaleTimeString();
+                msg.timestamp = dateString;
+                $scope.messages.push(msg);
+                console.log(msg);
+            });
+        };
+
+        $scope.loadPrivateMessageHistory = function (sender, receiver, msg) {
+            $rootScope.$broadcast("onLoadPrivateMessageHistory", sender, receiver, msg);
+        };
+        uchat.onMessage($scope.loadGroupMessageHistory, $scope.loadPrivateMessageHistory);
+    });
+
+};
 
 
 function PrivateChatBoxesController($scope, $rootScope, uchat) {
@@ -237,16 +242,23 @@ function PrivateMessageController($scope, $rootScope, uchat, listener, speaker ,
 		else {
 			msg.sender = sender;
 		}
-		
-		$scope.$apply(function () {
-			
-			var timestamp = new Date(msg.timestamp);
-			var newDate   = new Date();
-			newDate.setTime(timestamp);
-			var dateString = newDate.toLocaleTimeString();
-			msg.timestamp  = dateString;
-			$scope.boxes[boxName].messages.push(msg);
-		});
+
+        var update = function () {
+
+            var timestamp = new Date(msg.timestamp);
+            var newDate   = new Date();
+            newDate.setTime(timestamp);
+            var dateString = newDate.toLocaleTimeString();
+            msg.timestamp  = dateString;
+            $scope.boxes[boxName].messages.push(msg);
+        }
+
+        if(sender != "Me"){
+            $scope.$apply(update);
+        }
+        else{
+            update();
+        }
 	};
 	
 	$scope.closeBox = function(chatIdentity){

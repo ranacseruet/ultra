@@ -6,7 +6,7 @@ function ULTraChat(translator) {
 	this.translator = translator;
 	this.myLang		= "en";
 	this.userId		= null;
-
+    this.endpoints  = null;
 	var me = this;
 
 	this.setLanguage = function(lang) {
@@ -18,106 +18,56 @@ function ULTraChat(translator) {
 		return this.myLang;
 	};
 	// create a Respoke client object using the App ID
-	this.client = new respoke.Client({
-		"appId": this.appId,
-		"developmentMode": this.developmentMode
-	});
+	this.client = {};
 
 	this.connect = function(userId, callback) {
-		var endPoints = this.client.getEndpoints();
-		console.log(endPoints.length+" endpoints found");
-		for(var i=0; i<endPoints.length; i++) {
-			console.log("user "+i+" :"+endPoints[i].id);
-			if(endPoints[i].id == userId) {
-				return callback(false);
-			}
-		}
-		this.client.connect({
-			endpointId: userId,
-			developmentMode: this.developmentMode,
-			appId: this.appId
-		});
-
-		this.client.listen('connect', function () {
-			me.userId = userId;
-			callback(true);
-		});
-
-		this.client.listen('error', function (err) {
-			console.error('Connection to Respoke failed.', err);
-			callback(false);
-		});
+		this.client = new nrtc(userId, "https://nrtc.herokuapp.com:50494", "test");
+        this.client.onConnect(function(users) {
+            me.endpoints = users;
+            //console.log(me.endpoints.length + " endpoints found");
+            me.userId = userId;
+            callback(true);
+        });
 	};
 
 	this.joinGroup = function(groupName, joinHandler, leaveHandler, callback){
 		//user successfully connected
-		me.client.join({
-			"id": groupName,
-			"onJoin": function(evt){
-				console.log("new user joined: "+evt.connection);
-				joinHandler(evt.connection);
-			},
-			"onLeave": function(evt){
-				console.log("user is leaving: "+evt.connection);
-				leaveHandler(evt.connection);
-			},
-			"onSuccess": function (grp) {
-				me.group = grp;
-				callback(true);
-			},
-			"onError": function(err){
-				console.error(err);
-				callback(false);
-			}
-
-		});
+        me.group = groupName;
+        me.client.onUserJoin(joinHandler);
+        me.client.onUserLeave(leaveHandler);
+        callback(true);
 	};
 
-	this.getGroupMembers = function(callback) {
-		// request all current endpoints
-		if(!this.group){
-			return callback(false);
-		}
-
-		this.group.getMembers().done(function getMembers(members) {
-			console.log(members.length+" members found\n");
-			callback(members);
-		});
-	};
+    this.getGroupMembers = function(callback) {
+        // request all current endpoints
+        if(!me.group){
+            return callback(false);
+        }
+        //console.log(" group members: "+me.endpoints.length);
+        return callback(me.endpoints);
+    };
 	
 	this.sendGroupMessage = function(messageObj, callback){
-		this.group.sendMessage({
-			"message": JSON.stringify(messageObj),
-			"onSuccess": function(evt){
-				console.log("group message sent successfully: "+evt);
-				callback("Me", messageObj);
-			},
-			"onError": function(err){
-				console.error("error occured while sending group message: "+JSON.stringify(err));
-				//callback(e);
-			}
-		});
-		
+        this.client.sendGroupMessage(messageObj);
+		//callback("Me", messageObj);
 	};
 
 	this.onMessage = function (grpMsgCallback, prvtMsgCallback){
 		var msgObj, sender;
-		
-		// listen for incoming messages
-		this.client.listen('message', function (evt) {
-			
-			console.log("received a message: "+evt.message.message);
-			msgObj = JSON.parse(evt.message.message);
-			sender = evt.message.endpointId;
-			if(msgObj.lang == me.myLang){
-				
-				return deliverProcessedMessage(msgObj.message);
-			}
-			me.translator.translate(msgObj.message, msgObj.lang, me.myLang, deliverProcessedMessage);
-		});
+
+        this.client.onGroupMessage(function(sndr, message){
+            console.log(message);
+            msgObj = message;//JSON.parse(message);
+            sender = sndr;
+            if(msgObj.lang == me.myLang){
+                return deliverProcessedMessage(msgObj.message);
+            }
+            me.translator.translate(msgObj.message, msgObj.lang, me.myLang, deliverProcessedMessage);
+        });
 
 		function deliverProcessedMessage(tranlatedMessage){
 			//TODO need to enhance for return both version
+            //console.log("got translated message: "+tranlatedMessage);
 			msgObj.message = tranlatedMessage;
 			if(msgObj.genre == "private") {
 				me.joinPrivateChat(sender, function(){
@@ -125,18 +75,24 @@ function ULTraChat(translator) {
 				});
 			}
 			else {
-				
 				grpMsgCallback(sender, msgObj);
 			}
 		}
 
+        this.client.onPrivateMessage(function(sndr, message){
+            console.log(message);
+            msgObj = message;//JSON.parse(message);
+            sender = sndr;
+            if(msgObj.lang == me.myLang){
+                return deliverProcessedMessage(msgObj.message);
+            }
+            me.translator.translate(msgObj.message, msgObj.lang, me.myLang, deliverProcessedMessage);
+        });
+
 	};
 
 	this.joinPrivateChat = function(userId, callbak){
-		var endpoint = this.client.getEndpoint({
-			"id": userId
-		});
-		this.privateChats[userId] = endpoint;
+		this.privateChats[userId] = userId;
 		callbak();
 	};
 
@@ -146,17 +102,7 @@ function ULTraChat(translator) {
 	};
 
 	this.sendPrivateMessage = function(messageObj, userId, callback) {
-		
-		var endPoint = this.privateChats[userId];
-		if(!endPoint){
-			console.log("user not found for private messaging!");
-			return false;
-		}
-		endPoint.sendMessage({
-			"message": JSON.stringify(messageObj),
-			"onSuccess": function(evt){
-				callback("Me", userId, messageObj);
-			}
-		});
+        this.client.sendPrivateMessage(userId, messageObj);
+        callback("Me", userId, messageObj);
 	}
 }
