@@ -6,7 +6,7 @@ We are team [UpStageCoder](https://github.com/koding/global.hackathon/blob/maste
 
 ## Description
 
-ULTraChat is a web based real time web based communication system, which allows you to communicate with people, who don't speak/understand your language.
+ULTraChat is a web based real time communication system, which allows you to communicate with people, who don't speak/understand your language.
 
 You can text chat with anyone in the group chat room, all theirs message will be shown in your own preferred language and yours to them as their preferred language. If multiple persons message you in different languages, you will see all of them in your native(which you can select from top left select box) language!
 The translation service are served by Yandex API, which supports a wide area of languages.

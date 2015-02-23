@@ -96,8 +96,7 @@ function UserListController($scope, $rootScope, uchat, ultraGlobal){
 		});
 	};
 	$scope.openPrivateChat = function(userId) {
-		//console.log("Trying private chat: "+userId);
-		//TODO not yet being listened
+		console.log("Trying private chat: "+userId);
 		$rootScope.$broadcast("privateChatAttempt",userId);
 	};
 	$scope.$on("groupJoinSuccess", function(){
@@ -200,7 +199,8 @@ function PrivateMessageController($scope, $rootScope, uchat, listener, speaker ,
 	};
 	
 	$scope.$on("privateChatAttempt",function(event,userId){
-		$scope.joinPrivateChat(userId);
+        $scope.joinPrivateChat(userId);
+        console.log("event caught for private chat");
 	});
 	
 	$scope.sendPrivateMessage = function(userId) {

@@ -21,7 +21,7 @@ function ULTraChat(translator) {
 	this.client = {};
 
 	this.connect = function(userId, callback) {
-		this.client = new nrtc(userId, "https://nrtc.herokuapp.com:22726", "test");
+		this.client = new nrtc(userId, "http://demo.codesamplez.com:5000", "test");
         this.client.onConnect(function(users) {
             me.endpoints = users;
             //console.log(me.endpoints.length + " endpoints found");
@@ -56,7 +56,7 @@ function ULTraChat(translator) {
 		var msgObj, sender;
 
         this.client.onGroupMessage(function(sndr, message){
-            console.log(message);
+            //console.log(message);
             msgObj = message;//JSON.parse(message);
             sender = sndr;
             if(msgObj.lang == me.myLang){
@@ -80,7 +80,7 @@ function ULTraChat(translator) {
 		}
 
         this.client.onPrivateMessage(function(sndr, message){
-            console.log(message);
+            //console.log(message);
             msgObj = message;//JSON.parse(message);
             sender = sndr;
             if(msgObj.lang == me.myLang){
