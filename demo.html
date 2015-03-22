@@ -19,7 +19,6 @@
 
 		<!-- Custom CSS -->
 		<link href="css/index.css" rel="stylesheet">
-        <script src="js/vendor/modernizr-2.6.2.min.js"></script>
     </head>
     <body ng-app="chat">
         <!--[if lt IE 7]>
@@ -164,15 +163,19 @@
 
 
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
+        <script>window.jQuery || document.write('<script src="bower_components/jquery/dist/jquery.min.js"><\/script>')</script>
         <script src="js/plugins.js"></script>
-        <script src="js/vendor/bootstrap.min.js"></script>
+        <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="bower_components/angular/angular.min.js"></script>
+        <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+
         <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
-        <script src="js/vendor/nrtc.js"></script>
-		<script src="js/vendor/platform.js"></script>
-		<script src="js/vendor/angular.min.js"></script>
-		<script src="js/vendor/ui-bootstrap-tpls-0.12.0.js"></script>
-		<script src="js/vendor/webspeech.js"></script>
+        <script src="bower_components/nrtc-client/app/build/nrtc-client.min.js"></script>
+
+        <script src="js/vendor/platform.js"></script>
+        <script src="bower_components/webspeech/build/webspeech.min.js"></script>
+
+
 		<script src="js/lib/ULTraChat.js"></script>
 		<script src="js/lib/ytranslator.js"></script>
         <script src="js/controllers/LanguageController.js"></script>

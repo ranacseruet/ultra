@@ -21,7 +21,7 @@ function ULTraChat(translator) {
 	this.client = {};
 
 	this.connect = function(userId, callback) {
-		this.client = new nrtc(userId, "http://demo.codesamplez.com:5000", "test");
+		this.client = new nRTC(userId, "test", "http://demo.codesamplez.com:5000");
         this.client.onConnect(function(users) {
             me.endpoints = users;
             //console.log(me.endpoints.length + " endpoints found");
